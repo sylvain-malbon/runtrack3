@@ -12,3 +12,13 @@ function afficherjourssemaines() {
     }
 }
 afficherjourssemaines();
+
+/* Code similaire de Momo
+function afficherjourssemaines() {
+    let joursdelasemaine = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+    for (const jour of joursdelasemaine) {
+        console.log(jour);
+    }
+}
+afficherjourssemaines();
+*/
