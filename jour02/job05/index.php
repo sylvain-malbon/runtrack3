@@ -12,7 +12,7 @@ fonction du pourcentage de scrolling.
 <head>
     <meta charset="UTF-8">
     <title>Job05</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <footer></footer>

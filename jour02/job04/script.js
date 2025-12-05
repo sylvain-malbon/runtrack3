@@ -5,7 +5,7 @@ dans le textarea (même si le focus en cours n’est pas le textarea).
 Si le focus en cours est dans le textarea, la lettre doit être ajoutée deux fois.
 */
 
-function document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', function (e) {
     const textarea = document.getElementById('keylogger');
     const lettre = e.key;
 

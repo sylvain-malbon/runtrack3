@@ -1,7 +1,11 @@
 body {
-    min-width: 4096px;
+    min-height: 4096px;
 }
 
 footer {
     width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 40px;
 }

@@ -6,10 +6,6 @@ De la même façon qu’une barre de chargement, la couleur du footer doit évol
 fonction du pourcentage de scrolling.
 */
 
-function ...() {
-
-}
-
 window.addEventListener('scroll', function () {
     const footer = document.querySelector('footer');
     const scrollTop = window.scrollY;
