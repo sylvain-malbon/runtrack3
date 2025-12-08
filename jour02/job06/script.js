@@ -5,12 +5,13 @@ Lorsqu’un utilisateur effectue un code konami, la page devient stylisée, aux 
 La Plateforme_.
 */
 
-// const konamiCode = [
-//     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-//     "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-//     "b", "a"
-// ];
-const konami = "ArrowUp";
+// simplifié pour tester :
+// const konami = "ArrowUp";
+const konamiCode = [
+    "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+    "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+    "b", "a"
+];
 let saisie = "";
 
 document.addEventListener('keydown', function (e) {
