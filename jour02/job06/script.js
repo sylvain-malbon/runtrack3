@@ -5,21 +5,19 @@ Lorsqu’un utilisateur effectue un code konami, la page devient stylisée, aux 
 La Plateforme_.
 */
 
-// simplifié pour tester :
-// const konami = "ArrowUp";
 const konamiCode = [
     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
     "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-    "b", "a"
+    "b", "a",
 ];
-let saisie = "";
+let saisie = [];
 
 document.addEventListener('keydown', function (e) {
-    saisie += e.key.length === 1 ? e.key : e.key;
-    if (saisie.length > konami.length) {
-        saisie = saisie.slice(-konami.length);
+    saisie.push(e.key);
+    if (saisie.length > konamiCode.length) {
+        saisie.shift();
     }
-    if (saisie.toLowerCase() === konami.toLowerCase()) {
+    if (saisie.join(',').toLowerCase() === konamiCode.join(',').toLowerCase()) {
         document.body.classList.add('konami');
         document.body.innerHTML = "<h1>Konami code activé !</h1>";
     }
