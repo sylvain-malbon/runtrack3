@@ -8,7 +8,7 @@ Si le focus en cours est dans le textarea, la lettre doit être ajoutée deux fo
 document.addEventListener('keydown', function (e) {
     const textarea = document.getElementById('keylogger');
     const lettre = e.key;
-
+    e.preventDefault();
     // Vérifie si c'est une lettre a-z
     if (/^[a-z]$/i.test(lettre)) {
         if (document.activeElement === textarea) {
