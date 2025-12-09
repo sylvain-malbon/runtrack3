@@ -16,72 +16,68 @@
 // arc5.png
 // arc6.png
 
-const images = [
-    "arc1.png",
-    "arc2.png",
-    "arc3.png",
-    "arc4.png",
-    "arc5.png",
-    "arc6.png"
-];
+$(document).ready(function () {
+    const images = [
+        "arc1.png",
+        "arc2.png",
+        "arc3.png",
+        "arc4.png",
+        "arc5.png",
+        "arc6.png"
+    ];
 
-let sourceImages = [];
-let targetImages = [];
+    let sourceImages = [];
+    let targetImages = [];
 
-const sourceZone = document.getElementById('source-zone');
-const targetZone = document.getElementById('target-zone');
-const message = document.getElementById('message');
-const shuffleBtn = document.getElementById('shuffle-btn');
+    const $sourceZone = $('#source-zone');
+    const $targetZone = $('#target-zone');
+    const $message = $('#message');
+    const $shuffleBtn = $('#shuffle-btn');
 
-function renderZones() {
-    sourceZone.innerHTML = '';
-    sourceImages.forEach((img, idx) => {
-        const imageElem = document.createElement('img');
-        imageElem.src = img;
-        imageElem.className = 'rainbow-piece';
-        imageElem.draggable = true;
-        imageElem.dataset.zone = 'source';
-        imageElem.dataset.index = idx;
-        imageElem.addEventListener('dragstart', dragStart);
-        sourceZone.appendChild(imageElem);
+    function renderZones() {
+        $sourceZone.empty();
+        sourceImages.forEach((img, idx) => {
+            const $img = $('<img>')
+                .attr('src', img)
+                .addClass('rainbow-piece')
+                .attr('draggable', true)
+                .attr('data-zone', 'source')
+                .attr('data-index', idx);
+            $sourceZone.append($img);
+        });
+
+        $targetZone.empty();
+        targetImages.forEach((img, idx) => {
+            const $img = $('<img>')
+                .attr('src', img)
+                .addClass('rainbow-piece')
+                .attr('draggable', true)
+                .attr('data-zone', 'target')
+                .attr('data-index', idx);
+            $targetZone.append($img);
+        });
+
+        $('.rainbow-piece').on('dragstart', dragStart);
+    }
+
+    let draggedImg = null;
+    let draggedFrom = null;
+    let draggedIdx = null;
+
+    function dragStart(e) {
+        draggedImg = e.target.src;
+        draggedFrom = $(e.target).data('zone');
+        draggedIdx = Number($(e.target).data('index'));
+    }
+
+    $sourceZone.add($targetZone).on('dragover', function (e) {
+        e.preventDefault();
     });
 
-    targetZone.innerHTML = '';
-    targetImages.forEach((img, idx) => {
-        const imageElem = document.createElement('img');
-        imageElem.src = img;
-        imageElem.className = 'rainbow-piece';
-        imageElem.draggable = true;
-        imageElem.dataset.zone = 'target';
-        imageElem.dataset.index = idx;
-        imageElem.addEventListener('dragstart', dragStart);
-        targetZone.appendChild(imageElem);
-    });
-}
-
-let draggedImg = null;
-let draggedFrom = null;
-let draggedIdx = null;
-
-function dragStart(e) {
-    draggedImg = e.target.src;
-    draggedFrom = e.target.dataset.zone;
-    draggedIdx = Number(e.target.dataset.index);
-}
-
-[sourceZone, targetZone].forEach(zone => {
-    zone.addEventListener('dragover', e => e.preventDefault());
-    zone.addEventListener('drop', function (e) {
-        if (draggedImg) {
-            if (draggedFrom === 'source' && zone === targetZone) {
-                // Move from source to target
-                targetImages.push(sourceImages[draggedIdx]);
-                sourceImages.splice(draggedIdx, 1);
-            } else if (draggedFrom === 'target' && zone === sourceZone) {
-                // Move from target to source
-                sourceImages.push(targetImages[draggedIdx]);
-                targetImages.splice(draggedIdx, 1);
-            }
+    $sourceZone.on('drop', function (e) {
+        if (draggedImg && draggedFrom === 'target') {
+            sourceImages.push(targetImages[draggedIdx]);
+            targetImages.splice(draggedIdx, 1);
             renderZones();
             checkWin();
             draggedImg = null;
@@ -89,35 +85,45 @@ function dragStart(e) {
             draggedIdx = null;
         }
     });
-});
 
-function shuffle() {
-    sourceImages = [...images];
-    targetImages = [];
-    for (let i = sourceImages.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [sourceImages[i], sourceImages[j]] = [sourceImages[j], sourceImages[i]];
-    }
-    renderZones();
-    message.textContent = '';
-}
-
-function checkWin() {
-    message.classList.remove('win', 'lose');
-    if (targetImages.length === images.length) {
-        if (targetImages.join() === images.join()) {
-            message.textContent = "Vous avez gagné";
-            message.classList.add('win');
-        } else {
-            message.textContent = "Vous avez perdu";
-            message.classList.add('lose');
+    $targetZone.on('drop', function (e) {
+        if (draggedImg && draggedFrom === 'source') {
+            targetImages.push(sourceImages[draggedIdx]);
+            sourceImages.splice(draggedIdx, 1);
+            renderZones();
+            checkWin();
+            draggedImg = null;
+            draggedFrom = null;
+            draggedIdx = null;
         }
-    } else {
-        message.textContent = '';
+    });
+
+    function shuffle() {
+        sourceImages = [...images];
+        targetImages = [];
+        for (let i = sourceImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [sourceImages[i], sourceImages[j]] = [sourceImages[j], sourceImages[i]];
+        }
+        renderZones();
+        $message.text('');
     }
-}
 
-shuffleBtn.addEventListener('click', shuffle);
+    function checkWin() {
+        $message.removeClass('win lose');
+        if (targetImages.length === images.length) {
+            if (targetImages.join() === images.join()) {
+                $message.text("Vous avez gagné").addClass('win');
+            } else {
+                $message.text("Vous avez perdu").addClass('lose');
+            }
+        } else {
+            $message.text('');
+        }
+    }
 
-// Initialisation
-shuffle();
+    $shuffleBtn.on('click', shuffle);
+
+    // Initialisation
+    shuffle();
+});
