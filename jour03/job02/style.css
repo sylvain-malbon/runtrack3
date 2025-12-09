@@ -5,7 +5,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #f5f6fa;
+    background: #f0f4f8; /* couleur de fond plus douce */
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
 }
@@ -14,56 +14,82 @@ body {
 #rainbow-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+
 }
 
 /* Flat-design pour les pièces */
 .rainbow-piece {
     width: 80px;
     height: 250px;
-    margin: 0 6px;
     cursor: grab;
     user-select: none;
-    border-radius: 12px;
     border: none;
 }
 
 /* Message centré */
 #message {
+    margin-top: 10px;
     font-size: 1.2em;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+}
+
+#message.lose {
+    color: #e74c3c ; /* rouge vif pour perdu */
+}
+
+#message.win {
+    color: #27ae60 ; /* vert doux pour gagné */
 }
 
 /* Zones centrées et flat */
 #zones {
+    gap: 10px;
     display: flex;
-    gap: 40px;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
 .zone {
-    border: 2px dashed #dcdde1;
+    margin-top : 10px;
+    border: 2px dashed #b2bec3; /* gris clair */
     min-height: 260px;
     min-width: 500px;
+    background: #fff;
     display: flex;
     align-items: center;
-    padding: 18px;
-    background: #fff;
-    border-radius: 16px;
+    padding-left: 19px;
+    padding-bottom: 4px;
 }
 
 .zone:hover {
-    border-color: #00a8ff;
+    border-color: #0984e3; /* bleu vif */
 }
 
 .zone-title {
+    margin-top: 10px;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 10px;
-    color: #273c75;
+    color: #0984e3; /* bleu vif */
     font-size: 1.1em;
+}
+
+#shuffle-btn {
+    margin-top: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 1em;
+    background: #0984e3; /* bleu flat */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 28px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#shuffle-btn:hover {
+    background: #74b9ff; /* bleu clair flat */
+    color: #0984e3;
+    transform: translateY(-2px) scale(1.03);
 }

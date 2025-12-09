@@ -103,13 +103,14 @@ function shuffle() {
 }
 
 function checkWin() {
+    message.classList.remove('win', 'lose');
     if (targetImages.length === images.length) {
         if (targetImages.join() === images.join()) {
             message.textContent = "Vous avez gagné";
-            message.style.color = "green";
+            message.classList.add('win');
         } else {
             message.textContent = "Vous avez perdu";
-            message.style.color = "red";
+            message.classList.add('lose');
         }
     } else {
         message.textContent = '';

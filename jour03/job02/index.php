@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="shuffle-btn">Mélanger</button>
+    <button id="shuffle-btn">Mélanger les pièces</button>
     <div id="zones">
         <div>
-            <div class="zone-title">Images mélangées</div>
+            <div class="zone-title">Pièces mélangées</div>
             <div id="source-zone" class="zone"></div>
         </div>
         <div>
