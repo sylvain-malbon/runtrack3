@@ -1,0 +1,34 @@
+#rainbow-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+.rainbow-piece {
+    width: 80px;
+    height: 250px;
+    margin: 0 2px;
+    cursor: grab;
+    user-select: none;
+}
+#message {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+#zones {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 10px;
+}
+.zone {
+    border: 2px dashed #aaa;
+    min-height: 260px;
+    min-width: 500px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f9f9f9;
+}
+.zone-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

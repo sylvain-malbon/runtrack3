@@ -25,64 +25,94 @@ const images = [
     "arc6.png"
 ];
 
-let currentOrder = [...images];
+let sourceImages = [];
+let targetImages = [];
 
-const container = document.getElementById('rainbow-container');
+const sourceZone = document.getElementById('source-zone');
+const targetZone = document.getElementById('target-zone');
 const message = document.getElementById('message');
 const shuffleBtn = document.getElementById('shuffle-btn');
 
-function renderRainbow() {
-    container.innerHTML = '';
-    currentOrder.forEach((img, idx) => {
+function renderZones() {
+    sourceZone.innerHTML = '';
+    sourceImages.forEach((img, idx) => {
         const imageElem = document.createElement('img');
         imageElem.src = img;
         imageElem.className = 'rainbow-piece';
         imageElem.draggable = true;
+        imageElem.dataset.zone = 'source';
         imageElem.dataset.index = idx;
-        // Drag events
         imageElem.addEventListener('dragstart', dragStart);
-        imageElem.addEventListener('dragover', dragOver);
-        imageElem.addEventListener('drop', drop);
-        imageElem.addEventListener('dragenter', e => e.preventDefault());
-        container.appendChild(imageElem);
+        sourceZone.appendChild(imageElem);
+    });
+
+    targetZone.innerHTML = '';
+    targetImages.forEach((img, idx) => {
+        const imageElem = document.createElement('img');
+        imageElem.src = img;
+        imageElem.className = 'rainbow-piece';
+        imageElem.draggable = true;
+        imageElem.dataset.zone = 'target';
+        imageElem.dataset.index = idx;
+        imageElem.addEventListener('dragstart', dragStart);
+        targetZone.appendChild(imageElem);
     });
 }
 
-let dragSrcIdx = null;
+let draggedImg = null;
+let draggedFrom = null;
+let draggedIdx = null;
 
 function dragStart(e) {
-    dragSrcIdx = +e.target.dataset.index;
+    draggedImg = e.target.src;
+    draggedFrom = e.target.dataset.zone;
+    draggedIdx = Number(e.target.dataset.index);
 }
 
-function dragOver(e) {
-    e.preventDefault();
-}
-
-function drop(e) {
-    const dragTargetIdx = +e.target.dataset.index;
-    if (dragSrcIdx === null || dragSrcIdx === dragTargetIdx) return;
-    // Swap
-    [currentOrder[dragSrcIdx], currentOrder[dragTargetIdx]] = [currentOrder[dragTargetIdx], currentOrder[dragSrcIdx]];
-    renderRainbow();
-    checkWin();
-}
+[sourceZone, targetZone].forEach(zone => {
+    zone.addEventListener('dragover', e => e.preventDefault());
+    zone.addEventListener('drop', function (e) {
+        if (draggedImg) {
+            if (draggedFrom === 'source' && zone === targetZone) {
+                // Move from source to target
+                targetImages.push(sourceImages[draggedIdx]);
+                sourceImages.splice(draggedIdx, 1);
+            } else if (draggedFrom === 'target' && zone === sourceZone) {
+                // Move from target to source
+                sourceImages.push(targetImages[draggedIdx]);
+                targetImages.splice(draggedIdx, 1);
+            }
+            renderZones();
+            checkWin();
+            draggedImg = null;
+            draggedFrom = null;
+            draggedIdx = null;
+        }
+    });
+});
 
 function shuffle() {
-    for (let i = currentOrder.length - 1; i > 0; i--) {
+    sourceImages = [...images];
+    targetImages = [];
+    for (let i = sourceImages.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [currentOrder[i], currentOrder[j]] = [currentOrder[j], currentOrder[i]];
+        [sourceImages[i], sourceImages[j]] = [sourceImages[j], sourceImages[i]];
     }
-    renderRainbow();
+    renderZones();
     message.textContent = '';
 }
 
 function checkWin() {
-    if (currentOrder.join() === images.join()) {
-        message.textContent = "Vous avez gagné";
-        message.style.color = "green";
+    if (targetImages.length === images.length) {
+        if (targetImages.join() === images.join()) {
+            message.textContent = "Vous avez gagné";
+            message.style.color = "green";
+        } else {
+            message.textContent = "Vous avez perdu";
+            message.style.color = "red";
+        }
     } else {
-        message.textContent = "Vous avez perdu";
-        message.style.color = "red";
+        message.textContent = '';
     }
 }
 
