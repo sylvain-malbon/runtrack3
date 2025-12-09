@@ -26,9 +26,6 @@ const images = [
 
 let tiles = [];
 let size = 3; // 3x3
-let gameContainer = document.getElementById('game-container');
-let message = document.getElementById('message');
-let restartBtn = document.getElementById('restart-btn');
 
 function shuffle(array) {
     let arr = array.slice();
@@ -41,7 +38,6 @@ function shuffle(array) {
     return arr;
 }
 
-// Vérifie si la configuration est solvable
 function isSolvable(arr) {
     let inv = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -53,18 +49,17 @@ function isSolvable(arr) {
 }
 
 function render() {
-    gameContainer.innerHTML = '';
-    gameContainer.style.pointerEvents = message.innerText ? 'none' : 'auto';
+    $('#game-container').empty();
+    $('#game-container').css('pointer-events', $('#message').text() ? 'none' : 'auto');
     tiles.forEach((img, idx) => {
-        const tile = document.createElement('div');
-        tile.className = 'tile';
+        const $tile = $('<div>').addClass('tile');
         if (img) {
-            tile.style.backgroundImage = `url('./${img}')`; // Ajoute ./ pour la racine du dossier
-            tile.addEventListener('click', () => moveTile(idx));
+            $tile.css('background-image', `url('./${img}')`);
+            $tile.on('click', function () { moveTile(idx); });
         } else {
-            tile.classList.add('empty');
+            $tile.addClass('empty');
         }
-        gameContainer.appendChild(tile);
+        $('#game-container').append($tile);
     });
 }
 
@@ -85,19 +80,19 @@ function checkWin() {
         if (tiles[i] !== images[i]) return;
     }
     if (tiles[tiles.length - 1] === null) {
-        message.innerText = 'Vous avez gagné';
-        message.style.color = 'green';
-        restartBtn.style.display = 'inline-block';
+        $('#message').text('Vous avez gagné').css('color', 'green');
+        $('#restart-btn').show();
     }
 }
 
 function restart() {
-    message.innerText = '';
-    restartBtn.style.display = 'none';
+    $('#message').text('');
+    $('#restart-btn').hide();
     tiles = shuffle(images);
     render();
 }
 
-restartBtn.addEventListener('click', restart);
-
-window.onload = restart;
+$(document).ready(function () {
+    $('#restart-btn').on('click', restart);
+    restart();
+});
