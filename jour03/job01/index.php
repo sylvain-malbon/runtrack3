@@ -10,6 +10,7 @@
     <p id="citation" style="display:none;">
         Les logiciels et les cathédrales, c'est un peu la même chose - d'abord on les construit, ensuite on prie.
     </p>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
