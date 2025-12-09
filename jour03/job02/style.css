@@ -1,34 +1,69 @@
+/* Centrage général */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f5f6fa;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Rainbow container centré */
 #rainbow-container {
     display: flex;
-    margin-bottom: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
+
+/* Flat-design pour les pièces */
 .rainbow-piece {
     width: 80px;
     height: 250px;
-    margin: 0 2px;
+    margin: 0 6px;
     cursor: grab;
     user-select: none;
+    border-radius: 12px;
+    border: none;
 }
+
+/* Message centré */
 #message {
     font-size: 1.2em;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
 }
+
+/* Zones centrées et flat */
 #zones {
     display: flex;
     gap: 40px;
-    margin-bottom: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
+
 .zone {
-    border: 2px dashed #aaa;
+    border: 2px dashed #dcdde1;
     min-height: 260px;
     min-width: 500px;
     display: flex;
     align-items: center;
-    padding: 10px;
-    background: #f9f9f9;
+    padding: 18px;
+    background: #fff;
+    border-radius: 16px;
 }
+
+.zone:hover {
+    border-color: #00a8ff;
+}
+
 .zone-title {
     text-align: center;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #273c75;
+    font-size: 1.1em;
 }
