@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const filtered = pokemons.filter(p => {
             const matchId = id === "" || String(p.id) === id;
-            const matchNom = nom === "" || p.nom.toLowerCase().includes(nom);
+            const matchNom = nom === "" || p.name.french.toLowerCase().includes(nom);
             const matchType = type === "" || (Array.isArray(p.type) ? p.type.includes(type) : p.type === type);
             return matchId && matchNom && matchType;
         });
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const ul = document.createElement('ul');
             filtered.forEach(p => {
                 const li = document.createElement('li');
-                li.textContent = `#${p.id} - ${p.nom} (${Array.isArray(p.type) ? p.type.join(', ') : p.type})`;
+                li.textContent = `#${p.id} - ${p.name.french} (${Array.isArray(p.type) ? p.type.join(', ') : p.type})`;
                 ul.appendChild(li);
             });
             resultDiv.appendChild(ul);
