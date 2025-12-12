@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="style.css" />
     <style>
       .error {
-        color: #e6a700; /* orange neutre par défaut */
+        color: #666; /* gris neutre par défaut */
         transition: color 0.2s;
       }
       .error.active {
         color: #d00; /* rouge vif si champ touché et erreur */
+      }
+      .error.success {
+        color: #218c5b; /* vert succès */
+        font-weight: 600;
       }
     </style>
   </head>
@@ -253,19 +257,39 @@
 
       // Pour savoir si un champ a été touché (focus perdu ou modifié)
       const touchedFields = {};
+      // Messages de succès personnalisés pour chaque champ
+      const successMessages = {
+        nom: "Nom valide",
+        prenom: "Prénom valide",
+        email: "Email valide",
+        password: "Mot de passe valide",
+        adresse: "Adresse valide",
+        ville: "Ville valide",
+        codepostal: "Code postal valide",
+      };
+
       async function validateField(field) {
         const input = document.getElementById(field);
         const errorDiv = document.getElementById("error-" + field);
         const errorMsg = await asyncValidate(field, input.value);
         if (errorMsg) {
           errorDiv.textContent = errorMsg;
+          errorDiv.classList.remove("success");
           if (touchedFields[field]) {
             errorDiv.classList.add("active");
           }
         } else {
-          // Affiche le message d'aide neutre si pas d'erreur
-          errorDiv.textContent = errorDiv.dataset.help || errorDiv.textContent;
-          errorDiv.classList.remove("active");
+          // Affiche le message de succès personnalisé en vert si champ touché et valide
+          if (touchedFields[field]) {
+            errorDiv.textContent = successMessages[field] || "Valide";
+            errorDiv.classList.remove("active");
+            errorDiv.classList.add("success");
+          } else {
+            errorDiv.textContent =
+              errorDiv.dataset.help || errorDiv.textContent;
+            errorDiv.classList.remove("active");
+            errorDiv.classList.remove("success");
+          }
         }
         return !errorMsg;
       }
@@ -311,6 +335,7 @@
             const errorDiv = document.getElementById("error-" + f);
             errorDiv.textContent = errorDiv.dataset.help;
             errorDiv.classList.remove("active");
+            errorDiv.classList.remove("success");
             touchedFields[f] = false;
           });
           submitBtn.disabled = true;
