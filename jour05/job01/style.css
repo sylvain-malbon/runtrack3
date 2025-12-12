@@ -21,7 +21,6 @@
 .password-group {
     position: relative;
 }
-/* Largeur uniforme pour tous les champs du formulaire */
 /* Largeur uniforme pour tous les champs du formulaire, bouton œil en overlay */
 .password-input {
     width: 102.5%;
@@ -39,24 +38,6 @@
 .toggle-password-btn {
     position: absolute;
     right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    height: 28px;
-    width: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-}
-}
-}
-.toggle-password-btn {
-    position: absolute;
-    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -157,10 +138,15 @@ input {
     border-radius: 4px;
 }
 .error {
-    color: #d00;
-    font-size: 0.95em;
-    margin-top: 4px;
-    min-height: 18px;
+  color: #666; /* gris neutre par défaut */
+  transition: color 0.2s;
+}
+.error.active {
+  color: #d00; /* rouge vif si champ touché et erreur */
+}
+.error.success {
+  color: #218c5b; /* vert succès */
+  font-weight: 600;
 }
 
 

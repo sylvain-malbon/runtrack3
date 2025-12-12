@@ -9,6 +9,10 @@
   <body>
     <header class="header">
       <div class="logo"><span class="logo-mark">J5</span>Jour 05</div>
+      <nav>
+        <button class="nav-btn" id="btn-inscription">Inscription</button>
+        <button class="nav-btn" id="btn-connexion">Connexion</button>
+      </nav>
     </header>
     <div class="container">
       <h2>Connexion</h2>
@@ -18,7 +22,7 @@
           <input type="email" id="email" name="email" required />
           <div class="error" id="error-email"></div>
         </div>
-        <div class="form-group">
+        <div class="form-group password-group">
           <label for="password">Mot de passe</label>
           <input
             type="password"
@@ -26,92 +30,41 @@
             name="password"
             required
             minlength="8"
+            class="password-input"
           />
+          <button
+            type="button"
+            id="togglePassword"
+            aria-label="Afficher/masquer le mot de passe"
+            class="toggle-password-btn"
+          >
+            <span id="eyeIcon">
+              <!-- Icône SVG œil par défaut -->
+              <svg
+                id="svgEye"
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <ellipse cx="12" cy="12" rx="9" ry="5" />
+                <circle cx="12" cy="12" r="2.5" />
+              </svg>
+            </span>
+          </button>
           <div class="error" id="error-password"></div>
         </div>
         <button type="submit" id="submitBtn" class="submit-btn" disabled>
           Connexion
         </button>
       </form>
-      <button onclick="window.location.href='index.php'" class="retour-btn">
-        Retour à l'accueil
-      </button>
+      <button id="btn-retour" class="retour-btn">Retour à l'accueil</button>
     </div>
-    <script>
-      // Validation rules
-      const validators = {
-        email: (value) =>
-          /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(value)
-            ? ""
-            : "L'email n'est pas valide.",
-        password: (value) => {
-          if (value.length < 8)
-            return "Le mot de passe doit contenir au moins 8 caractères.";
-          if (!/[a-z]/.test(value))
-            return "Le mot de passe doit contenir au moins une minuscule.";
-          if (!/[A-Z]/.test(value))
-            return "Le mot de passe doit contenir au moins une majuscule.";
-          if (!/[0-9]/.test(value))
-            return "Le mot de passe doit contenir au moins un chiffre.";
-          if (!/[@$!%*?&]/.test(value))
-            return "Le mot de passe doit contenir au moins un caractère spécial (@$!%*?&).";
-          if (/\s/.test(value))
-            return "Le mot de passe ne doit pas contenir d'espace.";
-          return "";
-        },
-      };
-
-      const form = document.getElementById("connexionForm");
-      const submitBtn = document.getElementById("submitBtn");
-      const fields = ["email", "password"];
-
-      // Asynchronous validation simulation
-      function asyncValidate(field, value) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(validators[field](value));
-          }, 200); // Simule une requête asynchrone
-        });
-      }
-
-      async function validateField(field) {
-        const input = document.getElementById(field);
-        const errorDiv = document.getElementById("error-" + field);
-        const errorMsg = await asyncValidate(field, input.value);
-        errorDiv.textContent = errorMsg;
-        return !errorMsg;
-      }
-
-      async function validateForm() {
-        let valid = true;
-        for (const field of fields) {
-          const isValid = await validateField(field);
-          if (!isValid) valid = false;
-        }
-        submitBtn.disabled = !valid;
-        return valid;
-      }
-
-      // Validate on input
-      fields.forEach((field) => {
-        document.getElementById(field).addEventListener("input", () => {
-          validateField(field);
-          validateForm();
-        });
-      });
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const isValid = await validateForm();
-        if (isValid) {
-          alert("Connexion réussie !");
-          form.reset();
-          fields.forEach(
-            (f) => (document.getElementById("error-" + f).textContent = "")
-          );
-          submitBtn.disabled = true;
-        }
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
