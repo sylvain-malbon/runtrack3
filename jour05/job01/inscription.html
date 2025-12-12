@@ -43,7 +43,21 @@
           >
             <span id="eyeIcon">
               <!-- Icône SVG œil par défaut -->
-              <svg id="svgEye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/></svg>
+              <svg
+                id="svgEye"
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#333"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <ellipse cx="12" cy="12" rx="9" ry="5" />
+                <circle cx="12" cy="12" r="2.5" />
+              </svg>
             </span>
           </button>
           <div class="error" id="error-password"></div>
@@ -114,6 +128,19 @@
             villes.forEach((v) => {
               // On prend le nom de la ville (display_name ou address.city/town/village)
               let cityName = v.display_name;
+              // Récupère tous les codes postaux possibles (Nominatim peut retourner plusieurs objets pour la même ville)
+              let codePostal = v.address && v.address.postcode ? v.address.postcode : "";
+              // On stocke tous les codes postaux pour chaque ville (dans un Set)
+              if (!villesData[cityName]) {
+                villesData[cityName] = { codes: new Set(), country: country, countryCode: countryCode, cityName: cityName };
+              }
+              if (codePostal) villesData[cityName].codes.add(codePostal);
+              let country =
+                v.address && v.address.country ? v.address.country : "";
+              let countryCode =
+                v.address && v.address.country_code
+                  ? v.address.country_code.toUpperCase()
+                  : "";
               if (v.address) {
                 cityName =
                   v.address.city ||
@@ -122,20 +149,37 @@
                   v.address.hamlet ||
                   v.display_name;
               }
-              villesData[cityName] = {
-                code: v.address && v.address.postcode ? v.address.postcode : "",
-              };
-              villesSuggestions.push(cityName);
+              // Affichage : Paris (75000, France)
+              let display = cityName;
+              let details = [];
+              if (codePostal) details.push(codePostal);
+              if (country) details.push(country);
+              if (details.length) display += " (" + details.join(", ") + ")";
+              // On affiche la suggestion avec code postal et pays
+              let display = cityName;
+              let details = [];
+              if (codePostal) details.push(codePostal);
+              if (country) details.push(country);
+              if (details.length) display += " (" + details.join(", ") + ")";
+              villesSuggestions.push(display);
+              // On relie l'affichage à la clé cityName pour la validation
+              villesData[display] = villesData[cityName];
               const item = document.createElement("div");
               item.className = "autocomplete-item";
-              item.textContent = cityName;
+              item.textContent = display;
               item.style.cursor = "pointer";
               item.style.background = "#fff";
               item.style.border = "1px solid #ccc";
               item.style.padding = "6px";
               item.addEventListener("mousedown", function () {
-                villeInput.value = cityName;
+                villeInput.value = display;
                 autocompleteDiv.innerHTML = "";
+                // Remplit automatiquement le code postal si dispo (prend le premier code postal du Set)
+                const codepostalInput = document.getElementById("codepostal");
+                if (villesData[display] && villesData[display].codes && villesData[display].codes.size > 0) {
+                  codepostalInput.value = Array.from(villesData[display].codes)[0];
+                  codepostalInput.dispatchEvent(new Event("input"));
+                }
                 villeInput.dispatchEvent(new Event("change"));
               });
               autocompleteDiv.appendChild(item);
@@ -273,11 +317,11 @@
           return "";
         },
         codepostal: (value) => {
-          if (!/^[\\w\\s-]{3,10}$/.test(value))
+          if (!/^[\w\s-]{3,10}$/.test(value))
             return "Le code postal doit être valide.";
-          // Vérifie la cohérence avec la ville
+          // Vérifie la cohérence avec la ville (accepte tous les codes postaux possibles)
           const ville = document.getElementById("ville").value.trim();
-          if (ville && villesData[ville] && villesData[ville].code !== value) {
+          if (ville && villesData[ville] && villesData[ville].codes && !villesData[ville].codes.has(value)) {
             return "Le code postal ne correspond pas à la ville.";
           }
           return "";
