@@ -1,4 +1,4 @@
-/* Logo mark J5 rond vert sur fond blanc avec bord vert */
+/* Logo mark J5 rond vert sur fond blanc avec bord */
 .logo-mark {
     display: inline-flex;
     align-items: center;
@@ -38,7 +38,7 @@
     font-size: 1em;
 }
 .password-input:focus {
-    border-color: #007bff;
+    border: 1px solid #007bff;
 }
 .toggle-password-btn {
     position: absolute;
@@ -140,6 +140,21 @@ input {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+/* Style spécifique pour le champ mot de passe */
+.password-input {
+    width: 100%;
+    padding-right: 38px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    outline: none;
+    transition: border 0.2s;
+    font-size: 1em;
+}
+.password-input:focus {
+    border: 2px solid #007bff;
 }
 .error {
   color: #666; /* gris neutre par défaut */
