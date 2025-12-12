@@ -22,7 +22,13 @@ $errors = [];
 if (mb_strlen($nom) < 2) $errors[] = "Le nom doit contenir au moins 2 caractères.";
 if (mb_strlen($prenom) < 2) $errors[] = "Le prénom doit contenir au moins 2 caractères.";
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "L'email n'est pas valide.";
-if (mb_strlen($password) < 8 || !preg_match('/[a-zA-Z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/', $password) || preg_match('/\s/', $password)) {
+if (
+    mb_strlen($password) < 8 ||
+    !preg_match('/[a-zA-Z]/', $password) ||
+    !preg_match('/[0-9]/', $password) ||
+    !preg_match('/[!@#$%^&*()_+\-=\[\]{};:\'\\|,.<>\/?]/', $password) ||
+    preg_match('/\s/', $password)
+) {
     $errors[] = "Le mot de passe n'est pas conforme.";
 }
 if (mb_strlen($adresse) < 4) $errors[] = "L'adresse doit contenir au moins 4 caractères.";
@@ -39,7 +45,19 @@ if ($errors) {
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
 // Insertion sécurisée
-$stmt = $pdo->prepare('INSERT INTO users (nom, prenom, email, password, adresse, ville, codepostal) VALUES (?, ?, ?, ?, ?, ?, ?)');
-$stmt->execute([$nom, $prenom, $email, $hash, $adresse, $ville, $codepostal]);
+try {
+    // Vérifier si l'email existe déjà
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM users WHERE email = ?');
+    $stmt->execute([$email]);
+    if ($stmt->fetchColumn() > 0) {
+        echo json_encode(['success' => false, 'errors' => ["Cet email est déjà utilisé."]]);
+        exit;
+    }
 
-echo json_encode(['success' => true]);
+    // Insertion sécurisée
+    $stmt = $pdo->prepare('INSERT INTO users (nom, prenom, email, password, adresse, ville, codepostal) VALUES (?, ?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$nom, $prenom, $email, $hash, $adresse, $ville, $codepostal]);
+    echo json_encode(['success' => true]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'errors' => ["Erreur serveur."]]);
+}

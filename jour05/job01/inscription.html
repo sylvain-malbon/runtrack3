@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inscription</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      .error {
+        color: #e6a700; /* orange neutre par défaut */
+        transition: color 0.2s;
+      }
+      .error.active {
+        color: #d00; /* rouge vif si champ touché et erreur */
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -13,17 +22,21 @@
         <div class="form-group">
           <label for="nom">Nom</label>
           <input type="text" id="nom" name="nom" required />
-          <div class="error" id="error-nom"></div>
+          <div class="error" id="error-nom">
+            Le nom doit contenir 2 à 50 lettres, espaces ou tirets.
+          </div>
         </div>
         <div class="form-group">
           <label for="prenom">Prénom</label>
           <input type="text" id="prenom" name="prenom" required />
-          <div class="error" id="error-prenom"></div>
+          <div class="error" id="error-prenom">
+            Le prénom doit contenir 2 à 50 lettres, espaces ou tirets.
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required />
-          <div class="error" id="error-email"></div>
+          <div class="error" id="error-email">Exemple : nom@domaine.com</div>
         </div>
         <div class="form-group password-group">
           <label for="password">Mot de passe</label>
@@ -60,12 +73,17 @@
               </svg>
             </span>
           </button>
-          <div class="error" id="error-password"></div>
+          <div class="error" id="error-password">
+            8 caractères, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère
+            spécial (@$!%*?&)
+          </div>
         </div>
         <div class="form-group">
           <label for="adresse">Adresse</label>
           <input type="text" id="adresse" name="adresse" required />
-          <div class="error" id="error-adresse"></div>
+          <div class="error" id="error-adresse">
+            L'adresse doit contenir au moins 4 caractères.
+          </div>
         </div>
         <div class="form-group">
           <label for="ville">Ville</label>
@@ -82,12 +100,16 @@
             class="autocomplete-items"
             style="position: relative"
           ></div>
-          <div class="error" id="error-ville"></div>
+          <div class="error" id="error-ville">
+            Sélectionnez une ville dans la liste.
+          </div>
         </div>
         <div class="form-group">
           <label for="codepostal">Code postal</label>
           <input type="text" id="codepostal" name="codepostal" required />
-          <div class="error" id="error-codepostal"></div>
+          <div class="error" id="error-codepostal">
+            Le code postal doit être valide.
+          </div>
         </div>
         <button type="submit" id="submitBtn" class="submit-btn" disabled>
           Inscription
@@ -129,18 +151,25 @@
               // On prend le nom de la ville (display_name ou address.city/town/village)
               let cityName = v.display_name;
               // Récupère tous les codes postaux possibles (Nominatim peut retourner plusieurs objets pour la même ville)
-              let codePostal = v.address && v.address.postcode ? v.address.postcode : "";
-              // On stocke tous les codes postaux pour chaque ville (dans un Set)
-              if (!villesData[cityName]) {
-                villesData[cityName] = { codes: new Set(), country: country, countryCode: countryCode, cityName: cityName };
-              }
-              if (codePostal) villesData[cityName].codes.add(codePostal);
+              let codePostal =
+                v.address && v.address.postcode ? v.address.postcode : "";
+              // Définir country et countryCode AVANT de les utiliser
               let country =
                 v.address && v.address.country ? v.address.country : "";
               let countryCode =
                 v.address && v.address.country_code
                   ? v.address.country_code.toUpperCase()
                   : "";
+              // On stocke tous les codes postaux pour chaque ville (dans un Set)
+              if (!villesData[cityName]) {
+                villesData[cityName] = {
+                  codes: new Set(),
+                  country: country,
+                  countryCode: countryCode,
+                  cityName: cityName,
+                };
+              }
+              if (codePostal) villesData[cityName].codes.add(codePostal);
               if (v.address) {
                 cityName =
                   v.address.city ||
@@ -150,12 +179,6 @@
                   v.display_name;
               }
               // Affichage : Paris (75000, France)
-              let display = cityName;
-              let details = [];
-              if (codePostal) details.push(codePostal);
-              if (country) details.push(country);
-              if (details.length) display += " (" + details.join(", ") + ")";
-              // On affiche la suggestion avec code postal et pays
               let display = cityName;
               let details = [];
               if (codePostal) details.push(codePostal);
@@ -176,8 +199,14 @@
                 autocompleteDiv.innerHTML = "";
                 // Remplit automatiquement le code postal si dispo (prend le premier code postal du Set)
                 const codepostalInput = document.getElementById("codepostal");
-                if (villesData[display] && villesData[display].codes && villesData[display].codes.size > 0) {
-                  codepostalInput.value = Array.from(villesData[display].codes)[0];
+                if (
+                  villesData[display] &&
+                  villesData[display].codes &&
+                  villesData[display].codes.size > 0
+                ) {
+                  codepostalInput.value = Array.from(
+                    villesData[display].codes
+                  )[0];
                   codepostalInput.dispatchEvent(new Event("input"));
                 }
                 villeInput.dispatchEvent(new Event("change"));
@@ -222,11 +251,22 @@
         });
       }
 
+      // Pour savoir si un champ a été touché (focus perdu ou modifié)
+      const touchedFields = {};
       async function validateField(field) {
         const input = document.getElementById(field);
         const errorDiv = document.getElementById("error-" + field);
         const errorMsg = await asyncValidate(field, input.value);
-        errorDiv.textContent = errorMsg;
+        if (errorMsg) {
+          errorDiv.textContent = errorMsg;
+          if (touchedFields[field]) {
+            errorDiv.classList.add("active");
+          }
+        } else {
+          // Affiche le message d'aide neutre si pas d'erreur
+          errorDiv.textContent = errorDiv.dataset.help || errorDiv.textContent;
+          errorDiv.classList.remove("active");
+        }
         return !errorMsg;
       }
 
@@ -240,9 +280,20 @@
         return valid;
       }
 
-      // Validate on input
+      // Ajoute gestion du focus et du blur pour chaque champ
+      // Ajoute un data-help à chaque div.error pour conserver le message d'aide initial
       fields.forEach((field) => {
-        document.getElementById(field).addEventListener("input", () => {
+        const errorDiv = document.getElementById("error-" + field);
+        errorDiv.dataset.help = errorDiv.textContent;
+        const input = document.getElementById(field);
+        input.addEventListener("focus", () => {
+          // Ne rien faire sur focus, couleur neutre par défaut
+        });
+        input.addEventListener("blur", () => {
+          touchedFields[field] = true;
+          validateField(field);
+        });
+        input.addEventListener("input", () => {
           validateField(field);
           validateForm();
         });
@@ -250,14 +301,22 @@
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        // Marque tous les champs comme touchés pour forcer l'affichage rouge si erreur
+        fields.forEach((f) => (touchedFields[f] = true));
         const isValid = await validateForm();
         if (isValid) {
           alert("Inscription réussie !");
           form.reset();
-          fields.forEach(
-            (f) => (document.getElementById("error-" + f).textContent = "")
-          );
+          fields.forEach((f) => {
+            const errorDiv = document.getElementById("error-" + f);
+            errorDiv.textContent = errorDiv.dataset.help;
+            errorDiv.classList.remove("active");
+            touchedFields[f] = false;
+          });
           submitBtn.disabled = true;
+        } else {
+          // Force la couleur rouge sur tous les champs invalides
+          fields.forEach((f) => validateField(f));
         }
       });
 
@@ -321,7 +380,12 @@
             return "Le code postal doit être valide.";
           // Vérifie la cohérence avec la ville (accepte tous les codes postaux possibles)
           const ville = document.getElementById("ville").value.trim();
-          if (ville && villesData[ville] && villesData[ville].codes && !villesData[ville].codes.has(value)) {
+          if (
+            ville &&
+            villesData[ville] &&
+            villesData[ville].codes &&
+            !villesData[ville].codes.has(value)
+          ) {
             return "Le code postal ne correspond pas à la ville.";
           }
           return "";
