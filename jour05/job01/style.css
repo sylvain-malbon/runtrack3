@@ -1,0 +1,192 @@
+/* Champ mot de passe avec bouton œil */
+.password-group {
+    position: relative;
+}
+/* Largeur uniforme pour tous les champs du formulaire */
+/* Largeur uniforme pour tous les champs du formulaire, bouton œil en overlay */
+.password-input {
+    width: 102.5%;
+    padding-right: 38px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    outline: none;
+    transition: border 0.2s;
+}
+.password-input:focus {
+    border-color: #007bff;
+}
+.toggle-password-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+}
+}
+.toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+body { margin: 0; font-family: Arial, sans-serif; background: #f7f7f7; }
+.header {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    background: #218c5b;
+    padding: 0 32px;
+    height: 70px;
+    border-radius: 40px;
+}
+.logo {
+    font-weight: bold;
+    font-size: 2.2em;
+    color: #fff;
+    margin-right: 32px;
+    letter-spacing: 1px;
+}
+nav {
+    margin-left: auto;
+    display: flex;
+    gap: 16px;
+}
+.nav-btn {
+    background: #fff;
+    color: #218c5b;
+    border: 2px solid #218c5b;
+    border-radius: 20px;
+    padding: 8px 24px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.nav-btn:hover {
+    background: #218c5b;
+    color: #fff;
+    border: 2px solid #fff;
+}
+.main-content {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 40px 32px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    text-align: center;
+}
+h1 {
+    color: #218c5b;
+    font-size: 2em;
+    margin-bottom: 16px;
+}
+p {
+    color: #333;
+    font-size: 1.1em;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+}
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+}
+h2 {
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 18px;
+}
+label {
+    display: block;
+    margin-bottom: 6px;
+}
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.error {
+    color: #d00;
+    font-size: 0.95em;
+    margin-top: 4px;
+    min-height: 18px;
+}
+
+
+/* Boutons principaux harmonisés avec la nav */
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    color: #218c5b;
+    border: 2px solid #218c5b;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.submit-btn:hover:not(:disabled) {
+    background: #218c5b;
+    color: #fff;
+    border: 2px solid #fff;
+}
+.submit-btn:disabled {
+    background: #eee;
+    color: #aaa;
+    border: 2px solid #ccc;
+    cursor: not-allowed;
+}
+
+.retour-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 10px;
+    background: #fff;
+    color: #218c5b;
+    border: 2px solid #218c5b;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.retour-btn:hover {
+    background: #218c5b;
+    color: #fff;
+    border: 2px solid #fff;
+}
