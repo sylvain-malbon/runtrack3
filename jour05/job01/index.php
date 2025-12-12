@@ -10,7 +10,7 @@
 
 <body>
     <header class="header">
-        <div class="logo">Jour 05</div>
+        <div class="logo"><span class="logo-mark">J5</span>Jour 05</div>
         <nav>
             <button class="nav-btn" onclick="window.location.href='inscription.html'">Inscription</button>
             <button class="nav-btn" onclick="window.location.href='connexion.html'">Connexion</button>
