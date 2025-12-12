@@ -238,6 +238,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 errorDiv.classList.remove("success");
                 if (touchedFields[field]) {
                     errorDiv.classList.add("active");
+                } else {
+                    errorDiv.classList.remove("active");
                 }
             } else {
                 // Affiche le message de succès personnalisé en vert si champ touché et valide
@@ -453,6 +455,15 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         };
 
+        // Ajout : messages de succès personnalisés
+        const successMessages = {
+            email: "Email valide",
+            password: "Mot de passe valide"
+        };
+
+        // Ajout : pour savoir si un champ a été touché
+        const touchedFields = {};
+
         function asyncValidate(field, value) {
             return new Promise((resolve) => {
                 setTimeout(() => {
@@ -465,7 +476,26 @@ document.addEventListener("DOMContentLoaded", function () {
             const input = document.getElementById(field);
             const errorDiv = document.getElementById("error-" + field);
             const errorMsg = await asyncValidate(field, input.value);
-            errorDiv.textContent = errorMsg;
+            if (errorMsg) {
+                errorDiv.textContent = errorMsg;
+                errorDiv.classList.remove("success");
+                if (touchedFields[field]) {
+                    errorDiv.classList.add("active");
+                } else {
+                    errorDiv.classList.remove("active");
+                }
+            } else {
+                // Affiche le message de succès personnalisé en vert si champ touché et valide
+                if (touchedFields[field]) {
+                    errorDiv.textContent = successMessages[field] || "Valide";
+                    errorDiv.classList.remove("active");
+                    errorDiv.classList.add("success");
+                } else {
+                    errorDiv.textContent = "";
+                    errorDiv.classList.remove("active");
+                    errorDiv.classList.remove("success");
+                }
+            }
             return !errorMsg;
         }
 
@@ -479,8 +509,17 @@ document.addEventListener("DOMContentLoaded", function () {
             return valid;
         }
 
+        // Ajout : gestion du blur pour activer l'état "touched"
         fields.forEach((field) => {
-            document.getElementById(field).addEventListener("input", () => {
+            const input = document.getElementById(field);
+            const errorDiv = document.getElementById("error-" + field);
+            // Ajoute un data-help si besoin (non utilisé ici mais pour homogénéité)
+            errorDiv.dataset.help = errorDiv.textContent;
+            input.addEventListener("blur", () => {
+                touchedFields[field] = true;
+                validateField(field);
+            });
+            input.addEventListener("input", () => {
                 validateField(field);
                 validateForm();
             });
@@ -488,6 +527,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         connexionForm.addEventListener("submit", async (e) => {
             e.preventDefault();
+            fields.forEach((f) => (touchedFields[f] = true));
             const isValid = await validateForm();
             if (isValid) {
                 submitBtn.disabled = true;
@@ -497,7 +537,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Simulation : connexion réussie (mode déconnecté)");
                         connexionForm.reset();
                         fields.forEach(
-                            (f) => (document.getElementById("error-" + f).textContent = "")
+                            (f) => {
+                                const errorDiv = document.getElementById("error-" + f);
+                                errorDiv.textContent = "";
+                                errorDiv.classList.remove("active", "success");
+                                touchedFields[f] = false;
+                            }
                         );
                         submitBtn.disabled = false;
                         submitBtn.textContent = "Connexion";
@@ -515,7 +560,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert(result.message || "Connexion réussie !");
                         connexionForm.reset();
                         fields.forEach(
-                            (f) => (document.getElementById("error-" + f).textContent = "")
+                            (f) => {
+                                const errorDiv = document.getElementById("error-" + f);
+                                errorDiv.textContent = "";
+                                errorDiv.classList.remove("active", "success");
+                                touchedFields[f] = false;
+                            }
                         );
                         submitBtn.disabled = true;
                         submitBtn.textContent = "Connexion";
@@ -526,17 +576,25 @@ document.addEventListener("DOMContentLoaded", function () {
                             document.getElementById("error-password").textContent = "";
                             for (const err of result.errors) {
                                 if (err.toLowerCase().includes("email")) {
-                                    document.getElementById("error-email").textContent = err;
+                                    const errorDiv = document.getElementById("error-email");
+                                    errorDiv.textContent = err;
+                                    errorDiv.classList.add("active");
+                                    errorDiv.classList.remove("success");
                                 } else if (err.toLowerCase().includes("mot de passe")) {
-                                    document.getElementById("error-password").textContent = err;
+                                    const errorDiv = document.getElementById("error-password");
+                                    errorDiv.textContent = err;
+                                    errorDiv.classList.add("active");
+                                    errorDiv.classList.remove("success");
                                 }
                             }
                             if (
                                 !document.getElementById("error-email").textContent &&
                                 !document.getElementById("error-password").textContent
                             ) {
-                                document.getElementById("error-email").textContent =
-                                    result.errors.join(" ");
+                                const errorDiv = document.getElementById("error-email");
+                                errorDiv.textContent = result.errors.join(" ");
+                                errorDiv.classList.add("active");
+                                errorDiv.classList.remove("success");
                             }
                         } else {
                             alert(
@@ -560,14 +618,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const togglePasswordBtn = document.getElementById("togglePassword");
         const eyeIcon = document.getElementById("eyeIcon");
         let passwordVisible = false;
-        togglePasswordBtn.addEventListener("click", function () {
-            passwordVisible = !passwordVisible;
-            passwordInput.type = passwordVisible ? "text" : "password";
-            if (passwordVisible) {
-                eyeIcon.innerHTML = `<svg id="svgEyeOff" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/><line x1="3" y1="21" x2="21" y2="3"/></svg>`;
-            } else {
-                eyeIcon.innerHTML = `<svg id="svgEye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/></svg>`;
-            }
-        });
+        // Correction : n'ajouter l'écouteur que si les éléments existent
+        if (passwordInput && togglePasswordBtn && eyeIcon) {
+            togglePasswordBtn.addEventListener("click", function () {
+                passwordVisible = !passwordVisible;
+                passwordInput.type = passwordVisible ? "text" : "password";
+                if (passwordVisible) {
+                    eyeIcon.innerHTML = `<svg id="svgEyeOff" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/><line x1="3" y1="21" x2="21" y2="3"/></svg>`;
+                } else {
+                    eyeIcon.innerHTML = `<svg id="svgEye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/></svg>`;
+                }
+            });
+        }
     }
 });

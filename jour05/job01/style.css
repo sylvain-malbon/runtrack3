@@ -20,10 +20,14 @@
 /* Champ mot de passe avec bouton œil */
 .password-group {
     position: relative;
+    /* Ajout pour éviter que le bouton œil ne déborde */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 /* Largeur uniforme pour tous les champs du formulaire, bouton œil en overlay */
 .password-input {
-    width: 102.5%;
+    width: 100%;
     padding-right: 38px;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -31,6 +35,7 @@
     background: #fff;
     outline: none;
     transition: border 0.2s;
+    font-size: 1em;
 }
 .password-input:focus {
     border-color: #007bff;
@@ -38,8 +43,7 @@
 .toggle-password-btn {
     position: absolute;
     right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 30px; /* Décale l'œil plus vers le bas */
     background: none;
     border: none;
     cursor: pointer;
