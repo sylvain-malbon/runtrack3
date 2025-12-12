@@ -1,3 +1,6 @@
+// MODE DECONNECTE : true = pas d'appel AJAX, juste une simulation côté client
+const MODE_DECONNECTE = true;
+
 document.addEventListener("DOMContentLoaded", function () {
     const btnInscription = document.getElementById("btn-inscription");
     if (btnInscription) {
@@ -301,14 +304,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
-            // Marque tous les champs comme touchés pour forcer l'affichage rouge si erreur
             fields.forEach((f) => (touchedFields[f] = true));
             const isValid = await validateForm();
             if (isValid) {
-                // Désactiver le bouton pendant la soumission
                 submitBtn.disabled = true;
                 submitBtn.textContent = "Inscription en cours...";
-
+                if (MODE_DECONNECTE) {
+                    setTimeout(() => {
+                        alert("Simulation : inscription réussie (mode déconnecté)");
+                        form.reset();
+                        fields.forEach((f) => {
+                            touchedFields[f] = false;
+                            const errorDiv = document.getElementById("error-" + f);
+                            errorDiv.textContent = errorDiv.dataset.help || "";
+                            errorDiv.classList.remove("active", "success");
+                        });
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Inscription";
+                    }, 600);
+                    return;
+                }
                 // Envoyer les données au serveur
                 const formData = new FormData(form);
                 try {
@@ -338,7 +353,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     submitBtn.textContent = "Inscription";
                 }
             } else {
-                // Force la couleur rouge sur tous les champs invalides
                 fields.forEach((f) => validateField(f));
             }
         });
@@ -478,6 +492,18 @@ document.addEventListener("DOMContentLoaded", function () {
             if (isValid) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = "Connexion en cours...";
+                if (MODE_DECONNECTE) {
+                    setTimeout(() => {
+                        alert("Simulation : connexion réussie (mode déconnecté)");
+                        connexionForm.reset();
+                        fields.forEach(
+                            (f) => (document.getElementById("error-" + f).textContent = "")
+                        );
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Connexion";
+                    }, 600);
+                    return;
+                }
                 const formData = new FormData(connexionForm);
                 try {
                     const response = await fetch("traitement_connexion.php", {
