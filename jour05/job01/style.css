@@ -57,7 +57,7 @@
 }
 body { margin: 0; font-family: Arial, sans-serif; background: #f7f7f7; }
 .header {
-    margin-top: 5px;
+    margin: 5px 15px 0 15px;
     display: flex;
     align-items: center;
     background: #218c5b;
