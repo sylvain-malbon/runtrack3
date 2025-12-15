@@ -8,6 +8,7 @@
     <!-- CSS Bootstrap -->
     <link href="./assets/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="./style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 
@@ -101,7 +102,9 @@
                         <span class="fw-bold" style="white-space:nowrap;">Installation de AI 9000</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="me-1" style="font-size:1.1rem;">&#8592;|</span>
+                        <span class="me-1" style="font-size:1.1rem;">
+                            <i class="bi bi-arrow-left"></i>|
+                        </span>
                         <div class="flex-grow-1">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-striped-custom"
@@ -111,7 +114,9 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="ms-1" style="font-size:1.1rem;">|&#8594;</span>
+                        <span class="ms-1" style="font-size:1.1rem;">
+                            <i class="bi bi-arrow-right"></i>|
+                        </span>
                     </div>
                 </div>
             </div>
@@ -172,5 +177,6 @@
 
     <!-- Link script bootstrap -->
     <script src="./assets/bootstrap-5.3.8/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

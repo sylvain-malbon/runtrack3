@@ -1,0 +1,34 @@
+body {
+    background-color: #e9ecef;
+}
+.jumbotron-custom {
+    background: #f8f9fa;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.progress {
+    position: relative;
+    z-index: 1;
+    height: 16px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+.progress-bar {
+    position: relative;
+    z-index: 2;
+}
+.progress-bar-striped-custom {
+    background-image: repeating-linear-gradient(135deg, #ffc107, #ffc107 10px, #fff3cd 10px, #fff3cd 20px);
+}
+.card {
+    min-width: 250px;
+}
+.card,
+.jumbotron-custom,
+.list-group {
+    border-radius: 4px;
+}
+@media (max-width: 991.98px) {
+    .main-title {
+        font-size: 2rem;
+    }
+}
