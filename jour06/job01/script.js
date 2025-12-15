@@ -51,7 +51,7 @@ document.querySelector('.me-1').addEventListener('click', () => {
     progress = Math.max(0, progress - 10);
     updateProgress();
 });
-document.querySelector('.ms-1').addEventListener('click', () => {
+document.querySelector('.ms-1 .bi-arrow-right').parentElement.addEventListener('click', () => {
     progress = Math.min(100, progress + 10);
     updateProgress();
 });
