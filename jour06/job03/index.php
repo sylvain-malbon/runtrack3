@@ -16,46 +16,68 @@
             </div>
         </div>
         
-        <!-- 3 blocs bleus (Desktop) / 1 bloc bleu + 2 blocs bleus (Mobile) -->
+        <!-- 3 blocs bleus (Desktop) / 1 bloc bleu pleine largeur + 2 blocs bleus côte à côte (Mobile) -->
         <div class="row mb-3">
             <div class="col-12 col-md-4 mb-3 mb-md-0">
                 <div class="bloc-bleu w-100"></div>
             </div>
-            <div class="col-12 col-md-4 mb-3 mb-md-0">
+            <div class="col-6 col-md-4 mb-3 mb-md-0">
                 <div class="bloc-bleu w-100"></div>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-6 col-md-4">
                 <div class="bloc-bleu w-100"></div>
             </div>
         </div>
 
-        <!-- 2 blocs violets -->
+        <!-- 2 blocs violets (Desktop: 2/3 et 1/3) / (Mobile: 1 pleine largeur + 1 petit centré + 1 moyen centré) -->
         <div class="row mb-3">
             <div class="col-12 col-md-8 mb-3 mb-md-0">
                 <div class="bloc-violet w-100"></div>
             </div>
-            <div class="col-12 col-md-4">
-                <div class="bloc-violet w-100"></div>
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <div class="bloc-violet w-100 d-none d-md-block"></div>
+            </div>
+            <!-- Mobile seulement: petit bloc violet centré -->
+            <div class="col-12 d-md-none mb-3">
+                <div class="bloc-violet-mobile-petit mx-auto"></div>
+            </div>
+            <!-- Mobile seulement: moyen bloc violet centré -->
+            <div class="col-12 d-md-none">
+                <div class="bloc-violet-mobile-moyen mx-auto"></div>
             </div>
         </div>
 
+        <!-- Mobile: 3 blocs oranges sur même ligne -->
+        <div class="row d-md-none">
+            <div class="col-4">
+                <div class="bloc-orange w-100"></div>
+            </div>
+            <div class="col-4">
+                <div class="bloc-orange w-100"></div>
+            </div>
+            <div class="col-4">
+                <div class="bloc-orange w-100"></div>
+            </div>
+        </div>
+
+        <!-- Desktop: 3 lignes de blocs oranges en diagonale -->
         <!-- Première ligne: bloc orange dans la 1ère colonne (80% de largeur) -->
-        <div class="row mb-3">
-            <div class="col-12 col-md-4">
+        <div class="row mb-3 d-none d-md-flex">
+            <div class="col-md-4">
                 <div class="bloc-orange" style="width: 80%;"></div>
             </div>
         </div>
 
         <!-- Deuxième ligne: bloc orange dans la 2ème colonne (justifié à gauche) -->
-        <div class="row mb-3">
-            <div class="col-12 col-md-4 offset-md-4">
+        <div class="row mb-3 d-none d-md-flex">
+            <div class="col-md-4 offset-md-4">
                 <div class="bloc-orange" style="width: 80%;"></div>
             </div>
         </div>
 
         <!-- Troisième ligne: bloc orange dans la 3ème colonne (justifié à droite) -->
-        <div class="row">
-            <div class="col-12 col-md-4 offset-md-8">
+        <div class="row d-none d-md-flex">
+            <div class="col-md-4 offset-md-8">
                 <div class="bloc-orange ms-auto" style="width: 80%;"></div>
             </div>
         </div>
