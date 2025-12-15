@@ -111,7 +111,9 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="ms-1" style="font-size:1.1rem;">|&#8594;</span>
+                        <span class="ms-1" style="font-size:1.1rem;">
+  <i class="bi bi-arrow-left"></i>|
+</span>
                     </div>
                 </div>
             </div>
@@ -172,5 +174,6 @@
 
     <!-- Link script bootstrap -->
     <script src="./assets/bootstrap-5.3.8/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
