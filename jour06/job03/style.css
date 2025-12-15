@@ -1,0 +1,33 @@
+body {
+    background-color: #e9ecef;
+}
+.bloc-bleu-clair {
+    background-color: #87CEEB;
+    height: 100px;
+}
+
+.bloc-bleu {
+    background-color: #9DB4D4;
+    height: 150px;
+}
+
+.bloc-violet {
+    background-color: #C8A8E0;
+    height: 100px;
+}
+
+.bloc-orange {
+    background-color: #E8A898;
+    height: 80px;
+}
+
+/* Espacement pour mobile */
+@media (max-width: 767px) {
+    .bloc-bleu-clair {
+        height: 80px;
+    }
+    
+    .bloc-bleu {
+        height: 120px;
+    }
+}
