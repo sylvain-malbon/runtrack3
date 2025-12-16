@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Création de compte</title>
+    <!-- Materialize CSS CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-wrapper blue darken-2">
+        <div class="container">
+          <a href="#" class="brand-logo">Logo</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="index.html">Inscription</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="index.html">Rechercher</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <section>
+      <h2>Créer un compte</h2>
+      <form>
+        <fieldset>
+          <legend>Civilité</legend>
+          <label><input type="radio" name="civilite" value="mme" /> Mme</label>
+          <label><input type="radio" name="civilite" value="mr" /> Mr</label>
+        </fieldset>
+        <label>Prénom : <input type="text" name="prenom" required /></label
+        ><br />
+        <label>Nom : <input type="text" name="nom" required /></label><br />
+        <label>Adresse : <input type="text" name="adresse" /></label><br />
+        <label>Email : <input type="email" name="email" required /></label
+        ><br />
+        <label
+          >Mot de passe :
+          <input type="password" name="password" required /></label
+        ><br />
+        <label
+          >Valider le mot de passe :
+          <input type="password" name="password_confirm" required /></label
+        ><br />
+        <fieldset>
+          <legend>Passions</legend>
+          <label
+            ><input type="checkbox" name="passions" value="informatique" />
+            Informatique</label
+          >
+          <label
+            ><input type="checkbox" name="passions" value="voyages" />
+            Voyages</label
+          >
+          <label
+            ><input type="checkbox" name="passions" value="sport" />
+            Sport</label
+          >
+          <label
+            ><input type="checkbox" name="passions" value="lecture" />
+            Lecture</label
+          >
+        </fieldset>
+        <button type="submit">Créer le compte</button>
+      </form>
+    </section>
+        <footer>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html">Inscription</a></li>
+        <li><a href="index.html">Connexion</a></li>
+        <li><a href="index.html">Rechercher</a></li>
+      </ul>
+    </footer>
+  </body>
+</html>
