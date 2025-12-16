@@ -1,10 +1,31 @@
-/* Couleurs personnalisées pour la maquette */
-.custom-blue {
-    background-color: #9DB4D4 !important;
+/* Chevauchement des blocs violets en mobile */
+@media (max-width: 767px) {
+    .bloc-violet-stack {
+        position: relative;
+        min-height: 120px;
+    }
+    .bloc-violet.chevauche-grand {
+        position: relative;
+        z-index: 1;
+    }
+    .bloc-violet.chevauche-petit {
+        position: absolute;
+        right: 10px;
+        top: 40px;
+        width: 40%;
+        height: 60px;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
 }
-.custom-purple {
-    background-color: #C8A8E0 !important;
-}
+/* Blocs violets mobiles séparés */
+
+/* Blocs violets mobiles séparés avec tailles Bootstrap */
+
+/* Les blocs violets utilisent la largeur des colonnes Bootstrap, mobile et desktop */
+/* Si besoin de hauteurs différentes pour mobile, utiliser une media query ci-dessous */
+
+
 body {
     background-color: #e9ecef;
 }

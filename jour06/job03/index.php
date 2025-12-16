@@ -30,20 +30,12 @@
         </div>
 
         <!-- 2 blocs violets (Desktop: 2/3 et 1/3) / (Mobile: 1 pleine largeur + 1 petit centré + 1 moyen centré) -->
-        <div class="row mb-3">
-            <div class="col-12 col-md-8 mb-3 mb-md-0">
+        <div class="row mb-3 d-flex flex-column flex-md-row align-items-center align-items-md-start">
+            <div class="col-8 mb-3 order-2 order-md-1">
                 <div class="bloc-violet w-100"></div>
             </div>
-            <div class="col-12 col-md-4 mb-3 mb-md-0">
-                <div class="bloc-violet w-100 d-none d-md-block"></div>
-            </div>
-            <!-- Mobile seulement: petit bloc violet centré -->
-            <div class="col-12 d-md-none mb-3">
-                <div class="bloc-violet-mobile-petit mx-auto"></div>
-            </div>
-            <!-- Mobile seulement: moyen bloc violet centré -->
-            <div class="col-12 d-md-none">
-                <div class="bloc-violet-mobile-moyen mx-auto"></div>
+            <div class="col-4 mb-3 order-1 order-md-2">
+                <div class="bloc-violet w-100"></div>
             </div>
         </div>
 
