@@ -14,6 +14,11 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <style>
+      .card-action {
+        border-top: 1px solid #212121 !important;
+      }
+    </style>
   </head>
   <body class="grey darken-4 white-text">
     <!-- Header avec logo et liens -->
@@ -21,8 +26,22 @@
       <nav class="red darken-4" id="site">
         <div class="nav-wrapper">
           <a href="#site" class="brand-logo" style="margin-left: 20px">
-            <i class="material-icons left">movie</i>Wong Kar-Wai
+            <i class="material-icons left">camera_roll</i>
+            <span class="hide-on-small-only">Wong Kar-Wai</span>
+            <span class="hide-on-med-and-up">WKW</span>
           </a>
+
+          <!-- Bouton burger pour mobile -->
+          <a
+            href="#"
+            data-target="mobile-menu"
+            class="sidenav-trigger right"
+            style="margin-right: 20px"
+          >
+            <i class="material-icons">menu</i>
+          </a>
+
+          <!-- Menu desktop -->
           <ul
             id="nav-mobile"
             class="right hide-on-med-and-down"
@@ -36,6 +55,23 @@
           </ul>
         </div>
       </nav>
+
+      <!-- Menu latéral mobile -->
+      <ul class="sidenav red darken-4" id="mobile-menu">
+        <li>
+          <a href="#mood-for-love" class="white-text">In the Mood for Love</a>
+        </li>
+        <li><a href="#chungking" class="white-text">Chungking Express</a></li>
+        <li><a href="#2046" class="white-text">2046</a></li>
+        <li>
+          <a href="#les-anges-dechus" class="white-text">Les anges déchus</a>
+        </li>
+        <li>
+          <a href="#nos-annees-sauvages" class="white-text"
+            >Nos années sauvages</a
+          >
+        </li>
+      </ul>
     </header>
 
     <!-- Body avec des cartes -->
@@ -204,5 +240,12 @@
 
     <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      // Initialisation du menu mobile
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".sidenav");
+        M.Sidenav.init(elems);
+      });
+    </script>
   </body>
 </html>
