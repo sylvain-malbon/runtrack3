@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wong Kar-Wai Tribute</title>
+    <title>ADBEUS - Coffee Shops</title>
     <!-- Materialize CSS -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -15,178 +15,165 @@
       rel="stylesheet"
     />
     <style>
+      body {
+        background-color: #f5f5f5;
+      }
+      .card {
+        border-radius: 0;
+      }
       .card-action {
-        border-top: 1px solid #212121 !important;
+        border-top: 1px solid rgba(160, 160, 160, 0.2) !important;
+      }
+      .section-title {
+        color: #9e9e9e;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+        margin-top: 30px;
       }
     </style>
   </head>
-  <body class="grey darken-4 white-text">
-    <!-- Header avec logo et liens -->
+  <body>
+    <!-- Header -->
     <header>
-      <nav class="red darken-4" id="site">
+      <nav class="white">
         <div class="nav-wrapper">
-          <a href="#site" class="brand-logo" style="margin-left: 20px">
-            <i class="material-icons left">camera_roll</i>
-            <span class="hide-on-small-only">Wong Kar-Wai</span>
-            <span class="hide-on-med-and-up">WKW</span>
+          <a
+            href="#"
+            class="brand-logo grey-text text-darken-3"
+            style="margin-left: 20px"
+          >
+            <i class="material-icons left">local_cafe</i>
+            ADBEUS
           </a>
 
           <!-- Bouton burger pour mobile -->
           <a
             href="#"
             data-target="mobile-menu"
-            class="sidenav-trigger right"
+            class="sidenav-trigger right grey-text text-darken-3"
             style="margin-right: 20px"
           >
             <i class="material-icons">menu</i>
           </a>
 
           <!-- Menu desktop -->
-          <ul
-            id="nav-mobile"
-            class="right hide-on-med-and-down"
-            style="margin-right: 20px"
-          >
-            <li><a href="#mood-for-love">In the Mood for Love</a></li>
-            <li><a href="#chungking">Chungking Express</a></li>
-            <li><a href="#2046">2046</a></li>
-            <li><a href="#les-anges-dechus">Les anges déchus</a></li>
-            <li><a href="#nos-annees-sauvages">Nos années sauvages</a></li>
+          <ul class="right hide-on-med-and-down" style="margin-right: 20px">
+            <li><a href="#" class="grey-text text-darken-1">Map</a></li>
+            <li><a href="#" class="grey-text text-darken-1">Area</a></li>
+            <li><a href="#" class="grey-text text-darken-1">Info</a></li>
+            <li><a href="#" class="grey-text text-darken-1">About</a></li>
+            <li><a href="#" class="grey-text text-darken-1">Social</a></li>
           </ul>
         </div>
       </nav>
 
       <!-- Menu latéral mobile -->
-      <ul class="sidenav red darken-4" id="mobile-menu">
-        <li>
-          <a href="#mood-for-love" class="white-text">In the Mood for Love</a>
-        </li>
-        <li><a href="#chungking" class="white-text">Chungking Express</a></li>
-        <li><a href="#2046" class="white-text">2046</a></li>
-        <li>
-          <a href="#les-anges-dechus" class="white-text">Les anges déchus</a>
-        </li>
-        <li>
-          <a href="#nos-annees-sauvages" class="white-text"
-            >Nos années sauvages</a
-          >
-        </li>
+      <ul class="sidenav" id="mobile-menu">
+        <li><a href="#">Map</a></li>
+        <li><a href="#">Area</a></li>
+        <li><a href="#">Info</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Social</a></li>
       </ul>
     </header>
 
     <!-- Body avec des cartes -->
     <main class="container" style="margin-top: 40px">
-      <h4 class="center-align">Hommage à Wong Kar-Wai</h4>
+      <!-- Nouveaux Coffee Shops -->
+      <h6 class="section-title">NEW COFFEE SHOPS</h6>
       <div class="row">
-        <!-- Grande carte -->
-        <div class="col s12 m8" id="mood-for-love">
-          <div class="card blue-grey darken-3">
+        <div class="col s12 m6">
+          <div class="card">
             <div class="card-image">
               <img
-                src="https://film-grab.com/wp-content/uploads/2013/03/30.jpg"
-                alt="In the Mood for Love - Scène emblématique"
+                src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500"
+                alt="Café M"
               />
-              <span class="card-title">In the Mood for Love</span>
             </div>
-            <div class="card-content white-text">
-              <p>
-                Ce chef-d'œuvre explore la nostalgie, l'amour impossible et la
-                beauté du quotidien à Hong Kong dans les années 60.
-              </p>
-            </div>
-            <div class="card-action">
-              <a href="#mood-for-love" class="yellow-text text-lighten-3"
-                >Découvrir le film</a
+            <div class="card-content">
+              <span class="grey-text text-lighten-1" style="font-size: 0.8rem"
+                >NEW CAFE</span
               >
+              <p
+                class="grey-text text-darken-3"
+                style="font-size: 1.2rem; font-weight: 500"
+              >
+                CAFÉ M
+              </p>
             </div>
           </div>
         </div>
 
-        <!-- Carte moyenne -->
-        <div class="col s12 m4" id="chungking">
-          <div class="card red darken-3">
+        <div class="col s12 m6">
+          <div class="card">
             <div class="card-image">
               <img
-                src="https://film-grab.com/wp-content/uploads/2014/10/09-240.jpg"
-                alt="Chungking Express - Scène du film"
+                src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500"
+                alt="Village Café"
               />
-              <span class="card-title">Chungking Express</span>
             </div>
-            <div class="card-content white-text">
-              <p>
-                Deux histoires d'amour urbaines, rythmées par la pop culture et
-                la solitude moderne.
-              </p>
-            </div>
-            <div class="card-action">
-              <a href="#chungking" class="yellow-text text-lighten-3"
-                >Voir la fiche</a
+            <div class="card-content">
+              <span class="grey-text text-lighten-1" style="font-size: 0.8rem"
+                >WEEKEND COFFEE #13</span
               >
+              <p
+                class="grey-text text-darken-3"
+                style="font-size: 1.2rem; font-weight: 500"
+              >
+                VILLAGE CAFÉ
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Petites cartes -->
+      <!-- Récents Coffee Shops -->
+      <h6 class="section-title">RECENT COFFEE SHOPS</h6>
       <div class="row">
-        <div class="col s12 m4" id="2046">
-          <div class="card teal darken-3">
+        <div class="col s12 m4">
+          <div class="card">
             <div class="card-image">
               <img
-                src="https://film-grab.com/wp-content/uploads/2014/02/41.jpg"
-                alt="2046 - Scène futuriste"
+                src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400"
+                alt="Atomo"
               />
-              <span class="card-title">2046</span>
             </div>
-            <div class="card-content white-text">
-              <p>Un voyage poétique entre passé et futur.</p>
-            </div>
-            <div class="card-action">
-              <a href="#2046" class="yellow-text text-lighten-3"
-                >En savoir plus</a
+            <div class="card-content">
+              <span class="grey-text text-darken-3" style="font-size: 1rem"
+                >ATOMO</span
               >
             </div>
           </div>
         </div>
 
-        <div class="col s12 m4" id="les-anges-dechus">
-          <div class="card indigo darken-3">
+        <div class="col s12 m4">
+          <div class="card">
             <div class="card-image">
               <img
-                src="https://film-grab.com/wp-content/uploads/2014/09/26-372.jpg"
-                alt="Les Anges Déchus - Ambiance nocturne"
+                src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=400"
+                alt="Coffee Way"
               />
-              <span class="card-title">Les anges déchus</span>
             </div>
-            <div class="card-content white-text">
-              <p>Un polar nocturne stylisé et mélancolique.</p>
-            </div>
-            <div class="card-action">
-              <a href="#les-anges-dechus" class="yellow-text text-lighten-3"
-                >En savoir plus</a
+            <div class="card-content">
+              <span class="grey-text text-darken-3" style="font-size: 1rem"
+                >COFFEE WAY</span
               >
             </div>
           </div>
         </div>
 
-        <div class="col s12 m4" id="nos-annees-sauvages">
-          <div class="card amber darken-3">
+        <div class="col s12 m4">
+          <div class="card">
             <div class="card-image">
               <img
-                src="https://film-grab.com/wp-content/uploads/2014/02/62.jpg"
-                alt="Nos années sauvages - Jeunesse et identité"
+                src="https://images.unsplash.com/photo-1459755486867-b55449bb39ff?w=400"
+                alt="Westside"
               />
-              <span class="card-title">Nos années sauvages</span>
             </div>
-            <div class="card-content white-text">
-              <p>
-                La jeunesse et la quête d'identité portées par une esthétique
-                unique.
-              </p>
-            </div>
-            <div class="card-action">
-              <a href="#nos-annees-sauvages" class="yellow-text text-lighten-3"
-                >En savoir plus</a
+            <div class="card-content">
+              <span class="grey-text text-darken-3" style="font-size: 1rem"
+                >WESTSIDE</span
               >
             </div>
           </div>
@@ -195,45 +182,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="page-footer red darken-4" id="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Wong Kar-Wai</h5>
-            <p class="grey-text text-lighten-4">
-              Réalisateur hongkongais emblématique, maître de l'esthétique
-              cinématographique et de la mélancolie urbaine.
-            </p>
-          </div>
-          <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Liens</h5>
-            <ul>
-              <li>
-                <a class="grey-text text-lighten-3" href="#mood-for-love"
-                  >Accueil</a
-                >
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#mood-for-love"
-                  >Filmographie</a
-                >
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#site">Biographie</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#footer">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <footer class="page-footer white">
       <div class="footer-copyright">
-        <div class="container">
-          © 2025 Hommage Wong Kar-Wai
-          <a class="grey-text text-lighten-4 right" href="#site"
-            >Plus d'infos</a
-          >
+        <div class="container grey-text text-darken-1">
+          © 2025 ADBEUS Coffee Shops
         </div>
       </div>
     </footer>
@@ -241,7 +193,6 @@
     <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-      // Initialisation du menu mobile
       document.addEventListener("DOMContentLoaded", function () {
         var elems = document.querySelectorAll(".sidenav");
         M.Sidenav.init(elems);
