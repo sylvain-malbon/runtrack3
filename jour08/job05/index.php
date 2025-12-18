@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPADES - Reverse Engineering</title>
+    <title>SPADES (Reverse Ingeneering) - Inspiration : Site SLATE du Showcase de Tailwind</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -11,15 +11,14 @@
         body { font-family: 'Inter', sans-serif; }
         .logo-font { 
             font-family: 'Space Mono', monospace;
-            letter-spacing: 0.15em;
-            transform: scaleY(0.85);
+            transform: scaleY(0.55);
         }
     </style>
 </head>
-<body class="bg-zinc-900 text-white antialiased">
+<body class="bg-zinc-800 text-white antialiased">
 
-    <header class="flex items-center justify-between px-6 py-4 md:px-12 border-b border-zinc-800 bg-zinc-900/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="text-4xl md:text-5xl font-black uppercase logo-font ml-4 md:ml-8 text-zinc-400">
+    <header class="flex items-center justify-between px-6 py-4 md:px-12 bg-zinc-800 backdrop-blur-md sticky top-0 z-50">
+        <div class="text-5xl md:text-7xl font-black uppercase logo-font ml-4 md:ml-8 text-zinc-300">
             SPADES
         </div>
 
@@ -200,47 +199,47 @@
     </section>
 
     <footer class="p-6 md:p-12 bg-zinc-900">
-        <div class="border-t border-zinc-800 pt-12">
+        <div class="pt-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
                 <div>
                     <h4 class="text-[10px] font-black uppercase tracking-widest mb-4 text-white">Company</h4>
                     <ul class="space-y-2 text-[10px] uppercase text-zinc-600 font-bold">
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">About Us</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Careers</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Press Kit</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Press Kit</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Contact</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[10px] font-black uppercase tracking-widest mb-4 text-white">Support</h4>
                     <ul class="space-y-2 text-[10px] uppercase text-zinc-600 font-bold">
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Help Center</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Documentation</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Community</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Warranty</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Community</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Warranty</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[10px] font-black uppercase tracking-widest mb-4 text-white">Shop</h4>
                     <ul class="space-y-2 text-[10px] uppercase text-zinc-600 font-bold">
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Marketplace</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Accessories</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Parts</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Merch</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Marketplace</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Accessories</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Parts</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Merch</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[10px] font-black uppercase tracking-widest mb-4 text-white">Legal</h4>
                     <ul class="space-y-2 text-[10px] uppercase text-zinc-600 font-bold">
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Terms of Use</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Cookie Policy</a></li>
-                        <li><a href="#" class="hover:text-zinc-400 transition-colors">Licenses</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Terms of Use</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition-colors">Licenses</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="overflow-hidden border-t border-zinc-800 pt-20">
+        <div class="overflow-hidden pt-20">
             <div class="flex justify-center gap-4 mb-12">
                 <a href="#" class="w-12 h-12 rounded-full bg-zinc-800 hover:bg-orange-600 flex items-center justify-center transition-all duration-300">
                     <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -268,11 +267,11 @@
                     </svg>
                 </a>
             </div>
-            <h1 class="text-[22vw] font-black leading-none uppercase text-zinc-700 translate-y-4 logo-font">
+            <h1 class="text-[22vw] font-black leading-none uppercase text-zinc-700 translate-y-4 logo-font" style="transform: scaleY(0.55);">
                 SPADES
             </h1>
         </div>
-        <div class="flex justify-between items-center py-8 text-zinc-700 text-[10px] font-bold uppercase tracking-widest border-t border-zinc-800">
+        <div class="flex justify-between items-center py-8 text-zinc-700 text-[10px] font-bold uppercase tracking-widest">
             <p>© 2025 SPADES Motors</p>
         </div>
     </footer>
