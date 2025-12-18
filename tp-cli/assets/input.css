@@ -1,0 +1,16 @@
+/* app.css */
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #667eea;
+  --color-accent: #764ba2;
+  --font-display: "Inter", sans-serif;
+}
+
+@layer components {
+  .btn-cta {
+    @apply bg-brand hover:bg-accent text-white px-8 py-4
+           rounded-lg font-bold text-lg shadow-xl
+           hover:shadow-2xl transition duration-300;
+  }
+}
