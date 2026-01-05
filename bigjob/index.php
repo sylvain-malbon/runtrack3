@@ -106,7 +106,7 @@
   <!-- SCRIPTS -->
   <script src="assets/js/register.js"></script>
   <script src="assets/js/auth.js"></script>
-    <script src="assets/js/logout.js"></script>
+  <script src="assets/js/logout.js"></script>
   <script src="assets/js/calendar.js"></script>
   <script src="assets/js/requests.js"></script>
   <script src="assets/js/admin.js"></script>

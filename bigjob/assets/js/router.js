@@ -8,7 +8,6 @@ function navigate() {
     }
 
     const publicPages = ["#login", "#register"];
-
     const user = JSON.parse(sessionStorage.getItem("currentUser"));
 
     // Protection des pages privées
@@ -17,6 +16,14 @@ function navigate() {
         return;
     }
 
+    // Protection de la page admin
+    if (hash === "#admin" && user?.role !== "admin" && user?.role !== "moderator") {
+        alert("Accès réservé aux modérateurs et administrateurs");
+        window.location.hash = "#calendar";
+        return;
+    }
+
+    // Affichage des sections
     document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
 
     const page = document.querySelector(hash);
