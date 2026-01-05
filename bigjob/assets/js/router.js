@@ -1,6 +1,12 @@
 function navigate() {
     const hash = window.location.hash || "#login";
 
+    // Déconnexion
+    if (hash === "#logout") {
+        logout();
+        return;
+    }
+
     const publicPages = ["#login", "#register"];
 
     const user = JSON.parse(sessionStorage.getItem("currentUser"));

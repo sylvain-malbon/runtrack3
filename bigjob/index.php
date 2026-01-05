@@ -46,6 +46,7 @@
     <div class="text-xl font-bold tracking-wide">La Plateforme_</div>
     <div class="space-x-6 font-medium">
       <a href="#login" class="hover:opacity-80">Login</a>
+      <a href="#logout" class="hover:opacity-80">Déconnexion</a>
       <a href="#register" class="hover:opacity-80">Inscription</a>
       <a href="#calendar" class="hover:opacity-80">Calendrier</a>
       <a href="#requests" class="hover:opacity-80">Mes demandes</a>
@@ -105,10 +106,12 @@
   <!-- SCRIPTS -->
   <script src="assets/js/register.js"></script>
   <script src="assets/js/auth.js"></script>
+    <script src="assets/js/logout.js"></script>
   <script src="assets/js/calendar.js"></script>
   <script src="assets/js/requests.js"></script>
   <script src="assets/js/admin.js"></script>
   <script src="assets/js/router.js"></script>
+
 
 </body>
 </html>
