@@ -1,21 +1,31 @@
 /* ============================
-   STYLE 2025 — Dashboard Clean
-   Compatible Tailwind
+   STYLE 2025 — La Plateforme_
+   Dashboard Clean
    ============================ */
 
-/* Police moderne */
+/* Police */
 body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: #f5f7fa;
-    color: #1f2937;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Cards modernes */
+/* Navbar institutionnelle */
+.navbar {
+    backdrop-filter: blur(12px);
+    background: rgba(0, 59, 255, 0.90);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Cards */
 .card {
     background: white;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
     transition: transform .2s ease, box-shadow .2s ease;
 }
 
@@ -24,70 +34,40 @@ body {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Boutons modernes */
+/* Inputs */
+.input {
+    border: 1px solid #d1d5db;
+    padding: .7rem .9rem;
+    border-radius: .75rem;
+    width: 100%;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.input:focus {
+    border-color: #003BFF;
+    box-shadow: 0 0 0 3px rgba(0, 59, 255, 0.2);
+    outline: none;
+}
+
+/* Boutons */
 .btn {
-    padding: .6rem 1.2rem;
+    padding: .7rem 1.4rem;
     border-radius: .75rem;
     font-weight: 600;
     transition: background .2s ease, transform .2s ease;
 }
 
 .btn-primary {
-    background: #2563eb;
+    background: #003BFF;
     color: white;
 }
 
 .btn-primary:hover {
-    background: #1d4ed8;
+    background: #002BDD;
     transform: translateY(-2px);
 }
 
-/* Inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"] {
-    border: 1px solid #d1d5db;
-    padding: .6rem .8rem;
-    border-radius: .75rem;
-    width: 100%;
-    transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-    outline: none;
-}
-
-/* Navbar moderne */
-.navbar {
-    backdrop-filter: blur(12px);
-    background: rgba(37, 99, 235, 0.85);
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar a {
-    color: white;
-    margin-left: 1rem;
-    font-weight: 500;
-    transition: opacity .2s ease;
-}
-
-.navbar a:hover {
-    opacity: .7;
-}
-
-/* Sections masquées */
-.hidden {
-    display: none;
-}
-
-/* Animations douces */
+/* Animations */
 .fade-in {
     animation: fadeIn .4s ease forwards;
 }
@@ -102,4 +82,9 @@ input:focus {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Masquage */
+.hidden {
+    display: none;
 }

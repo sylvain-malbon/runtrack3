@@ -2,49 +2,82 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>La Plateforme - Présences</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Présences — La Plateforme_</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Palette personnalisée -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            plateforme: {
+              blue: "#003BFF",
+              dark: "#0A0A0A",
+              light: "#F5F7FA"
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Styles perso -->
+  <link rel="stylesheet" href="assets/styles/style.css">
+
+  <!-- Police Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
 
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-plateforme-light text-gray-900">
 
   <!-- NAVBAR -->
-  <nav class="bg-blue-700 text-white p-4 flex justify-between">
-    <div class="font-bold">La Plateforme_</div>
-    <div class="space-x-4">
-      <a href="#login">Login</a>
-      <a href="#calendar">Calendrier</a>
-      <a href="#requests">Mes demandes</a>
-      <a href="#admin">Admin</a>
+  <nav class="navbar shadow">
+    <div class="text-xl font-bold tracking-wide">La Plateforme_</div>
+    <div class="space-x-6 font-medium">
+      <a href="#login" class="hover:opacity-80">Login</a>
+      <a href="#calendar" class="hover:opacity-80">Calendrier</a>
+      <a href="#requests" class="hover:opacity-80">Mes demandes</a>
+      <a href="#admin" class="hover:opacity-80">Admin</a>
     </div>
   </nav>
 
   <!-- SECTIONS -->
-  <main class="p-6">
+  <main class="p-6 max-w-3xl mx-auto">
 
     <!-- LOGIN -->
-    <section id="login" class="hidden">
+    <section id="login" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Connexion</h1>
-      <input id="email" type="email" placeholder="Email" class="block mb-3 p-2 border rounded w-64">
-      <input id="password" type="password" placeholder="Mot de passe" class="block mb-3 p-2 border rounded w-64">
-      <button onclick="login()" class="bg-blue-600 text-white px-4 py-2 rounded">Se connecter</button>
+      <input id="email" type="email" placeholder="Email" class="input mb-3">
+      <input id="password" type="password" placeholder="Mot de passe" class="input mb-3">
+      <button onclick="login()" class="btn btn-primary">Se connecter</button>
     </section>
 
     <!-- CALENDAR -->
-    <section id="calendar" class="hidden">
+    <section id="calendar" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Calendrier</h1>
-      <input type="date" id="date-picker" class="p-2 border rounded mb-3">
-      <button onclick="requestPresence()" class="bg-green-600 text-white px-4 py-2 rounded">Demander présence</button>
+      <input type="date" id="date-picker" class="input mb-3">
+      <button onclick="requestPresence()" class="btn bg-green-600 text-white hover:bg-green-700">Demander présence</button>
     </section>
 
     <!-- REQUESTS -->
-    <section id="requests" class="hidden">
+    <section id="requests" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Mes demandes</h1>
       <div id="requests-list"></div>
     </section>
 
     <!-- ADMIN -->
-    <section id="admin" class="hidden">
+    <section id="admin" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Backoffice</h1>
       <div id="admin-requests"></div>
     </section>
