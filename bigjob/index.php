@@ -101,7 +101,7 @@
       <div id="admin-requests"></div>
     </section>
 
- 
+  </main>
 
   <!-- SCRIPTS -->
   <script src="assets/js/register.js"></script>
