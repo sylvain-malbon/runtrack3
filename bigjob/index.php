@@ -46,6 +46,7 @@
     <div class="text-xl font-bold tracking-wide">La Plateforme_</div>
     <div class="space-x-6 font-medium">
       <a href="#login" class="hover:opacity-80">Login</a>
+      <a href="#register" class="hover:opacity-80">Inscription</a>
       <a href="#calendar" class="hover:opacity-80">Calendrier</a>
       <a href="#requests" class="hover:opacity-80">Mes demandes</a>
       <a href="#admin" class="hover:opacity-80">Admin</a>
@@ -62,6 +63,23 @@
       <input id="password" type="password" placeholder="Mot de passe" class="input mb-3">
       <button onclick="login()" class="btn btn-primary">Se connecter</button>
     </section>
+
+    <!-- REGISTER -->
+<section id="register" class="hidden fade-in card">
+  <h1 class="text-2xl font-bold mb-4">Inscription</h1>
+
+  <input id="reg-nom" type="text" placeholder="Nom" class="input mb-3">
+  <input id="reg-prenom" type="text" placeholder="Prénom" class="input mb-3">
+  <input id="reg-email" type="email" placeholder="Email @laplateforme.io" class="input mb-3">
+  <input id="reg-password" type="password" placeholder="Mot de passe" class="input mb-3">
+
+  <button onclick="registerUser()" class="btn btn-primary">Créer mon compte</button>
+
+  <p class="mt-4 text-sm">
+    Déjà un compte ?
+    <a href="#login" class="text-plateforme-blue font-semibold">Se connecter</a>
+  </p>
+</section>
 
     <!-- CALENDAR -->
     <section id="calendar" class="hidden fade-in card">
