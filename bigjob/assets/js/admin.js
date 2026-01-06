@@ -9,30 +9,49 @@ function loadAdminRequests() {
     if (!user || (user.role !== "admin" && user.role !== "moderator")) return;
 
     const requests = getRequests();
-    const pending = requests.filter(r => r.status === "pending");
 
     const container = document.getElementById("admin-requests");
-    if (!container) return; // garde conteneur
+    if (!container) return;
     container.innerHTML = "";
 
-    pending.forEach(r => {
-        const div = document.createElement("div");
+    const statusOrder = { pending: 1, approved: 2, refused: 3 };
+    const sorted = [...requests].sort(
+        (a, b) => (statusOrder[a.status] ?? 99) - (statusOrder[b.status] ?? 99)
+    );
 
-        // Responsive + anti-chevauchement
+    sorted.forEach(r => {
+        const status = r.status || "pending";
+        const statusClass =
+            status === "approved"
+                ? "bg-green-600"
+                : status === "refused"
+                    ? "bg-red-600"
+                    : "bg-yellow-600";
+
+        const disabledAttr = status === "pending" ? "" : "disabled";
+
+        const div = document.createElement("div");
         div.className =
             "p-4 bg-white shadow mb-3 rounded-xl border border-gray-100 " +
             "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3";
 
         div.innerHTML = `
-            <span class="text-gray-700 font-medium break-words">
-                ${r.date} — user ${r.userId}
-            </span>
+            <div class="flex flex-col">
+                <span class="text-gray-700 font-medium break-words">
+                    ${r.date} — user ${r.userId}
+                </span>
+                <span class="mt-1 inline-block px-3 py-1 rounded-lg text-xs font-semibold text-white ${statusClass}">
+                    ${status}
+                </span>
+            </div>
 
             <div class="flex flex-wrap gap-2">
-                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition"
+                <button ${disabledAttr}
+                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition"
                     onclick="approve(${r.id})">Accepter</button>
 
-                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition"
+                <button ${disabledAttr}
+                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition"
                     onclick="refuse(${r.id})">Refuser</button>
             </div>
         `;
@@ -89,73 +108,58 @@ function loadAdminUsers() {
     if (!container) return; // garde conteneur
     container.innerHTML = "";
 
-    // Tri par rôle (robuste si rôle inattendu)
     const roleOrder = { admin: 1, moderator: 2, user: 3 };
-    const sorted = [...users].sort((a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99));
+    const sorted = [...users].sort(
+        (a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99)
+    );
 
     sorted.forEach(u => {
-        const isCurrentUser = u.id === current.id;
         const div = document.createElement("div");
+        div.className =
+            "p-4 bg-white shadow mb-3 rounded-xl border border-gray-100 " +
+            "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3";
 
-        // Card avec highlight si c'est l'utilisateur connecté
-        div.className = `
-            p-5 bg-white shadow rounded-xl border mb-3
-            flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4
-            transition-all hover:shadow-lg
-            ${isCurrentUser ? 'border-plateforme-blue border-2 bg-blue-50/30' : 'border-gray-200'}
+        const status = u.status || "approved";
+        const statusClass =
+            status === "approved"
+                ? "bg-green-600"
+                : status === "refused"
+                    ? "bg-red-600"
+                    : "bg-yellow-600";
+
+        let actionsHtml = `
+            <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 transition"
+                onclick="promoteAdmin(${u.id})">Admin</button>
+            <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-purple-600 text-white hover:bg-purple-700 transition"
+                onclick="promoteModerator(${u.id})">Modérateur</button>
+            <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-600 text-white hover:bg-gray-700 transition"
+                onclick="demoteUser(${u.id})">User</button>
         `;
 
+        // Boutons de validation de compte uniquement si pending
+        if (status === "pending") {
+            actionsHtml += `
+                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition"
+                    onclick="approveUser(${u.id})">Valider compte</button>
+                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition"
+                    onclick="refuseUser(${u.id})">Refuser compte</button>
+            `;
+        }
+
         div.innerHTML = `
-            <!-- Infos utilisateur -->
-            <div class="flex flex-col gap-2">
-                <div class="flex items-center gap-2">
-                    <span class="text-plateforme-dark font-bold text-base">
-                        ${u.prenom || ""} ${u.nom || ""}
-                    </span>
-                    ${isCurrentUser ? '<span class="px-2 py-0.5 bg-plateforme-blue text-white text-xs font-semibold rounded">VOUS</span>' : ''}
-                </div>
-                
-                <span class="text-gray-600 text-sm break-words">${u.email}</span>
-
-                <span class="inline-block w-fit px-3 py-1 rounded-full text-xs font-bold text-white
-                    ${u.role === "admin" ? "bg-plateforme-dark" : ""}
-                    ${u.role === "moderator" ? "bg-plateforme-blue" : ""}
-                    ${u.role === "user" ? "bg-gray-500" : ""}">
-                    ${u.role.toUpperCase()}
+            <div class="flex flex-col">
+                <span class="text-gray-800 font-semibold">
+                    ${u.prenom || ""} ${u.nom || ""} (${u.email})
                 </span>
+                <span class="text-gray-500 text-sm">Rôle : ${u.role}</span>
             </div>
-
-            <!-- Boutons de rôle -->
-            <div class="flex flex-wrap gap-2">
-                <button 
-                    class="px-4 py-2 rounded-lg text-sm font-semibold transition-all
-                        ${u.role === "user"
-                ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                : "bg-gray-600 text-white hover:bg-gray-700 hover:shadow"}"
-                    onclick="demoteUser(${u.id})"
-                    ${u.role === "user" ? "disabled" : ""}>
-                    ${u.role === "user" ? "✓ " : ""}User
-                </button>
-
-                <button 
-                    class="px-4 py-2 rounded-lg text-sm font-semibold transition-all
-                        ${u.role === "moderator"
-                ? "bg-blue-200 text-blue-700 cursor-not-allowed"
-                : "bg-plateforme-blue text-white hover:bg-blue-700 hover:shadow"}"
-                    onclick="promoteModerator(${u.id})"
-                    ${u.role === "moderator" ? "disabled" : ""}>
-                    ${u.role === "moderator" ? "✓ " : ""}Modérateur
-                </button>
-
-                <button 
-                    class="px-4 py-2 rounded-lg text-sm font-semibold transition-all
-                        ${u.role === "admin"
-                ? "bg-gray-200 text-gray-700 cursor-not-allowed"
-                : "bg-plateforme-dark text-white hover:bg-black hover:shadow"}"
-                    onclick="promoteAdmin(${u.id})"
-                    ${u.role === "admin" ? "disabled" : ""}>
-                    ${u.role === "admin" ? "✓ " : ""}Admin
-                </button>
+            <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-lg text-sm font-semibold text-white ${statusClass}">
+                    ${status}
+                </span>
+                <div class="flex flex-wrap gap-2">
+                    ${actionsHtml}
+                </div>
             </div>
         `;
 
@@ -199,6 +203,42 @@ function updateUserRole(userId, newRole) {
 
     // Feedback visuel
     showNotification(`${user.prenom} ${user.nom} : ${oldRole} → ${newRole}`);
+
+    loadAdminUsers();
+}
+
+function approveUser(userId) {
+    const uid = Number(userId);
+    if (!Number.isInteger(uid)) return;
+
+    const users = getUsers();
+    const user = users.find(u => Number(u.id) === uid);
+    if (!user) return;
+
+    user.status = "approved";
+    saveUsers(users);
+
+    if (typeof showNotification === "function") {
+        showNotification(`${user.prenom || ""} ${user.nom || ""} : compte validé`);
+    }
+
+    loadAdminUsers();
+}
+
+function refuseUser(userId) {
+    const uid = Number(userId);
+    if (!Number.isInteger(uid)) return;
+
+    const users = getUsers();
+    const user = users.find(u => Number(u.id) === uid);
+    if (!user) return;
+
+    user.status = "refused";
+    saveUsers(users);
+
+    if (typeof showNotification === "function") {
+        showNotification(`${user.prenom || ""} ${user.nom || ""} : compte refusé`);
+    }
 
     loadAdminUsers();
 }

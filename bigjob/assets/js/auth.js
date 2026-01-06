@@ -7,7 +7,8 @@ function seedUsers() {
             id: 1,
             email: "admin@laplateforme.io",
             password: "admin",
-            role: "admin"
+            role: "admin",
+            status: "approved"
         },
         {
             id: 2,
@@ -15,7 +16,8 @@ function seedUsers() {
             password: "hash123",
             nom: "Doe",
             prenom: "John",
-            role: "user"
+            role: "user",
+            status: "approved"
         }
     ];
 
@@ -34,6 +36,12 @@ function login() {
 
     if (!user) {
         alert("Identifiants incorrects");
+        return;
+    }
+
+    // Bloquer les comptes non validés
+    if (user.status && user.status !== "approved") {
+        alert("Votre compte est en attente de validation par un administrateur.");
         return;
     }
 

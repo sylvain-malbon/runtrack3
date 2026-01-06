@@ -44,7 +44,8 @@ function registerUser() {
         prenom,
         email,
         password,
-        role: "user"
+        role: "user",
+        status: "pending" // en attente de validation
     };
 
     users.push(newUser);
