@@ -28,6 +28,18 @@ function navigate() {
 
     const page = document.querySelector(hash);
     if (page) page.classList.remove("hidden");
+
+    // ✅ Chargement des données selon la page
+    if (hash === "#admin") {
+        loadAdminRequests();
+        loadAdminUsers();
+    }
+
+    if (hash === "#requests") {
+        if (typeof loadUserRequests === "function") {
+            loadUserRequests();
+        }
+    }
 }
 
 window.addEventListener("hashchange", navigate);

@@ -42,7 +42,8 @@
 <body class="bg-plateforme-light text-gray-900">
 
   <!-- NAVBAR -->
-  <nav class="navbar shadow">
+<nav class="backdrop-blur-md bg-plateforme-blue/90 text-white px-8 py-4 flex justify-between items-center shadow">
+
     <div class="text-xl font-bold tracking-wide">La Plateforme_</div>
     <div class="space-x-6 font-medium">
       <a href="#login" class="hover:opacity-80">Login</a>
