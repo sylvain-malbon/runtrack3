@@ -21,7 +21,7 @@
             email: "modo1@laplateforme.io",
             password: "modo",
             nom: "do",
-            prenom: "Modo",
+            prenom: "Mo",
             role: "moderator",
             status: "accepté"
         },
