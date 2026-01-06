@@ -8,7 +8,7 @@ function loadAdminRequests() {
     const user = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!user || (user.role !== "admin" && user.role !== "moderator")) return;
 
-    const requests = JSON.parse(localStorage.getItem("requests")) || [];
+    const requests = getRequests();
     const pending = requests.filter(r => r.status === "pending");
 
     const container = document.getElementById("admin-requests");
@@ -48,12 +48,12 @@ function approve(id) {
     const rid = Number(id);
     if (!Number.isInteger(rid)) return;
 
-    const requests = JSON.parse(localStorage.getItem("requests")) || [];
+    const requests = getRequests();
     const req = requests.find(r => Number(r.id) === rid && r.status === "pending");
     if (!req) return;
 
     req.status = "approved";
-    localStorage.setItem("requests", JSON.stringify(requests));
+    saveRequests(requests);
 
     loadAdminRequests();
     if (typeof loadUserRequests === "function") loadUserRequests();
@@ -66,12 +66,12 @@ function refuse(id) {
     const rid = Number(id);
     if (!Number.isInteger(rid)) return;
 
-    const requests = JSON.parse(localStorage.getItem("requests")) || [];
+    const requests = getRequests();
     const req = requests.find(r => Number(r.id) === rid && r.status === "pending");
     if (!req) return;
 
     req.status = "refused";
-    localStorage.setItem("requests", JSON.stringify(requests));
+    saveRequests(requests);
 
     loadAdminRequests();
     if (typeof loadUserRequests === "function") loadUserRequests();
@@ -84,7 +84,7 @@ function loadAdminUsers() {
     const current = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!current || current.role !== "admin") return;
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const users = getUsers();
     const container = document.getElementById("admin-users");
     if (!container) return; // garde conteneur
     container.innerHTML = "";
@@ -188,14 +188,14 @@ function updateUserRole(userId, newRole) {
         return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const users = getUsers();
     const user = users.find(u => Number(u.id) === uid);
     if (!user) return;
 
     const oldRole = user.role;
     user.role = newRole;
 
-    localStorage.setItem("users", JSON.stringify(users));
+    saveUsers(users);
 
     // Feedback visuel
     showNotification(`${user.prenom} ${user.nom} : ${oldRole} → ${newRole}`);
@@ -214,6 +214,23 @@ function showNotification(message) {
         notif.classList.add("animate-fade-out");
         setTimeout(() => notif.remove(), 300);
     }, 2000);
+}
+
+// Helpers de persistance locale (localStorage = source de vérité)
+function getRequests() {
+    return JSON.parse(localStorage.getItem("requests")) || [];
+}
+
+function saveRequests(requests) {
+    localStorage.setItem("requests", JSON.stringify(requests));
+}
+
+function getUsers() {
+    return JSON.parse(localStorage.getItem("users")) || [];
+}
+
+function saveUsers(users) {
+    localStorage.setItem("users", JSON.stringify(users));
 }
 
 // Aucune occurrence de 'fetch' dans ce fichier.
