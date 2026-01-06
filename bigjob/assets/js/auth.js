@@ -13,21 +13,39 @@ function seedUsers() {
     const defaultUsers = [
         {
             id: 1,
-            email: "admin@laplateforme.io",
-            password: "admin",
+            email: "superadmin@laplateforme.io",
+            password: "superadmin",
             nom: "Admin",
             prenom: "Super",
-            role: "admin",
-            status: "approved"
+            role: "superadmin",
+            status: "accepté"
         },
         {
             id: 2,
+            email: "admin@laplateforme.io",
+            password: "admin",
+            nom: "min",
+            prenom: "Ad",
+            role: "admin",
+            status: "accepté"
+        },
+        {
+            id: 3,
+            email: "modo1@laplateforme.io",
+            password: "modo",
+            nom: "do",
+            prenom: "Modo",
+            role: "moderator",
+            status: "accepté"
+        },
+        {
+            id: 4,
             email: "john@laplateforme.io",
             password: "hash123",
             nom: "Doe",
             prenom: "John",
             role: "user",
-            status: "approved"
+            status: "accepté"
         }
     ];
 
@@ -52,11 +70,24 @@ function login() {
     }
 
     // Bloquer les comptes non validés
-    if (user.status && user.status !== "approved") {
+    if (user.status && user.status !== "accepté") {
         alert("Votre compte est en attente de validation par un administrateur.");
         return;
     }
 
     sessionStorage.setItem("currentUser", JSON.stringify(user));
-    window.location.hash = "#calendar";
+    window.location.hash = "#calendrier";
+
+    // Mettre à jour la navigation
+    if (typeof updateNavigation === 'function') {
+        updateNavigation();
+    }
+}
+
+function logout() {
+    sessionStorage.removeItem("currentUser");
+    window.location.hash = '#accueil';
+    if (typeof updateNavigation === 'function') {
+        updateNavigation();
+    }
 }

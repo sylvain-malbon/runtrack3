@@ -42,24 +42,48 @@
 <body class="bg-plateforme-light text-gray-900">
 
   <!-- NAVBAR -->
-<nav class="backdrop-blur-md bg-plateforme-blue/90 text-white px-8 py-4 flex justify-between items-center shadow">
-
-    <div class="text-xl font-bold tracking-wide">La Plateforme_</div>
-    <div class="space-x-6 font-medium">
-      <a href="#login" class="hover:opacity-80">Connexion</a>
-      <a href="#logout" class="hover:opacity-80">Déconnexion</a>
-      <a href="#register" class="hover:opacity-80">Inscription</a>
-      <a href="#calendar" class="hover:opacity-80">Calendrier</a>
-      <a href="#requests" class="hover:opacity-80">Mes demandes</a>
-      <a href="#admin" class="hover:opacity-80">Admin</a>
-    </div>
-  </nav>
+<nav class="navbar">
+    <a class="font-bold text-xl" href="#accueil">La Plateforme_</a>
+    <ul class="navbar-nav">
+        <li class="nav-item" id="nav-accueil">
+            <a class="nav-link" href="#accueil">Accueil</a>
+        </li>
+        <li class="nav-item" id="nav-calendrier" style="display: none;">
+            <a class="nav-link" href="#calendrier">Calendrier</a>
+        </li>
+        <li class="nav-item" id="nav-demandes" style="display: none;">
+            <a class="nav-link" href="#mes-demandes">Mes demandes</a>
+        </li>
+        <li class="nav-item" id="nav-admin" style="display: none;">
+            <a class="nav-link" href="#admin">Administration</a>
+        </li>
+        <li class="nav-item" id="nav-inscription">
+            <a class="nav-link" href="#inscription">Inscription</a>
+        </li>
+        <li class="nav-item" id="nav-connexion">
+            <a class="nav-link" href="#connexion">Connexion</a>
+        </li>
+        <li class="nav-item" id="nav-deconnexion" style="display: none;">
+            <a class="nav-link" href="#" onclick="logout(); return false;">Déconnexion</a>
+        </li>
+    </ul>
+</nav>
 
   <!-- SECTIONS -->
   <main class="p-6 max-w-3xl mx-auto">
 
+    <!-- ACCUEIL -->
+    <section id="accueil" class="fade-in card">
+      <h1 class="text-3xl font-bold mb-4">Bienvenue sur La Plateforme_</h1>
+      <p class="text-gray-600 mb-6">Gérez vos présences simplement et efficacement.</p>
+      <div class="flex gap-4">
+        <a href="#connexion" class="btn btn-primary">Se connecter</a>
+        <a href="#inscription" class="btn bg-gray-200 text-gray-800 hover:bg-gray-300">S'inscrire</a>
+      </div>
+    </section>
+
     <!-- LOGIN -->
-    <section id="login" class="hidden fade-in card">
+    <section id="connexion" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Connexion</h1>
       <input id="email" type="email" placeholder="Email" class="input mb-3">
       <input id="password" type="password" placeholder="Mot de passe" class="input mb-3">
@@ -67,7 +91,7 @@
     </section>
 
     <!-- REGISTER -->
-<section id="register" class="hidden fade-in card">
+<section id="inscription" class="hidden fade-in card">
   <h1 class="text-2xl font-bold mb-4">Inscription</h1>
 
   <input id="reg-nom" type="text" placeholder="Nom" class="input mb-3">
@@ -79,19 +103,19 @@
 
   <p class="mt-4 text-sm">
     Déjà un compte ?
-    <a href="#login" class="text-plateforme-blue font-semibold">Se connecter</a>
+    <a href="#connexion" class="text-plateforme-blue font-semibold">Se connecter</a>
   </p>
 </section>
 
     <!-- CALENDAR -->
-    <section id="calendar" class="hidden fade-in card">
+    <section id="calendrier" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Calendrier</h1>
       <input type="date" id="date-picker" class="input mb-3">
       <button onclick="requestPresence()" class="btn bg-green-600 text-white hover:bg-green-700">Demander présence</button>
     </section>
 
     <!-- REQUESTS -->
-    <section id="requests" class="hidden fade-in card">
+    <section id="mes-demandes" class="hidden fade-in card">
       <h1 class="text-2xl font-bold mb-4">Mes demandes</h1>
       <div id="requests-list"></div>
     </section>
@@ -119,12 +143,11 @@
   <!-- SCRIPTS -->
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/register.js"></script>
-  <script src="assets/js/logout.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/router.js"></script>
   <script src="assets/js/calendar.js"></script>
   <script src="assets/js/requests.js"></script>
   <script src="assets/js/admin.js"></script>
-  <script src="assets/js/router.js"></script>
-
 
 </body>
 </html>

@@ -1,52 +1,74 @@
-function navigate() {
-    const hash = window.location.hash || "#login";
+function initRouter() {
+    console.log("🚀 Router initialisé");
 
-    // Déconnexion (fallback si logout n'existe pas)
-    if (hash === "#logout") {
-        if (typeof logout === "function") {
-            logout();
+    // Cacher toutes les sections
+    function hideAllSections() {
+        document.querySelectorAll('main > section').forEach(section => {
+            section.classList.add('hidden');
+        });
+    }
+
+    // Afficher une section
+    function showSection(sectionId) {
+        hideAllSections();
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.classList.remove('hidden');
+            console.log(`✅ Section affichée: ${sectionId}`);
+
+            // Charger le contenu spécifique de la section
+            if (sectionId === 'admin' && typeof loadAdminPanel === 'function') {
+                console.log("🔧 Chargement du panel admin...");
+                loadAdminPanel();
+            }
+            if (sectionId === 'mes-demandes' && typeof loadUserRequests === 'function') {
+                loadUserRequests();
+            }
         } else {
-            sessionStorage.removeItem("currentUser");
-            window.location.hash = "#login";
+            console.warn(`⚠️ Section introuvable: ${sectionId}`);
         }
-        return;
     }
 
-    const publicPages = ["#login", "#register"];
-    const user = JSON.parse(sessionStorage.getItem("currentUser"));
+    // Gérer le changement de route
+    function handleRoute() {
+        const hash = window.location.hash.slice(1) || 'accueil';
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+        const isLoggedIn = currentUser !== null;
 
-    // Protection des pages privées
-    if (!user && !publicPages.includes(hash)) {
-        window.location.hash = "#login";
-        return;
+        console.log(`📍 Route: ${hash} | Connecté: ${isLoggedIn} | Rôle: ${currentUser?.role || 'none'}`);
+
+        // Routes protégées
+        const protectedRoutes = ['calendrier', 'mes-demandes'];
+        const adminRoutes = ['admin'];
+
+        // Redirection si non connecté
+        if (protectedRoutes.includes(hash) && !isLoggedIn) {
+            console.log("🔒 Redirection vers connexion (non connecté)");
+            window.location.hash = '#connexion';
+            return;
+        }
+
+        // Redirection si non admin/moderator/superadmin
+        if (adminRoutes.includes(hash) && (!isLoggedIn || !['superadmin', 'admin', 'moderator'].includes(currentUser.role))) {
+            console.log(`🔒 Redirection vers accueil (rôle: ${currentUser?.role || 'none'})`);
+            window.location.hash = '#accueil';
+            return;
+        }
+
+        showSection(hash);
+
+        // Mettre à jour la navigation après affichage de la section
+        if (typeof updateNavigation === 'function') {
+            updateNavigation();
+        }
     }
 
-    // Protection de la page admin
-    if (hash === "#admin" && user?.role !== "admin" && user?.role !== "moderator") {
-        alert("Accès réservé aux modérateurs et administrateurs");
-        window.location.hash = "#calendar";
-        return;
-    }
+    // Écouter les changements de hash
+    window.addEventListener('hashchange', handleRoute);
 
-    // Affichage des sections
-    document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
-    const page = document.querySelector(hash);
-    if (!page) { // hash inconnu -> redirection par défaut selon session
-        window.location.hash = user ? "#calendar" : "#login";
-        return;
-    }
-    page.classList.remove("hidden");
-
-    // Chargement des données selon la page (sécurisé)
-    if (hash === "#admin") {
-        if (typeof loadAdminRequests === "function") loadAdminRequests();
-        if (typeof loadAdminUsers === "function") loadAdminUsers();
-    }
-
-    if (hash === "#requests") {
-        if (typeof loadUserRequests === "function") loadUserRequests();
-    }
+    // Route initiale
+    handleRoute();
 }
 
-window.addEventListener("hashchange", navigate);
-window.addEventListener("load", navigate);
+// Initialiser au chargement
+document.addEventListener('DOMContentLoaded', initRouter);

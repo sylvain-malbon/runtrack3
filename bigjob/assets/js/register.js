@@ -51,6 +51,6 @@ function registerUser() {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("Compte créé avec succès !");
-    window.location.hash = "#login";
+    alert("Compte créé avec succès ! En attente de validation par un administrateur.");
+    window.location.hash = "#connexion";
 }
