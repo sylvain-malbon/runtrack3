@@ -42,6 +42,12 @@ function loadAdminRequests() {
                     ? "bg-red-600"
                     : "bg-yellow-600";
 
+        const statusText = status === "approved"
+            ? "Accepté"
+            : status === "refused"
+                ? "Refusé"
+                : "En attente";
+
         const disabledAttr = status === "pending" ? "" : "disabled";
 
         const div = document.createElement("div");
@@ -55,7 +61,7 @@ function loadAdminRequests() {
                     ${r.date} — ${userName}
                 </span>
                 <span class="mt-1 inline-block px-3 py-1 rounded-lg text-xs font-semibold text-white ${statusClass}">
-                    ${status}
+                    ${statusText}
                 </span>
             </div>
 
@@ -135,11 +141,17 @@ function loadAdminUsers() {
 
         const status = u.status || "approved";
         const statusClass =
-            status === "approved"
+            (status === "approved" || status === "accepté")
                 ? "bg-green-600"
                 : status === "refused"
                     ? "bg-red-600"
                     : "bg-yellow-600";
+
+        const statusText = (status === "approved" || status === "accepté")
+            ? "Accepté"
+            : status === "refused"
+                ? "Refusé"
+                : "En attente";
 
         // LOGIQUE DE PERMISSIONS
         const isSuperAdmin = current.role === "superadmin";
@@ -257,7 +269,7 @@ function loadAdminUsers() {
             </div>
             <div class="flex items-center gap-3 flex-wrap">
                 <span class="px-3 py-1 rounded-lg text-sm font-semibold text-white ${statusClass}">
-                    ${status}
+                    ${statusText}
                 </span>
                 <div class="flex flex-wrap gap-2 items-center">
                     ${actionsHtml}

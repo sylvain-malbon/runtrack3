@@ -18,7 +18,7 @@ function seedUsers() {
             nom: "Admin",
             prenom: "Super",
             role: "superadmin",
-            status: "accepté"
+            status: "approved"
         },
         {
             id: 2,
@@ -27,7 +27,7 @@ function seedUsers() {
             nom: "min",
             prenom: "Ad",
             role: "admin",
-            status: "accepté"
+            status: "approved"
         },
         {
             id: 3,
@@ -36,16 +36,16 @@ function seedUsers() {
             nom: "do",
             prenom: "Mo",
             role: "moderator",
-            status: "accepté"
+            status: "approved"
         },
         {
             id: 4,
             email: "john@laplateforme.io",
-            password: "hash123",
+            password: "johndoe",
             nom: "Doe",
             prenom: "John",
             role: "user",
-            status: "accepté"
+            status: "approved"
         }
     ];
 
@@ -70,7 +70,7 @@ function login() {
     }
 
     // Bloquer les comptes non validés
-    if (user.status && user.status !== "accepté") {
+    if (user.status && user.status !== "approved") {
         alert("Votre compte est en attente de validation par un administrateur.");
         return;
     }
