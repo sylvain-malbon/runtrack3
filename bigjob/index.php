@@ -46,7 +46,7 @@
 
     <div class="text-xl font-bold tracking-wide">La Plateforme_</div>
     <div class="space-x-6 font-medium">
-      <a href="#login" class="hover:opacity-80">Login</a>
+      <a href="#login" class="hover:opacity-80">Connexion</a>
       <a href="#logout" class="hover:opacity-80">Déconnexion</a>
       <a href="#register" class="hover:opacity-80">Inscription</a>
       <a href="#calendar" class="hover:opacity-80">Calendrier</a>
