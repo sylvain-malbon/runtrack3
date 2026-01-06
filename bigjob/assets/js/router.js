@@ -1,9 +1,14 @@
 function navigate() {
     const hash = window.location.hash || "#login";
 
-    // Déconnexion
+    // Déconnexion (fallback si logout n'existe pas)
     if (hash === "#logout") {
-        logout();
+        if (typeof logout === "function") {
+            logout();
+        } else {
+            sessionStorage.removeItem("currentUser");
+            window.location.hash = "#login";
+        }
         return;
     }
 
@@ -25,20 +30,21 @@ function navigate() {
 
     // Affichage des sections
     document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
-
     const page = document.querySelector(hash);
-    if (page) page.classList.remove("hidden");
+    if (!page) { // hash inconnu -> redirection par défaut selon session
+        window.location.hash = user ? "#calendar" : "#login";
+        return;
+    }
+    page.classList.remove("hidden");
 
-    // ✅ Chargement des données selon la page
+    // Chargement des données selon la page (sécurisé)
     if (hash === "#admin") {
-        loadAdminRequests();
-        loadAdminUsers();
+        if (typeof loadAdminRequests === "function") loadAdminRequests();
+        if (typeof loadAdminUsers === "function") loadAdminUsers();
     }
 
     if (hash === "#requests") {
-        if (typeof loadUserRequests === "function") {
-            loadUserRequests();
-        }
+        if (typeof loadUserRequests === "function") loadUserRequests();
     }
 }
 

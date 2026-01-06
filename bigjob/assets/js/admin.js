@@ -12,6 +12,7 @@ function loadAdminRequests() {
     const pending = requests.filter(r => r.status === "pending");
 
     const container = document.getElementById("admin-requests");
+    if (!container) return; // garde conteneur
     container.innerHTML = "";
 
     pending.forEach(r => {
@@ -41,8 +42,14 @@ function loadAdminRequests() {
 }
 
 function approve(id) {
+    const actor = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (!actor || (actor.role !== "admin" && actor.role !== "moderator")) return; // garde rôle
+
+    const rid = Number(id);
+    if (!Number.isInteger(rid)) return;
+
     const requests = JSON.parse(localStorage.getItem("requests")) || [];
-    const req = requests.find(r => r.id === id);
+    const req = requests.find(r => Number(r.id) === rid && r.status === "pending");
     if (!req) return;
 
     req.status = "approved";
@@ -53,8 +60,14 @@ function approve(id) {
 }
 
 function refuse(id) {
+    const actor = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (!actor || (actor.role !== "admin" && actor.role !== "moderator")) return; // garde rôle
+
+    const rid = Number(id);
+    if (!Number.isInteger(rid)) return;
+
     const requests = JSON.parse(localStorage.getItem("requests")) || [];
-    const req = requests.find(r => r.id === id);
+    const req = requests.find(r => Number(r.id) === rid && r.status === "pending");
     if (!req) return;
 
     req.status = "refused";
@@ -73,11 +86,12 @@ function loadAdminUsers() {
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const container = document.getElementById("admin-users");
+    if (!container) return; // garde conteneur
     container.innerHTML = "";
 
-    // Tri par rôle
+    // Tri par rôle (robuste si rôle inattendu)
     const roleOrder = { admin: 1, moderator: 2, user: 3 };
-    const sorted = [...users].sort((a, b) => roleOrder[a.role] - roleOrder[b.role]);
+    const sorted = [...users].sort((a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99));
 
     sorted.forEach(u => {
         const isCurrentUser = u.id === current.id;
@@ -162,8 +176,20 @@ function demoteUser(userId) {
 }
 
 function updateUserRole(userId, newRole) {
+    const allowed = ["admin", "moderator", "user"];
+    if (!allowed.includes(newRole)) return;
+
+    const uid = Number(userId);
+    if (!Number.isInteger(uid)) return;
+
+    const current = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (current && current.id === uid) {
+        showNotification("Action non autorisée : vous ne pouvez pas modifier votre propre rôle");
+        return;
+    }
+
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(u => u.id === userId);
+    const user = users.find(u => Number(u.id) === uid);
     if (!user) return;
 
     const oldRole = user.role;
@@ -189,3 +215,5 @@ function showNotification(message) {
         setTimeout(() => notif.remove(), 300);
     }, 2000);
 }
+
+// Aucune occurrence de 'fetch' dans ce fichier.
