@@ -10,25 +10,16 @@ function loadAdminRequests() {
 
     pending.forEach(r => {
         const div = document.createElement("div");
-        div.className = "p-3 bg-white shadow mb-2 flex justify-between";
+        div.className = "p-3 bg-white shadow mb-2 flex justify-between items-center";
 
         div.innerHTML = `
-      <span>${r.date} — user ${r.userId}</span>
-      <button class="bg-green-600 text-white px-2 py-1 rounded" onclick="approve(${r.id})">OK</button>
-    `;
+            <span>${r.date} — user ${r.userId}</span>
+            <div class="space-x-2">
+                <button class="bg-green-600 text-white px-2 py-1 rounded" onclick="approve(${r.id})">Accepter</button>
+                <button class="bg-red-600 text-white px-2 py-1 rounded" onclick="refuse(${r.id})">Refuser</button>
+            </div>
+        `;
 
         container.appendChild(div);
     });
 }
-
-function approve(id) {
-    const requests = JSON.parse(localStorage.getItem("requests")) || [];
-    const req = requests.find(r => r.id === id);
-    req.status = "approved";
-    localStorage.setItem("requests", JSON.stringify(requests));
-    loadAdminRequests();
-}
-
-window.addEventListener("hashchange", () => {
-    if (window.location.hash === "#admin") loadAdminRequests();
-});
