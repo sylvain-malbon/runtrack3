@@ -9,6 +9,8 @@ function loadAdminRequests() {
     if (!user || (user.role !== "admin" && user.role !== "moderator")) return;
 
     const requests = getRequests();
+    // Récupérer les utilisateurs depuis localStorage
+    const users = getUsers();
 
     const container = document.getElementById("admin-requests");
     if (!container) return;
@@ -20,6 +22,12 @@ function loadAdminRequests() {
     );
 
     sorted.forEach(r => {
+        // Trouver l'utilisateur correspondant
+        const requestUser = users.find(u => u.id === r.userId);
+        const userName = requestUser
+            ? `${requestUser.prenom || ''} ${requestUser.nom || ''}`.trim()
+            : `Utilisateur ${r.userId}`;
+
         const status = r.status || "pending";
         const statusClass =
             status === "approved"
@@ -38,7 +46,7 @@ function loadAdminRequests() {
         div.innerHTML = `
             <div class="flex flex-col">
                 <span class="text-gray-700 font-medium break-words">
-                    ${r.date} — user ${r.userId}
+                    ${r.date} — ${userName}
                 </span>
                 <span class="mt-1 inline-block px-3 py-1 rounded-lg text-xs font-semibold text-white ${statusClass}">
                     ${status}
