@@ -1,12 +1,22 @@
 function seedUsers() {
+    console.log("🔄 Initialisation seedUsers...");
+
     const existing = JSON.parse(localStorage.getItem("users"));
-    if (existing && existing.length > 0) return;
+
+    if (existing && existing.length > 0) {
+        console.log("✅ Utilisateurs déjà présents:", existing.length);
+        return;
+    }
+
+    console.log("⚠️ Aucun utilisateur trouvé, création...");
 
     const defaultUsers = [
         {
             id: 1,
             email: "admin@laplateforme.io",
             password: "admin",
+            nom: "Admin",
+            prenom: "Super",
             role: "admin",
             status: "approved"
         },
@@ -22,8 +32,10 @@ function seedUsers() {
     ];
 
     localStorage.setItem("users", JSON.stringify(defaultUsers));
+    console.log("✅ Utilisateurs créés:", defaultUsers.length);
 }
 
+// Exécution immédiate
 seedUsers();
 
 function login() {
