@@ -96,10 +96,18 @@
     </section>
 
     <!-- ADMIN -->
-    <section id="admin" class="hidden fade-in card">
-      <h1 class="text-2xl font-bold mb-4">Backoffice</h1>
-      <div id="admin-requests"></div>
-    </section>
+<section id="admin" class="hidden fade-in card">
+  <h1 class="text-2xl font-bold mb-4">Backoffice</h1>
+
+  <!-- DEMANDES -->
+  <h2 class="text-xl font-semibold mt-6 mb-2">Demandes en attente</h2>
+  <div id="admin-requests"></div>
+
+  <!-- UTILISATEURS -->
+  <h2 class="text-xl font-semibold mt-6 mb-2">Gestion des utilisateurs</h2>
+  <div id="admin-users"></div>
+</section>
+
 
   </main>
 
