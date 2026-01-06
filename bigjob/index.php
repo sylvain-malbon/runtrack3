@@ -97,14 +97,18 @@
 
     <!-- ADMIN -->
 <section id="admin" class="hidden fade-in card">
-  <h1 class="text-2xl font-bold mb-4">Backoffice</h1>
+  <h1 class="text-2xl font-bold mb-1">Backoffice</h1>
+  <p class="text-gray-500 text-sm mb-6">Gérez les demandes de présence et les rôles utilisateurs</p>
 
   <!-- DEMANDES -->
   <h2 class="text-xl font-semibold mt-6 mb-2">Demandes en attente</h2>
   <div id="admin-requests"></div>
 
   <!-- UTILISATEURS -->
-  <h2 class="text-xl font-semibold mt-6 mb-2">Gestion des utilisateurs</h2>
+  <h2 class="text-xl font-semibold mt-8 mb-3 flex items-center gap-2">
+    <span>Gestion des utilisateurs</span>
+    <span class="text-sm font-normal text-gray-500">(Rôles et permissions)</span>
+  </h2>
   <div id="admin-users"></div>
 </section>
 

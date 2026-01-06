@@ -88,3 +88,50 @@ body {
 .hidden {
     display: none;
 }
+
+/* ============================
+   TABLEAU ADMIN
+   ============================ */
+
+/* Style du tableau */
+table {
+    border-spacing: 0;
+}
+
+table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Effet hover sur les lignes */
+table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Boutons désactivés dans le tableau */
+table button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+table button:disabled:hover {
+    transform: none !important;
+}
+
+/* Animation pour la notification */
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-bounce {
+    animation: slideInRight 0.5s ease-out;
+}
