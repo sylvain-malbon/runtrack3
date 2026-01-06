@@ -23,3 +23,25 @@ function loadAdminRequests() {
         container.appendChild(div);
     });
 }
+
+function approve(id) {
+    const requests = JSON.parse(localStorage.getItem("requests")) || [];
+    const req = requests.find(r => r.id === id);
+    req.status = "approved";
+    localStorage.setItem("requests", JSON.stringify(requests));
+    loadAdminRequests();
+    if (typeof loadUserRequests === "function") loadUserRequests();
+}
+
+function refuse(id) {
+    const requests = JSON.parse(localStorage.getItem("requests")) || [];
+    const req = requests.find(r => r.id === id);
+    req.status = "refused";
+    localStorage.setItem("requests", JSON.stringify(requests));
+    loadAdminRequests();
+    if (typeof loadUserRequests === "function") loadUserRequests();
+}
+
+window.addEventListener("hashchange", () => {
+    if (window.location.hash === "#admin") loadAdminRequests();
+});
