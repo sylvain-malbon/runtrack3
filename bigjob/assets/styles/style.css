@@ -131,20 +131,7 @@ html {
    CLASSES UTILITAIRES POUR JS
    ========================= */
 
-/* Classe pour les onglets admin actifs - utilisée par JS */
-.admin-tab.active {
-    color: #003BFF !important;
-    border-bottom-color: #003BFF !important;
-    background-color: transparent !important;
-}
-
-/* Classe pour les liens nav actifs - utilisée par JS */
-.nav-link.active {
-    font-weight: bold;
-    border-bottom: 3px solid white;
-    background-color: #1e4fff;
-    padding-bottom: calc(0.5rem - 3px);
-}
+/* Styles actifs maintenant gérés directement en Tailwind via JavaScript */
 
 /* =========================
    RESPONSIVE UTILITIES

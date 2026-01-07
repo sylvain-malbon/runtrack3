@@ -26,7 +26,7 @@ function switchAdminTab(tabName) {
 
     // Retirer active de tous les onglets
     document.querySelectorAll('.admin-tab').forEach(tab => {
-        tab.classList.remove('active');
+        tab.classList.remove('!text-plateforme-blue', '!border-b-2', '!border-plateforme-blue', '!bg-transparent');
     });
 
     // Cacher tous les contenus
@@ -35,7 +35,7 @@ function switchAdminTab(tabName) {
     });
 
     // Activer l'onglet sélectionné
-    document.getElementById(`tab-${tabName}`).classList.add('active');
+    document.getElementById(`tab-${tabName}`).classList.add('!text-plateforme-blue', '!border-b-2', '!border-plateforme-blue', '!bg-transparent');
     document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
 
     // Recharger le contenu si nécessaire

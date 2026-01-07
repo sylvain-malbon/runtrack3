@@ -6,14 +6,14 @@ function updateNavigation() {
     const userRole = currentUser ? currentUser.role : null;
 
     // Retirer toutes les classes active
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-        link.classList.remove('active');
+    document.querySelectorAll('nav ul li a').forEach(link => {
+        link.classList.remove('font-bold', 'border-b-2', 'border-white', 'bg-blue-700');
     });
 
-    // Ajouter active à la page courante (uniquement dans navbar-nav)
-    const activeLink = document.querySelector(`.navbar-nav [href="#${currentPage}"]`);
+    // Ajouter active à la page courante
+    const activeLink = document.querySelector(`nav ul li a[href="#${currentPage}"]`);
     if (activeLink) {
-        activeLink.classList.add('active');
+        activeLink.classList.add('font-bold', 'border-b-2', 'border-white', 'bg-blue-700');
     }
 
     // Gérer la visibilité des onglets
