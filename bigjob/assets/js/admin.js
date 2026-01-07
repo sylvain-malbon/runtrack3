@@ -67,11 +67,11 @@ function loadAdminRequests() {
 
             <div class="flex flex-wrap gap-2">
                 <button ${disabledAttr}
-                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition"
+                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
                     onclick="approve(${r.id})">Accepter</button>
 
                 <button ${disabledAttr}
-                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition"
+                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
                     onclick="refuse(${r.id})">Refuser</button>
             </div>
         `;
@@ -244,10 +244,10 @@ function loadAdminUsers() {
 
         // Badge du rôle avec couleur
         const roleColors = {
-            superadmin: "bg-red-500",
-            admin: "bg-blue-600",
-            moderator: "bg-purple-600",
-            user: "bg-gray-400"
+            superadmin: "bg-indigo-900",
+            admin: "bg-blue-700",
+            moderator: "bg-blue-500",
+            user: "bg-blue-300"
         };
         const roleEmojis = {
             superadmin: "⭐",
