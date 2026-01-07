@@ -11,17 +11,17 @@
             id: 2,
             email: "admin@laplateforme.io",
             password: "admin",
-            nom: "min",
-            prenom: "Ad",
+            nom: "Admin",
+            prenom: "Admin",
             role: "admin",
             status: "accepté"
         },
         {
             id: 3,
-            email: "modo1@laplateforme.io",
+            email: "modo@laplateforme.io",
             password: "modo",
-            nom: "do",
-            prenom: "Mo",
+            nom: "Modo",
+            prenom: "Modo",
             role: "moderator",
             status: "accepté"
         },
