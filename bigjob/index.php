@@ -114,9 +114,44 @@
 
     <!-- CALENDAR -->
     <section id="calendrier" class="hidden fade-in card">
-      <h1 class="text-2xl font-bold mb-4">Calendrier</h1>
-      <input type="date" id="date-picker" class="input mb-3">
-      <button onclick="requestPresence()" class="btn bg-green-600 text-white hover:bg-green-700">Demander présence</button>
+      <h1 class="text-2xl font-bold mb-6">Calendrier des présences</h1>
+      
+      <!-- Navigation mois -->
+      <div class="flex items-center justify-between mb-6">
+        <button onclick="previousMonth()" class="btn bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2">
+          ← Précédent
+        </button>
+        <h2 id="calendar-month-year" class="text-xl font-semibold"></h2>
+        <button onclick="nextMonth()" class="btn bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2">
+          Suivant →
+        </button>
+      </div>
+
+      <!-- Calendrier -->
+      <div class="mb-6">
+        <!-- Jours de la semaine -->
+        <div class="grid grid-cols-7 gap-2 mb-2">
+          <div class="text-center text-sm font-semibold text-gray-600">Lun</div>
+          <div class="text-center text-sm font-semibold text-gray-600">Mar</div>
+          <div class="text-center text-sm font-semibold text-gray-600">Mer</div>
+          <div class="text-center text-sm font-semibold text-gray-600">Jeu</div>
+          <div class="text-center text-sm font-semibold text-gray-600">Ven</div>
+          <div class="text-center text-sm font-semibold text-gray-600">Sam</div>
+          <div class="text-center text-sm font-semibold text-gray-600">Dim</div>
+        </div>
+        
+        <!-- Grille des dates -->
+        <div id="calendar-grid" class="grid grid-cols-7 gap-2"></div>
+      </div>
+
+      <!-- Date sélectionnée et bouton -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <p class="text-sm text-gray-600 mb-2">Date sélectionnée :</p>
+        <p id="selected-date-display" class="text-lg font-semibold text-plateforme-blue mb-3">Aucune date sélectionnée</p>
+        <button onclick="requestPresence()" class="btn bg-green-600 text-white hover:bg-green-700 w-full">
+          ✓ Demander présence
+        </button>
+      </div>
     </section>
 
     <!-- REQUESTS -->
