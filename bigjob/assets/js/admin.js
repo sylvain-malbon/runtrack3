@@ -2,83 +2,277 @@
    BACKOFFICE : DEMANDES + RÔLES
    ============================ */
 
+/* ----------- VARIABLES GLOBALES ----------- */
+let allRequests = [];
+let allUsers = [];
+let currentAdminTab = 'stats';
+
 /* ----------- CHARGEMENT GLOBAL DU PANEL ADMIN ----------- */
 
 function loadAdminPanel() {
     console.log("📊 Chargement du panel admin complet...");
+    allRequests = getRequests();
+    allUsers = getUsers();
+
+    loadAdminStats();
     loadAdminRequests();
     loadAdminUsers();
+}
+
+/* ----------- GESTION DES ONGLETS ----------- */
+
+function switchAdminTab(tabName) {
+    currentAdminTab = tabName;
+
+    // Retirer active de tous les onglets
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // Cacher tous les contenus
+    document.querySelectorAll('.admin-tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+
+    // Activer l'onglet sélectionné
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
+
+    // Recharger le contenu si nécessaire
+    if (tabName === 'stats') loadAdminStats();
+    else if (tabName === 'requests') filterRequests();
+    else if (tabName === 'users') filterUsers();
+}
+
+/* ----------- STATISTIQUES ----------- */
+
+function loadAdminStats() {
+    const container = document.getElementById('admin-stats');
+    if (!container) return;
+
+    const users = getUsers();
+    const requests = getRequests();
+
+    const totalUsers = users.length;
+    const pendingUsers = users.filter(u => u.status === 'pending').length;
+    const totalRequests = requests.length;
+    const pendingRequests = requests.filter(r => r.status === 'pending').length;
+    const approvedRequests = requests.filter(r => r.status === 'approved').length;
+    const refusedRequests = requests.filter(r => r.status === 'refused').length;
+
+    const usersByRole = {
+        superadmin: users.filter(u => u.role === 'superadmin').length,
+        admin: users.filter(u => u.role === 'admin').length,
+        moderator: users.filter(u => u.role === 'moderator').length,
+        user: users.filter(u => u.role === 'user').length
+    };
+
+    const approvalRate = totalRequests > 0
+        ? Math.round((approvedRequests / totalRequests) * 100)
+        : 0;
+
+    container.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="stat-card blue">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-gray-600 text-sm font-semibold">Total Utilisateurs</span>
+                    <span class="text-2xl">👥</span>
+                </div>
+                <div class="text-3xl font-bold text-plateforme-blue">${totalUsers}</div>
+                ${pendingUsers > 0 ? `<div class="text-xs text-orange-600 mt-1">${pendingUsers} en attente</div>` : ''}
+            </div>
+            
+            <div class="stat-card orange">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-gray-600 text-sm font-semibold">Demandes en attente</span>
+                    <span class="text-2xl">⏳</span>
+                </div>
+                <div class="text-3xl font-bold text-orange-600">${pendingRequests}</div>
+                <div class="text-xs text-gray-500 mt-1">sur ${totalRequests} total</div>
+            </div>
+            
+            <div class="stat-card green">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-gray-600 text-sm font-semibold">Demandes acceptées</span>
+                    <span class="text-2xl">✅</span>
+                </div>
+                <div class="text-3xl font-bold text-green-600">${approvedRequests}</div>
+                <div class="text-xs text-gray-500 mt-1">Taux: ${approvalRate}%</div>
+            </div>
+            
+            <div class="stat-card red">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-gray-600 text-sm font-semibold">Demandes refusées</span>
+                    <span class="text-2xl">❌</span>
+                </div>
+                <div class="text-3xl font-bold text-red-600">${refusedRequests}</div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+            <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <span>📊</span>
+                <span>Répartition des rôles</span>
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg">
+                    <div class="text-2xl mb-1">⭐</div>
+                    <div class="text-2xl font-bold text-indigo-900">${usersByRole.superadmin}</div>
+                    <div class="text-xs text-gray-600 mt-1">SuperAdmins</div>
+                </div>
+                <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg">
+                    <div class="text-2xl mb-1">👑</div>
+                    <div class="text-2xl font-bold text-blue-700">${usersByRole.admin}</div>
+                    <div class="text-xs text-gray-600 mt-1">Admins</div>
+                </div>
+                <div class="text-center p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg">
+                    <div class="text-2xl mb-1">🛡️</div>
+                    <div class="text-2xl font-bold text-cyan-600">${usersByRole.moderator}</div>
+                    <div class="text-xs text-gray-600 mt-1">Modérateurs</div>
+                </div>
+                <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-slate-50 rounded-lg">
+                    <div class="text-2xl mb-1">👤</div>
+                    <div class="text-2xl font-bold text-gray-600">${usersByRole.user}</div>
+                    <div class="text-xs text-gray-600 mt-1">Users</div>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 /* ----------- DEMANDES ----------- */
 
 function loadAdminRequests() {
+    allRequests = getRequests();
+    filterRequests();
+}
+
+function filterRequests() {
     const user = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!user || !["admin", "moderator", "superadmin"].includes(user.role)) return;
+
+    const searchTerm = document.getElementById('search-requests')?.value.toLowerCase() || '';
+    const statusFilter = document.getElementById('filter-request-status')?.value || 'all';
 
     const requests = getRequests();
     const users = getUsers();
 
     const container = document.getElementById("admin-requests");
     if (!container) return;
-    container.innerHTML = "";
 
+    // Filtrage
+    let filtered = requests.filter(r => {
+        const requestUser = users.find(u => u.id === r.userId);
+        const userName = requestUser
+            ? `${requestUser.prenom || ''} ${requestUser.nom || ''}`.trim().toLowerCase()
+            : '';
+        const userEmail = requestUser?.email?.toLowerCase() || '';
+        const date = r.date || '';
+
+        const matchSearch = !searchTerm ||
+            userName.includes(searchTerm) ||
+            userEmail.includes(searchTerm) ||
+            date.includes(searchTerm);
+
+        const matchStatus = statusFilter === 'all' || r.status === statusFilter;
+
+        return matchSearch && matchStatus;
+    });
+
+    // Tri par statut puis date
     const statusOrder = { pending: 1, approved: 2, refused: 3 };
-    const sorted = [...requests].sort(
-        (a, b) => (statusOrder[a.status] ?? 99) - (statusOrder[b.status] ?? 99)
-    );
+    filtered.sort((a, b) => {
+        const statusDiff = (statusOrder[a.status] ?? 99) - (statusOrder[b.status] ?? 99);
+        if (statusDiff !== 0) return statusDiff;
+        return new Date(b.date) - new Date(a.date);
+    });
 
-    sorted.forEach(r => {
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="text-center py-12 text-gray-500">
+                <div class="text-6xl mb-4">📋</div>
+                <p class="text-lg font-semibold">Aucune demande trouvée</p>
+                <p class="text-sm">Essayez d'ajuster vos filtres</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Générer le tableau
+    let tableHTML = `
+        <div class="overflow-x-auto">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Utilisateur</th>
+                        <th>Email</th>
+                        <th>Statut</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    filtered.forEach(r => {
         const requestUser = users.find(u => u.id === r.userId);
         const userName = requestUser
             ? `${requestUser.prenom || ''} ${requestUser.nom || ''}`.trim()
             : `Utilisateur ${r.userId}`;
+        const userEmail = requestUser?.email || 'N/A';
 
         const status = r.status || "pending";
-        const statusClass =
-            status === "approved"
-                ? "bg-green-600"
-                : status === "refused"
-                    ? "bg-red-600"
-                    : "bg-yellow-600";
-
-        const statusText = status === "approved"
-            ? "Accepté"
-            : status === "refused"
-                ? "Refusé"
-                : "En attente";
+        const statusText = status === "approved" ? "Acceptée" : status === "refused" ? "Refusée" : "En attente";
+        const statusClass = status === "approved" ? "approved" : status === "refused" ? "refused" : "pending";
 
         const disabledAttr = status === "pending" ? "" : "disabled";
 
-        const div = document.createElement("div");
-        div.className =
-            "p-4 bg-white shadow mb-3 rounded-xl border border-gray-100 " +
-            "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3";
+        const formattedDate = new Date(r.date).toLocaleDateString('fr-FR', {
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        });
 
-        div.innerHTML = `
-            <div class="flex flex-col">
-                <span class="text-gray-700 font-medium break-words">
-                    ${r.date} — ${userName}
-                </span>
-                <span class="mt-1 inline-block px-2 py-1 rounded-lg text-xs font-semibold text-white ${statusClass} w-fit">
-                    ${statusText}
-                </span>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-                <button ${disabledAttr}
-                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-                    onclick="approve(${r.id})">Accepter</button>
-
-                <button ${disabledAttr}
-                    class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-                    onclick="refuse(${r.id})">Refuser</button>
-            </div>
+        tableHTML += `
+            <tr>
+                <td class="font-semibold text-gray-700">${formattedDate}</td>
+                <td>${userName}</td>
+                <td class="text-gray-600 text-sm">${userEmail}</td>
+                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                <td class="text-center">
+                    <div class="flex gap-2 justify-center">
+                        <button ${disabledAttr}
+                            class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+                            onclick="approve(${r.id})">✓</button>
+                        <button ${disabledAttr}
+                            class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+                            onclick="refuse(${r.id})">✗</button>
+                    </div>
+                </td>
+            </tr>
         `;
-
-        container.appendChild(div);
     });
+
+    tableHTML += `
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-sm text-gray-500 text-center">
+            ${filtered.length} demande${filtered.length > 1 ? 's' : ''} affichée${filtered.length > 1 ? 's' : ''}
+        </div>
+    `;
+
+    container.innerHTML = tableHTML;
 }
+
+// Événements de recherche
+document.addEventListener('DOMContentLoaded', () => {
+    const searchRequests = document.getElementById('search-requests');
+    if (searchRequests) {
+        searchRequests.addEventListener('input', filterRequests);
+    }
+});
 
 function approve(id) {
     const actor = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -94,6 +288,8 @@ function approve(id) {
     req.status = "approved";
     saveRequests(requests);
 
+    showNotification("✅ Demande acceptée");
+    loadAdminStats();
     loadAdminRequests();
     if (typeof loadUserRequests === "function") loadUserRequests();
 }
@@ -112,6 +308,8 @@ function refuse(id) {
     req.status = "refused";
     saveRequests(requests);
 
+    showNotification("❌ Demande refusée");
+    loadAdminStats();
     loadAdminRequests();
     if (typeof loadUserRequests === "function") loadUserRequests();
 }
@@ -120,38 +318,75 @@ function refuse(id) {
 /* ----------- GESTION DES RÔLES ----------- */
 
 function loadAdminUsers() {
+    allUsers = getUsers();
+    filterUsers();
+}
+
+function filterUsers() {
     const current = JSON.parse(sessionStorage.getItem("currentUser"));
     if (!current || !["admin", "superadmin", "moderator"].includes(current.role)) return;
+
+    const searchTerm = document.getElementById('search-users')?.value.toLowerCase() || '';
+    const roleFilter = document.getElementById('filter-user-role')?.value || 'all';
+    const statusFilter = document.getElementById('filter-user-status')?.value || 'all';
 
     const users = getUsers();
     const container = document.getElementById("admin-users");
     if (!container) return;
-    container.innerHTML = "";
 
+    // Filtrage
+    let filtered = users.filter(u => {
+        const userName = `${u.prenom || ''} ${u.nom || ''}`.trim().toLowerCase();
+        const userEmail = u.email?.toLowerCase() || '';
+
+        const matchSearch = !searchTerm ||
+            userName.includes(searchTerm) ||
+            userEmail.includes(searchTerm);
+
+        const matchRole = roleFilter === 'all' || u.role === roleFilter;
+        const matchStatus = statusFilter === 'all' || (u.status || 'approved') === statusFilter;
+
+        return matchSearch && matchRole && matchStatus;
+    });
+
+    // Tri par rôle
     const roleOrder = { superadmin: 0, admin: 1, moderator: 2, user: 3 };
-    const sorted = [...users].sort(
-        (a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99)
-    );
+    filtered.sort((a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99));
 
-    sorted.forEach(u => {
-        const div = document.createElement("div");
-        div.className =
-            "p-4 bg-white shadow mb-3 rounded-xl border border-gray-100 " +
-            "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3";
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="text-center py-12 text-gray-500">
+                <div class="text-6xl mb-4">👥</div>
+                <p class="text-lg font-semibold">Aucun utilisateur trouvé</p>
+                <p class="text-sm">Essayez d'ajuster vos filtres</p>
+            </div>
+        `;
+        return;
+    }
 
+    // Générer le tableau
+    let tableHTML = `
+        <div class="overflow-x-auto">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                        <th>Statut</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    filtered.forEach(u => {
         const status = u.status || "approved";
-        const statusClass =
-            (status === "approved" || status === "accepté")
-                ? "bg-green-600"
-                : status === "refused"
-                    ? "bg-red-600"
-                    : "bg-yellow-600";
+        const statusText = (status === "approved" || status === "accepté") ? "Validé" : status === "refused" ? "Refusé" : "En attente";
+        const statusClass = (status === "approved" || status === "accepté") ? "approved" : status === "refused" ? "refused" : "pending";
 
-        const statusText = (status === "approved" || status === "accepté")
-            ? "Accepté"
-            : status === "refused"
-                ? "Refusé"
-                : "En attente";
+        const roleEmojis = { superadmin: "⭐", admin: "👑", moderator: "🛡️", user: "👤" };
+        const roleLabels = { superadmin: "SuperAdmin", admin: "Admin", moderator: "Modérateur", user: "User" };
 
         // LOGIQUE DE PERMISSIONS
         const isSuperAdmin = current.role === "superadmin";
@@ -159,27 +394,27 @@ function loadAdminUsers() {
         const isModerator = current.role === "moderator";
         const isSelf = current.id === u.id;
 
-        let actionsHtml = "";
+        let actionsHTML = "";
 
         // CAS 1 : C'est soi-même → Aucune action possible
         if (isSelf) {
-            actionsHtml = '<span class="text-sm text-gray-500 italic">🔒 Votre compte</span>';
+            actionsHTML = '<span class="text-sm text-gray-500 italic">🔒 Votre compte</span>';
         }
         // CAS 2 : SuperAdmin regardant un autre SuperAdmin → Protection
         else if (u.role === "superadmin" && isSuperAdmin) {
-            actionsHtml = '<span class="text-sm text-gray-500 italic">🛡️ SuperAdmin protégé</span>';
+            actionsHTML = '<span class="text-sm text-gray-500 italic">🛡️ Protégé</span>';
         }
         // CAS 3 : Admin regardant un SuperAdmin → Protection
         else if (isAdmin && u.role === "superadmin") {
-            actionsHtml = '<span class="text-sm text-gray-500 italic">🛡️ Accès réservé SuperAdmin</span>';
+            actionsHTML = '<span class="text-sm text-gray-500 italic">🛡️ Protégé</span>';
         }
         // CAS 4 : Admin regardant un autre Admin → Protection
         else if (isAdmin && u.role === "admin") {
-            actionsHtml = '<span class="text-sm text-gray-500 italic">🛡️ Admin protégé</span>';
+            actionsHTML = '<span class="text-sm text-gray-500 italic">🛡️ Protégé</span>';
         }
         // CAS 5 : Moderator regardant superadmin/admin/moderator → Protection
         else if (isModerator && (u.role === "superadmin" || u.role === "admin" || u.role === "moderator")) {
-            actionsHtml = '<span class="text-sm text-gray-500 italic">🛡️ Accès réservé Admin</span>';
+            actionsHTML = '<span class="text-sm text-gray-500 italic">🛡️ Protégé</span>';
         }
         // CAS 6 : Afficher le sélecteur de rôle
         else {
@@ -193,7 +428,7 @@ function loadAdminUsers() {
                     { value: "user", label: "User", emoji: "👤" }
                 ];
             }
-            // Admin : peut promouvoir vers admin, moderator et user (mais pas modifier les admin existants)
+            // Admin : peut promouvoir vers admin, moderator et user
             else if (isAdmin && u.role !== "superadmin" && u.role !== "admin") {
                 availableRoles = [
                     { value: "admin", label: "Admin", emoji: "👑" },
@@ -201,7 +436,7 @@ function loadAdminUsers() {
                     { value: "user", label: "User", emoji: "👤" }
                 ];
             }
-            // Moderator : peut seulement promouvoir user → moderator OU rétrograder moderator → user
+            // Moderator : peut seulement gérer user ↔ moderator
             else if (isModerator && u.role === "user") {
                 availableRoles = [
                     { value: "moderator", label: "Modérateur", emoji: "🛡️" },
@@ -212,74 +447,70 @@ function loadAdminUsers() {
             // Créer le select avec les rôles disponibles
             if (availableRoles.length > 0) {
                 const selectId = `role-select-${u.id}`;
-                actionsHtml += `
-                    <div class="flex items-center gap-2">
-                        <label class="text-sm text-gray-600 font-medium">Rôle :</label>
-                        <select id="${selectId}" 
-                                class="px-3 py-1.5 rounded-lg text-sm font-semibold border-2 border-gray-300 focus:border-plateforme-blue focus:outline-none transition cursor-pointer"
-                                onchange="changeUserRole(${u.id}, this.value)">
+                actionsHTML += `
+                    <select id="${selectId}" 
+                            class="px-3 py-1.5 rounded-lg text-sm font-semibold border-2 border-gray-300 focus:border-plateforme-blue focus:outline-none transition cursor-pointer"
+                            onchange="changeUserRole(${u.id}, this.value)">
                 `;
 
                 availableRoles.forEach(role => {
                     const selected = role.value === u.role ? 'selected' : '';
-                    actionsHtml += `<option value="${role.value}" ${selected}>${role.emoji} ${role.label}</option>`;
+                    actionsHTML += `<option value="${role.value}" ${selected}>${role.emoji} ${role.label}</option>`;
                 });
 
-                actionsHtml += `
-                        </select>
-                    </div>
-                `;
+                actionsHTML += `</select>`;
             }
         }
 
-        // Boutons de validation de compte (pour admin/superadmin uniquement, pas pour moderator)
+        // Boutons de validation de compte (pour admin/superadmin uniquement)
         if (status === "pending" && !isSelf && !isModerator) {
-            actionsHtml += `
-                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition"
-                    onclick="approveUser(${u.id})">✓ Valider compte</button>
-                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition"
-                    onclick="refuseUser(${u.id})">✗ Refuser compte</button>
+            actionsHTML += `
+                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition ml-2"
+                    onclick="approveUser(${u.id})">✓</button>
+                <button class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-600 text-white hover:bg-red-700 transition ml-1"
+                    onclick="refuseUser(${u.id})">✗</button>
             `;
         }
 
-        // Badge du rôle avec couleur
-        const roleColors = {
-            superadmin: "bg-indigo-900",
-            admin: "bg-blue-700",
-            moderator: "bg-blue-500",
-            user: "bg-blue-300"
-        };
-        const roleEmojis = {
-            superadmin: "⭐",
-            admin: "👑",
-            moderator: "🛡️",
-            user: "👤"
-        };
-
-        div.innerHTML = `
-            <div class="flex flex-col gap-1">
-                <span class="text-gray-800 font-semibold">
-                    ${u.prenom || ""} ${u.nom || ""}
-                </span>
-                <span class="text-gray-500 text-sm">${u.email}</span>
-                <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold text-white ${roleColors[u.role] || "bg-gray-500"} w-fit">
-                    <span>${roleEmojis[u.role] || ""}</span>
-                    <span>${u.role}</span>
-                </span>
-            </div>
-            <div class="flex items-center gap-3 flex-wrap">
-                <span class="inline-block px-2 py-1 rounded-lg text-xs font-semibold text-white ${statusClass} w-fit">
-                    ${statusText}
-                </span>
-                <div class="flex flex-wrap gap-2 items-center">
-                    ${actionsHtml}
-                </div>
-            </div>
+        tableHTML += `
+            <tr>
+                <td class="font-semibold text-gray-800">${u.prenom || ''} ${u.nom || ''}</td>
+                <td class="text-gray-600 text-sm">${u.email}</td>
+                <td>
+                    <span class="role-badge ${u.role}">
+                        <span>${roleEmojis[u.role] || ""}</span>
+                        <span>${roleLabels[u.role] || u.role}</span>
+                    </span>
+                </td>
+                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                <td class="text-center">
+                    <div class="flex gap-2 justify-center items-center">
+                        ${actionsHTML}
+                    </div>
+                </td>
+            </tr>
         `;
-
-        container.appendChild(div);
     });
+
+    tableHTML += `
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-sm text-gray-500 text-center">
+            ${filtered.length} utilisateur${filtered.length > 1 ? 's' : ''} affiché${filtered.length > 1 ? 's' : ''}
+        </div>
+    `;
+
+    container.innerHTML = tableHTML;
 }
+
+// Événements de recherche
+document.addEventListener('DOMContentLoaded', () => {
+    const searchUsers = document.getElementById('search-users');
+    if (searchUsers) {
+        searchUsers.addEventListener('input', filterUsers);
+    }
+});
 
 // Fonction pour changer le rôle via le select
 function changeUserRole(userId, newRole) {

@@ -279,11 +279,160 @@ html {
 }
 
 /* =========================
+   ONGLETS ADMIN
+   ========================= */
+.admin-tab {
+    color: #6b7280;
+    border-bottom-color: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.admin-tab:hover {
+    color: #003BFF;
+    background-color: #f3f4f6;
+}
+
+.admin-tab.active {
+    color: #003BFF;
+    border-bottom-color: #003BFF;
+    background-color: transparent;
+}
+
+/* =========================
+   TABLEAUX ADMIN
+   ========================= */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table thead {
+    background: linear-gradient(135deg, #003BFF 0%, #0052FF 100%);
+    color: white;
+}
+
+.admin-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.admin-table th:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.admin-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsive tableaux */
+@media (max-width: 768px) {
+    .admin-table {
+        font-size: 0.75rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    /* Masquer colonnes moins importantes sur mobile */
+    .admin-table th:nth-child(3),
+    .admin-table td:nth-child(3) {
+        display: none;
+    }
+}
+
+/* Badge rôle */
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+.role-badge.user { background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%); } /* Bleu clair */
+.role-badge.moderator { background: linear-gradient(135deg, #003BFF 0%, #0052FF 100%); } /* Bleu roi */
+.role-badge.admin { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); } /* Bleu marine */
+.role-badge.superadmin { background: linear-gradient(135deg, #6b21a8 0%, #7c3aed 100%); } /* Violet */
+
+/* Badge statut */
+.status-badge {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+.status-badge.pending { background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); }
+.status-badge.approved { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+.status-badge.refused { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); }
+
+/* Cards stats */
+.stat-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card.blue { border-left-color: #003BFF; }
+.stat-card.green { border-left-color: #10b981; }
+.stat-card.orange { border-left-color: #f59e0b; }
+.stat-card.red { border-left-color: #ef4444; }
+.stat-card.purple { border-left-color: #8b5cf6; }
+
+/* =========================
    RESPONSIVE UTILITIES
    ========================= */
 @media (max-width: 768px) {
     body {
         font-size: 14px;
+    }
+    
+    .admin-table {
+        font-size: 0.875rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.75rem 0.5rem;
     }
 }
 

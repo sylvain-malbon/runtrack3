@@ -81,10 +81,10 @@
 </nav>
 
   <!-- SECTIONS -->
-  <main class="p-6 max-w-3xl mx-auto">
+  <main class="p-6 mx-auto" style="max-width: min(95vw, 1400px);">
 
     <!-- ACCUEIL -->
-    <section id="accueil" class="fade-in card">
+    <section id="accueil" class="fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-3xl font-bold mb-4">Bienvenue sur La Plateforme_</h1>
       <p class="text-gray-600 mb-6">Gérez vos présences simplement et efficacement.</p>
       <div class="flex gap-4">
@@ -94,7 +94,7 @@
     </section>
 
     <!-- LOGIN -->
-    <section id="connexion" class="hidden fade-in card">
+    <section id="connexion" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-2xl font-bold mb-4">Connexion</h1>
       <input id="email" type="email" placeholder="Email" class="input mb-3">
       <input id="password" type="password" placeholder="Mot de passe" class="input mb-3">
@@ -102,7 +102,7 @@
     </section>
 
     <!-- REGISTER -->
-<section id="inscription" class="hidden fade-in card">
+<section id="inscription" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
   <h1 class="text-2xl font-bold mb-4">Inscription</h1>
 
   <input id="reg-nom" type="text" placeholder="Nom" class="input mb-3">
@@ -119,7 +119,7 @@
 </section>
 
     <!-- CALENDAR -->
-    <section id="calendrier" class="hidden fade-in card">
+    <section id="calendrier" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-2xl font-bold mb-6">Calendrier des présences</h1>
       
       <!-- Navigation mois -->
@@ -161,26 +161,78 @@
     </section>
 
     <!-- REQUESTS -->
-    <section id="mes-demandes" class="hidden fade-in card">
+    <section id="mes-demandes" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-2xl font-bold mb-4">Mes demandes</h1>
       <div id="requests-list"></div>
     </section>
 
     <!-- ADMIN -->
 <section id="admin" class="hidden fade-in card">
-  <h1 class="text-2xl font-bold mb-1">Backoffice</h1>
-  <p class="text-gray-500 text-sm mb-6">Gérez les demandes de présence et les rôles utilisateurs</p>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold mb-1">Backoffice</h1>
+    <p class="text-gray-500 text-sm">Gérez les demandes de présence et les rôles utilisateurs</p>
+  </div>
 
-  <!-- DEMANDES -->
-  <h2 class="text-xl font-semibold mt-6 mb-2">Demandes en attente</h2>
-  <div id="admin-requests"></div>
+  <!-- ONGLETS -->
+  <div class="flex border-b border-gray-200 mb-6 -mx-2 px-2" style="overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;">
+    <style>
+      .admin-tabs-container::-webkit-scrollbar { display: none; }
+    </style>
+    <button onclick="switchAdminTab('stats')" id="tab-stats" class="admin-tab active px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 transition flex-shrink-0">
+      <span class="hidden sm:inline">📊 Statistiques</span>
+      <span class="sm:hidden">📊 Stats</span>
+    </button>
+    <button onclick="switchAdminTab('requests')" id="tab-requests" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 transition flex-shrink-0">
+      <span class="hidden sm:inline">📋 Demandes</span>
+      <span class="sm:hidden">📋 Demandes</span>
+    </button>
+    <button onclick="switchAdminTab('users')" id="tab-users" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 transition flex-shrink-0">
+      <span class="hidden sm:inline">👥 Utilisateurs</span>
+      <span class="sm:hidden">👥 Users</span>
+    </button>
+  </div>
 
-  <!-- UTILISATEURS -->
-  <h2 class="text-xl font-semibold mt-8 mb-3 flex items-center gap-2">
-    <span>Gestion des utilisateurs</span>
-    <span class="text-sm font-normal text-gray-500">(Rôles et permissions)</span>
-  </h2>
-  <div id="admin-users"></div>
+  <!-- TAB STATISTIQUES -->
+  <div id="admin-tab-stats" class="admin-tab-content">
+    <div id="admin-stats"></div>
+  </div>
+
+  <!-- TAB DEMANDES -->
+  <div id="admin-tab-requests" class="admin-tab-content hidden">
+    <div class="mb-4 flex flex-col gap-3">
+      <input type="text" id="search-requests" placeholder="🔍 Rechercher..." class="input w-full">
+      <select id="filter-request-status" onchange="filterRequests()" class="input w-full sm:w-auto">
+        <option value="all">Tous les statuts</option>
+        <option value="pending">En attente</option>
+        <option value="approved">Acceptées</option>
+        <option value="refused">Refusées</option>
+      </select>
+    </div>
+    <div id="admin-requests"></div>
+  </div>
+
+  <!-- TAB UTILISATEURS -->
+  <div id="admin-tab-users" class="admin-tab-content hidden">
+    <div class="mb-4 flex flex-col gap-3">
+      <input type="text" id="search-users" placeholder="🔍 Rechercher..." class="input w-full">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <select id="filter-user-role" onchange="filterUsers()" class="input w-full sm:flex-1">
+          <option value="all">Tous les rôles</option>
+          <option value="superadmin">SuperAdmin</option>
+          <option value="admin">Admin</option>
+          <option value="moderator">Modérateur</option>
+          <option value="user">User</option>
+        </select>
+        <select id="filter-user-status" onchange="filterUsers()" class="input w-full sm:flex-1">
+          <option value="all">Tous les statuts</option>
+          <option value="approved">Validés</option>
+          <option value="pending">En attente</option>
+          <option value="refused">Refusés</option>
+        </select>
+      </div>
+    </div>
+    <div id="admin-users"></div>
+  </div>
 </section>
 
 
