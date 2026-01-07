@@ -60,7 +60,7 @@ function loadAdminRequests() {
                 <span class="text-gray-700 font-medium break-words">
                     ${r.date} — ${userName}
                 </span>
-                <span class="mt-1 inline-block px-3 py-1 rounded-lg text-xs font-semibold text-white ${statusClass}">
+                <span class="mt-1 inline-block px-2 py-1 rounded-lg text-xs font-semibold text-white ${statusClass} w-fit">
                     ${statusText}
                 </span>
             </div>
@@ -247,7 +247,7 @@ function loadAdminUsers() {
             superadmin: "bg-red-500",
             admin: "bg-blue-600",
             moderator: "bg-purple-600",
-            user: "bg-gray-600"
+            user: "bg-gray-400"
         };
         const roleEmojis = {
             superadmin: "⭐",
@@ -268,7 +268,7 @@ function loadAdminUsers() {
                 </span>
             </div>
             <div class="flex items-center gap-3 flex-wrap">
-                <span class="px-3 py-1 rounded-lg text-sm font-semibold text-white ${statusClass}">
+                <span class="inline-block px-2 py-1 rounded-lg text-xs font-semibold text-white ${statusClass} w-fit">
                     ${statusText}
                 </span>
                 <div class="flex flex-wrap gap-2 items-center">
