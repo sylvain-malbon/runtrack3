@@ -30,6 +30,18 @@ function updateNavigation() {
     if (navCalendrier) navCalendrier.style.display = isLoggedIn ? 'block' : 'none';
     if (navDemandes) navDemandes.style.display = isLoggedIn ? 'block' : 'none';
     if (navAdmin) navAdmin.style.display = (isLoggedIn && ['superadmin', 'admin', 'moderator'].includes(userRole)) ? 'block' : 'none';
+
+    // Afficher le message de bienvenue
+    const userWelcome = document.getElementById('user-welcome');
+    const userWelcomeText = document.getElementById('user-welcome-text');
+    if (userWelcome && userWelcomeText) {
+        if (isLoggedIn && currentUser.prenom && currentUser.nom) {
+            userWelcomeText.textContent = `Bonjour ${currentUser.prenom} ${currentUser.nom}`;
+            userWelcome.style.display = 'flex';
+        } else {
+            userWelcome.style.display = 'none';
+        }
+    }
 }
 
 // Écouter les changements de hash
