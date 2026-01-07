@@ -42,7 +42,7 @@
 <body class="bg-plateforme-light text-gray-900">
 
   <!-- NAVBAR -->
-<nav class="navbar bg-plateforme-blue">
+<nav class="bg-plateforme-blue backdrop-blur-xl text-white px-8 py-4 flex justify-between items-center shadow-lg">
     <a class="font-bold text-xl flex items-center overflow-hidden" href="#accueil">
         <img src="assets/img/Laplateforme_Bleuroi.jpg" 
      alt="La Plateforme_" 
@@ -55,27 +55,27 @@
         </svg>
         <span id="user-welcome-text"></span>
     </div>
-    <ul class="navbar-nav">
-        <li class="nav-item" id="nav-accueil">
-            <a class="nav-link" href="#accueil">Accueil</a>
+    <ul class="flex list-none gap-2 m-0">
+        <li class="m-0" id="nav-accueil">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#accueil">Accueil</a>
         </li>
-        <li class="nav-item" id="nav-calendrier" style="display: none;">
-            <a class="nav-link" href="#calendrier">Calendrier</a>
+        <li class="m-0" id="nav-calendrier" style="display: none;">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#calendrier">Calendrier</a>
         </li>
-        <li class="nav-item" id="nav-demandes" style="display: none;">
-            <a class="nav-link" href="#mes-demandes">Mes demandes</a>
+        <li class="m-0" id="nav-demandes" style="display: none;">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#mes-demandes">Mes demandes</a>
         </li>
-        <li class="nav-item" id="nav-admin" style="display: none;">
-            <a class="nav-link" href="#admin">Administration</a>
+        <li class="m-0" id="nav-admin" style="display: none;">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#admin">Administration</a>
         </li>
-        <li class="nav-item" id="nav-inscription">
-            <a class="nav-link" href="#inscription">Inscription</a>
+        <li class="m-0" id="nav-inscription">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#inscription">Inscription</a>
         </li>
-        <li class="nav-item" id="nav-connexion">
-            <a class="nav-link" href="#connexion">Connexion</a>
+        <li class="m-0" id="nav-connexion">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#connexion">Connexion</a>
         </li>
-        <li class="nav-item" id="nav-deconnexion" style="display: none;">
-            <a class="nav-link" href="#" onclick="logout(); return false;">Déconnexion</a>
+        <li class="m-0" id="nav-deconnexion" style="display: none;">
+            <a class="text-white no-underline px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200" href="#" onclick="logout(); return false;">Déconnexion</a>
         </li>
     </ul>
 </nav>
@@ -84,33 +84,33 @@
   <main class="p-6 mx-auto" style="max-width: min(95vw, 1400px);">
 
     <!-- ACCUEIL -->
-    <section id="accueil" class="fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+    <section id="accueil" class="fade-in bg-white rounded-2xl p-8 shadow-lg mb-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-200" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-3xl font-bold mb-4">Bienvenue sur La Plateforme_</h1>
       <p class="text-gray-600 mb-6">Gérez vos présences simplement et efficacement.</p>
       <div class="flex gap-4">
-        <a href="#connexion" class="btn btn-primary">Se connecter</a>
-        <a href="#inscription" class="btn bg-gray-200 text-gray-800 hover:bg-gray-300">S'inscrire</a>
+        <a href="#connexion" class="px-6 py-3 rounded-xl font-semibold bg-plateforme-blue text-white hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-200 inline-block no-underline">Se connecter</a>
+        <a href="#inscription" class="px-6 py-3 rounded-xl font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 hover:-translate-y-0.5 transition-all duration-200 inline-block no-underline">S'inscrire</a>
       </div>
     </section>
 
     <!-- LOGIN -->
-    <section id="connexion" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+    <section id="connexion" class="hidden fade-in bg-white rounded-2xl p-8 shadow-lg mb-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-200" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-2xl font-bold mb-4">Connexion</h1>
-      <input id="email" type="email" placeholder="Email" class="input mb-3">
-      <input id="password" type="password" placeholder="Mot de passe" class="input mb-3">
-      <button onclick="login()" class="btn btn-primary">Se connecter</button>
+      <input id="email" type="email" placeholder="Email" class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none mb-3">
+      <input id="password" type="password" placeholder="Mot de passe" class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none mb-3">
+      <button onclick="login()" class="px-6 py-3 rounded-xl font-semibold bg-plateforme-blue text-white hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-200 border-none cursor-pointer">Se connecter</button>
     </section>
 
     <!-- REGISTER -->
-<section id="inscription" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+<section id="inscription" class="hidden fade-in bg-white rounded-2xl p-8 shadow-lg mb-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-200" style="max-width: 768px; margin-left: auto; margin-right: auto;">
   <h1 class="text-2xl font-bold mb-4">Inscription</h1>
 
-  <input id="reg-nom" type="text" placeholder="Nom" class="input mb-3">
-  <input id="reg-prenom" type="text" placeholder="Prénom" class="input mb-3">
-  <input id="reg-email" type="email" placeholder="Email @laplateforme.io" class="input mb-3">
-  <input id="reg-password" type="password" placeholder="Mot de passe" class="input mb-3">
+  <input id="reg-nom" type="text" placeholder="Nom" class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none mb-3">
+  <input id="reg-prenom" type="text" placeholder="Prénom" class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none mb-3">
+  <input id="reg-email" type="email" placeholder="Email @laplateforme.io" class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none mb-3">
+  <input id="reg-password" type="password" placeholder="Mot de passe" class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none mb-3">
 
-  <button onclick="registerUser()" class="btn btn-primary">Créer mon compte</button>
+  <button onclick="registerUser()" class="px-6 py-3 rounded-xl font-semibold bg-plateforme-blue text-white hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-200 border-none cursor-pointer">Créer mon compte</button>
 
   <p class="mt-4 text-sm">
     Déjà un compte ?
@@ -119,16 +119,16 @@
 </section>
 
     <!-- CALENDAR -->
-    <section id="calendrier" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+    <section id="calendrier" class="hidden fade-in bg-white rounded-2xl p-8 shadow-lg mb-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-200" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-2xl font-bold mb-6">Calendrier des présences</h1>
       
       <!-- Navigation mois -->
       <div class="flex items-center justify-between mb-6">
-        <button onclick="previousMonth()" class="btn bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2">
+        <button onclick="previousMonth()" class="px-6 py-3 rounded-xl font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 hover:-translate-y-0.5 transition-all duration-200 border-none cursor-pointer">
           ← Précédent
         </button>
         <h2 id="calendar-month-year" class="text-xl font-semibold"></h2>
-        <button onclick="nextMonth()" class="btn bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2">
+        <button onclick="nextMonth()" class="px-6 py-3 rounded-xl font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 hover:-translate-y-0.5 transition-all duration-200 border-none cursor-pointer">
           Suivant →
         </button>
       </div>
@@ -154,20 +154,20 @@
       <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <p class="text-sm text-gray-600 mb-2">Date sélectionnée :</p>
         <p id="selected-date-display" class="text-lg font-semibold text-plateforme-blue mb-3">Aucune date sélectionnée</p>
-        <button onclick="requestPresence()" class="btn bg-green-600 text-white hover:bg-green-700 w-full">
+        <button onclick="requestPresence()" class="px-6 py-3 rounded-xl font-semibold bg-green-600 text-white hover:bg-green-700 hover:-translate-y-0.5 transition-all duration-200 border-none cursor-pointer w-full">
           ✓ Demander présence
         </button>
       </div>
     </section>
 
     <!-- REQUESTS -->
-    <section id="mes-demandes" class="hidden fade-in card" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+    <section id="mes-demandes" class="hidden fade-in bg-white rounded-2xl p-8 shadow-lg mb-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-200" style="max-width: 768px; margin-left: auto; margin-right: auto;">
       <h1 class="text-2xl font-bold mb-4">Mes demandes</h1>
       <div id="requests-list"></div>
     </section>
 
     <!-- ADMIN -->
-<section id="admin" class="hidden fade-in card">
+<section id="admin" class="hidden fade-in bg-white rounded-2xl p-8 shadow-lg mb-8 hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
   <div class="mb-6">
     <h1 class="text-2xl font-bold mb-1">Backoffice</h1>
     <p class="text-gray-500 text-sm">Gérez les demandes de présence et les rôles utilisateurs</p>
@@ -178,15 +178,15 @@
     <style>
       .admin-tabs-container::-webkit-scrollbar { display: none; }
     </style>
-    <button onclick="switchAdminTab('stats')" id="tab-stats" class="admin-tab active px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 transition flex-shrink-0">
+    <button onclick="switchAdminTab('stats')" id="tab-stats" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 border-b-transparent text-gray-500 hover:text-plateforme-blue hover:bg-gray-100 cursor-pointer whitespace-nowrap transition-all duration-200 flex-shrink-0">
       <span class="hidden sm:inline">📊 Statistiques</span>
       <span class="sm:hidden">📊 Stats</span>
     </button>
-    <button onclick="switchAdminTab('requests')" id="tab-requests" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 transition flex-shrink-0">
+    <button onclick="switchAdminTab('requests')" id="tab-requests" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 border-b-transparent text-gray-500 hover:text-plateforme-blue hover:bg-gray-100 cursor-pointer whitespace-nowrap transition-all duration-200 flex-shrink-0">
       <span class="hidden sm:inline">📋 Demandes</span>
       <span class="sm:hidden">📋 Demandes</span>
     </button>
-    <button onclick="switchAdminTab('users')" id="tab-users" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 transition flex-shrink-0">
+    <button onclick="switchAdminTab('users')" id="tab-users" class="admin-tab px-4 sm:px-6 py-3 font-semibold text-sm border-b-2 border-b-transparent text-gray-500 hover:text-plateforme-blue hover:bg-gray-100 cursor-pointer whitespace-nowrap transition-all duration-200 flex-shrink-0">
       <span class="hidden sm:inline">👥 Utilisateurs</span>
       <span class="sm:hidden">👥 Users</span>
     </button>
@@ -200,8 +200,8 @@
   <!-- TAB DEMANDES -->
   <div id="admin-tab-requests" class="admin-tab-content hidden">
     <div class="mb-4 flex flex-col gap-3">
-      <input type="text" id="search-requests" placeholder="🔍 Rechercher..." class="input w-full">
-      <select id="filter-request-status" onchange="filterRequests()" class="input w-full sm:w-auto">
+      <input type="text" id="search-requests" placeholder="🔍 Rechercher..." class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none">
+      <select id="filter-request-status" onchange="filterRequests()" class="border border-gray-300 px-4 py-3 rounded-xl w-full sm:w-auto transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none cursor-pointer hover:border-plateforme-blue">
         <option value="all">Tous les statuts</option>
         <option value="pending">En attente</option>
         <option value="approved">Acceptées</option>
@@ -214,16 +214,16 @@
   <!-- TAB UTILISATEURS -->
   <div id="admin-tab-users" class="admin-tab-content hidden">
     <div class="mb-4 flex flex-col gap-3">
-      <input type="text" id="search-users" placeholder="🔍 Rechercher..." class="input w-full">
+      <input type="text" id="search-users" placeholder="🔍 Rechercher..." class="border border-gray-300 px-4 py-3 rounded-xl w-full transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none">
       <div class="flex flex-col sm:flex-row gap-3">
-        <select id="filter-user-role" onchange="filterUsers()" class="input w-full sm:flex-1">
+        <select id="filter-user-role" onchange="filterUsers()" class="border border-gray-300 px-4 py-3 rounded-xl w-full sm:flex-1 transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none cursor-pointer hover:border-plateforme-blue">
           <option value="all">Tous les rôles</option>
           <option value="superadmin">SuperAdmin</option>
           <option value="admin">Admin</option>
           <option value="moderator">Modérateur</option>
           <option value="user">User</option>
         </select>
-        <select id="filter-user-status" onchange="filterUsers()" class="input w-full sm:flex-1">
+        <select id="filter-user-status" onchange="filterUsers()" class="border border-gray-300 px-4 py-3 rounded-xl w-full sm:flex-1 transition-all duration-200 focus:border-plateforme-blue focus:ring-4 focus:ring-blue-200 focus:outline-none cursor-pointer hover:border-plateforme-blue">
           <option value="all">Tous les statuts</option>
           <option value="approved">Validés</option>
           <option value="pending">En attente</option>

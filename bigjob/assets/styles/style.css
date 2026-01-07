@@ -1,30 +1,16 @@
 /* ============================
    STYLE 2025 — La Plateforme_
-   Dashboard Clean
+   Dashboard Clean - MINIMAL CSS
+   La plupart des styles sont maintenant en Tailwind
    ============================ */
 
 /* =========================
-   VARIABLES & RESETS
+   RESETS MINIMAUX
    ========================= */
-:root {
-    --primary-color: #4a90e2;
-    --secondary-color: #50c878;
-    --danger-color: #e74c3c;
-    --warning-color: #f39c12;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
-    min-height: 100vh;
 }
 
 /* =========================
@@ -103,143 +89,27 @@ body {
     animation: fadeOut 0.3s ease-out;
 }
 
-/* Transition douce pour tous les éléments interactifs */
-button, a, input, select {
-    transition: all 0.3s ease;
-}
-
-/* Navbar institutionnelle */
-.navbar {
-    backdrop-filter: blur(12px);
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
-}
-
-.navbar a:hover {
-    background-color: #1e4fff;
-}
-
-.navbar-nav {
-    display: flex;
-    list-style: none;
-    gap: 0.5rem;
-    margin: 0;
-}
-
-.nav-item {
-    margin: 0;
-}
-
-.navbar-nav .nav-link.active {
-    font-weight: bold;
-    border-bottom: 3px solid white;
-    background-color: #1e4fff;
-    padding-bottom: calc(0.5rem - 3px);
-}
-
-/* Cards */
-.card {
-    background: white;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Inputs */
-.input {
-    border: 1px solid #d1d5db;
-    padding: .7rem .9rem;
-    border-radius: .75rem;
-    width: 100%;
-    transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-.input:focus {
-    border-color: #003BFF;
-    box-shadow: 0 0 0 3px rgba(0, 59, 255, 0.2);
-    outline: none;
-}
-
-/* Boutons */
-.btn {
-    padding: .7rem 1.4rem;
-    border-radius: .75rem;
-    font-weight: 600;
-    transition: background .2s ease, transform .2s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    text-decoration: none;
-}
-
-.btn-primary {
-    background: #003BFF;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #002BDD;
-    transform: translateY(-2px);
-}
+/* =========================
+   UTILITIES
+   ========================= */
 
 /* Masquage */
 .hidden {
     display: none;
 }
 
-/* ============================
-   TABLEAU ADMIN
-   ============================ */
-
-/* Style du tableau */
-table {
-    border-spacing: 0;
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
 }
 
-table thead {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+/* Focus visible pour l'accessibilité */
+*:focus-visible {
+    outline: 2px solid #003BFF;
+    outline-offset: 2px;
 }
 
-/* Effet hover sur les lignes */
-table tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-/* Boutons désactivés dans le tableau */
-table button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed !important;
-    transform: none !important;
-}
-
-table button:disabled:hover {
-    transform: none !important;
-}
-
-/* =========================
-   SCROLLBAR CUSTOM (optionnel)
-   ========================= */
+/* Scrollbar custom (optionnel) */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -249,174 +119,32 @@ table button:disabled:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
+    background: #003BFF;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #357abd;
+    background: #002BDD;
 }
 
 /* =========================
-   UTILITIES SPÉCIFIQUES
+   CLASSES UTILITAIRES POUR JS
    ========================= */
 
-/* Smooth scrolling pour toute la page */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Focus visible pour l'accessibilité */
-*:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
-
-/* États hover personnalisés (si nécessaires au-delà de Tailwind) */
-.hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* =========================
-   ONGLETS ADMIN
-   ========================= */
-.admin-tab {
-    color: #6b7280;
-    border-bottom-color: transparent;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.admin-tab:hover {
-    color: #003BFF;
-    background-color: #f3f4f6;
-}
-
+/* Classe pour les onglets admin actifs - utilisée par JS */
 .admin-tab.active {
-    color: #003BFF;
-    border-bottom-color: #003BFF;
-    background-color: transparent;
+    color: #003BFF !important;
+    border-bottom-color: #003BFF !important;
+    background-color: transparent !important;
 }
 
-/* =========================
-   TABLEAUX ADMIN
-   ========================= */
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Classe pour les liens nav actifs - utilisée par JS */
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 3px solid white;
+    background-color: #1e4fff;
+    padding-bottom: calc(0.5rem - 3px);
 }
-
-.admin-table thead {
-    background: linear-gradient(135deg, #003BFF 0%, #0052FF 100%);
-    color: white;
-}
-
-.admin-table th {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    user-select: none;
-}
-
-.admin-table th:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.admin-table td {
-    padding: 1rem;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.admin-table tbody tr {
-    transition: background-color 0.15s ease;
-}
-
-.admin-table tbody tr:hover {
-    background-color: #f9fafb;
-}
-
-.admin-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* Responsive tableaux */
-@media (max-width: 768px) {
-    .admin-table {
-        font-size: 0.75rem;
-    }
-    
-    .admin-table th,
-    .admin-table td {
-        padding: 0.5rem 0.25rem;
-    }
-    
-    /* Masquer colonnes moins importantes sur mobile */
-    .admin-table th:nth-child(3),
-    .admin-table td:nth-child(3) {
-        display: none;
-    }
-}
-
-/* Badge rôle */
-.role-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-}
-
-.role-badge.user { background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%); } /* Bleu clair */
-.role-badge.moderator { background: linear-gradient(135deg, #003BFF 0%, #0052FF 100%); } /* Bleu roi */
-.role-badge.admin { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); } /* Bleu marine */
-.role-badge.superadmin { background: linear-gradient(135deg, #6b21a8 0%, #7c3aed 100%); } /* Violet */
-
-/* Badge statut */
-.status-badge {
-    display: inline-block;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-}
-
-.status-badge.pending { background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); }
-.status-badge.approved { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
-.status-badge.refused { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); }
-
-/* Cards stats */
-.stat-card {
-    background: white;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.stat-card.blue { border-left-color: #003BFF; }
-.stat-card.green { border-left-color: #10b981; }
-.stat-card.orange { border-left-color: #f59e0b; }
-.stat-card.red { border-left-color: #ef4444; }
-.stat-card.purple { border-left-color: #8b5cf6; }
 
 /* =========================
    RESPONSIVE UTILITIES
@@ -425,22 +153,4 @@ html {
     body {
         font-size: 14px;
     }
-    
-    .admin-table {
-        font-size: 0.875rem;
-    }
-    
-    .admin-table th,
-    .admin-table td {
-        padding: 0.75rem 0.5rem;
-    }
-}
-
-/* Style pour les select */
-select {
-    cursor: pointer;
-}
-
-select:hover {
-    border-color: #003BFF;
 }

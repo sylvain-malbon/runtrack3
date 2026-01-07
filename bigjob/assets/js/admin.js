@@ -73,7 +73,7 @@ function loadAdminStats() {
 
     container.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div class="stat-card blue">
+            <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-l-blue-600 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-gray-600 text-sm font-semibold">Total Utilisateurs</span>
                     <span class="text-2xl">👥</span>
@@ -82,7 +82,7 @@ function loadAdminStats() {
                 ${pendingUsers > 0 ? `<div class="text-xs text-orange-600 mt-1">${pendingUsers} en attente</div>` : ''}
             </div>
             
-            <div class="stat-card orange">
+            <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-l-orange-500 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-gray-600 text-sm font-semibold">Demandes en attente</span>
                     <span class="text-2xl">⏳</span>
@@ -91,7 +91,7 @@ function loadAdminStats() {
                 <div class="text-xs text-gray-500 mt-1">sur ${totalRequests} total</div>
             </div>
             
-            <div class="stat-card green">
+            <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-l-green-500 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-gray-600 text-sm font-semibold">Demandes acceptées</span>
                     <span class="text-2xl">✅</span>
@@ -100,7 +100,7 @@ function loadAdminStats() {
                 <div class="text-xs text-gray-500 mt-1">Taux: ${approvalRate}%</div>
             </div>
             
-            <div class="stat-card red">
+            <div class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-l-red-500 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-gray-600 text-sm font-semibold">Demandes refusées</span>
                     <span class="text-2xl">❌</span>
@@ -201,14 +201,14 @@ function filterRequests() {
     // Générer le tableau
     let tableHTML = `
         <div class="overflow-x-auto">
-            <table class="admin-table">
-                <thead>
+            <table class="w-full border-collapse bg-white rounded-xl overflow-hidden shadow-sm">
+                <thead class="bg-gradient-to-r from-plateforme-blue to-blue-700 text-white">
                     <tr>
-                        <th>Date</th>
-                        <th>Utilisateur</th>
-                        <th>Email</th>
-                        <th>Statut</th>
-                        <th class="text-center">Actions</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Date</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Utilisateur</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Email</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Statut</th>
+                        <th class="px-4 py-4 text-center font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -235,12 +235,15 @@ function filterRequests() {
         });
 
         tableHTML += `
-            <tr>
-                <td class="font-semibold text-gray-700">${formattedDate}</td>
-                <td>${userName}</td>
-                <td class="text-gray-600 text-sm">${userEmail}</td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td class="text-center">
+            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150">
+                <td class="px-4 py-4 font-semibold text-gray-700">${formattedDate}</td>
+                <td class="px-4 py-4">${userName}</td>
+                <td class="px-4 py-4 text-gray-600 text-sm">${userEmail}</td>
+                <td class="px-4 py-4"><span class="inline-block px-3 py-1.5 rounded-lg text-xs font-semibold text-white ${statusClass === 'pending' ? 'bg-gradient-to-r from-orange-600 to-orange-400' :
+                statusClass === 'approved' ? 'bg-gradient-to-r from-green-600 to-green-400' :
+                    'bg-gradient-to-r from-red-600 to-red-400'
+            }">${statusText}</span></td>
+                <td class="px-4 py-4 text-center">
                     <div class="flex gap-2 justify-center">
                         <button ${disabledAttr}
                             class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
@@ -367,14 +370,14 @@ function filterUsers() {
     // Générer le tableau
     let tableHTML = `
         <div class="overflow-x-auto">
-            <table class="admin-table">
-                <thead>
+            <table class="w-full border-collapse bg-white rounded-xl overflow-hidden shadow-sm">
+                <thead class="bg-gradient-to-r from-plateforme-blue to-blue-700 text-white">
                     <tr>
-                        <th>Utilisateur</th>
-                        <th>Email</th>
-                        <th>Rôle</th>
-                        <th>Statut</th>
-                        <th class="text-center">Actions</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Utilisateur</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Email</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Rôle</th>
+                        <th class="px-4 py-4 text-left font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Statut</th>
+                        <th class="px-4 py-4 text-center font-semibold text-sm uppercase tracking-wide cursor-pointer select-none hover:bg-white/10">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -473,17 +476,24 @@ function filterUsers() {
         }
 
         tableHTML += `
-            <tr>
-                <td class="font-semibold text-gray-800">${u.prenom || ''} ${u.nom || ''}</td>
-                <td class="text-gray-600 text-sm">${u.email}</td>
-                <td>
-                    <span class="role-badge ${u.role}">
+            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150">
+                <td class="px-4 py-4 font-semibold text-gray-800">${u.prenom || ''} ${u.nom || ''}</td>
+                <td class="px-4 py-4 text-gray-600 text-sm">${u.email}</td>
+                <td class="px-4 py-4">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white ${u.role === 'user' ? 'bg-gradient-to-r from-blue-400 to-blue-300' :
+                u.role === 'moderator' ? 'bg-gradient-to-r from-blue-700 to-blue-600' :
+                    u.role === 'admin' ? 'bg-gradient-to-r from-blue-900 to-blue-800' :
+                        'bg-gradient-to-r from-purple-700 to-purple-600'
+            }">
                         <span>${roleEmojis[u.role] || ""}</span>
                         <span>${roleLabels[u.role] || u.role}</span>
                     </span>
                 </td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td class="text-center">
+                <td class="px-4 py-4"><span class="inline-block px-3 py-1.5 rounded-lg text-xs font-semibold text-white ${statusClass === 'pending' ? 'bg-gradient-to-r from-orange-600 to-orange-400' :
+                statusClass === 'approved' ? 'bg-gradient-to-r from-green-600 to-green-400' :
+                    'bg-gradient-to-r from-red-600 to-red-400'
+            }">${statusText}</span></td>
+                <td class="px-4 py-4 text-center">
                     <div class="flex gap-2 justify-center items-center">
                         ${actionsHTML}
                     </div>
