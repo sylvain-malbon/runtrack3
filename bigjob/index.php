@@ -43,11 +43,11 @@
 
   <!-- NAVBAR -->
 <nav class="bg-plateforme-blue backdrop-blur-xl text-white px-8 py-4 flex justify-between items-center shadow-lg">
-    <a class="font-bold text-xl flex items-center overflow-hidden" href="#accueil">
+    <a class="font-bold text-xl flex items-center overflow-hidden rounded-lg shadow-lg" href="#accueil">
         <img src="assets/img/Laplateforme_Bleuroi.jpg" 
      alt="La Plateforme_" 
-     class="h-8 w-40 object-cover object-center rounded-lg"
-     style="transform: scale(1.5);">
+     class="h-12 w-48 object-cover object-center"
+     style="transform: scale(1.2);">
     </a>
     <div id="user-welcome" class="text-white font-semibold flex items-center gap-2" style="display: none;">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
