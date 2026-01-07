@@ -16,7 +16,7 @@
         extend: {
           colors: {
             plateforme: {
-              blue: "#003BFF",
+              blue: "#0034dfff",
               dark: "#0A0A0A",
               light: "#F5F7FA"
             }
@@ -42,8 +42,13 @@
 <body class="bg-plateforme-light text-gray-900">
 
   <!-- NAVBAR -->
-<nav class="navbar">
-    <a class="font-bold text-xl" href="#accueil">La Plateforme_</a>
+<nav class="navbar bg-plateforme-blue">
+    <a class="font-bold text-xl flex items-center overflow-hidden" href="#accueil">
+        <img src="assets/img/Laplateforme_Bleuroi.jpg" 
+     alt="La Plateforme_" 
+     class="h-8 w-40 object-cover object-center rounded-lg"
+     style="transform: scale(1.5);">
+    </a>
     <ul class="navbar-nav">
         <li class="nav-item" id="nav-accueil">
             <a class="nav-link" href="#accueil">Accueil</a>

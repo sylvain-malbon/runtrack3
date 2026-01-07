@@ -111,7 +111,6 @@ button, a, input, select {
 /* Navbar institutionnelle */
 .navbar {
     backdrop-filter: blur(12px);
-    background: rgba(0, 59, 255, 0.90);
     color: white;
     padding: 1rem 2rem;
     display: flex;
@@ -129,7 +128,7 @@ button, a, input, select {
 }
 
 .navbar a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #1e4fff;
 }
 
 .navbar-nav {
@@ -146,7 +145,7 @@ button, a, input, select {
 .navbar-nav .nav-link.active {
     font-weight: bold;
     border-bottom: 3px solid white;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: #1e4fff;
     padding-bottom: calc(0.5rem - 3px);
 }
 
