@@ -615,3 +615,156 @@ function resetMinuteur() {
   afficherMinuteur();
 }
 
+// ========== CHRONOMÈTRE ==========
+
+// Variables globales pour le chronomètre
+let tempsChrono = 0; // en secondes
+let chronoInterval = null;
+let chronoEnMarche = false;
+let tours = [];
+
+/**
+ * Convertit des secondes en format HH:MM:SS
+ */
+function secondesVersHMS(secondes) {
+  const heures = Math.floor(secondes / 3600);
+  const minutes = Math.floor((secondes % 3600) / 60);
+  const secs = secondes % 60;
+  return formatNumber(heures) + ':' + formatNumber(minutes) + ':' + formatNumber(secs);
+}
+
+/**
+ * Affiche le temps du chronomètre
+ */
+function afficherChrono() {
+  const affichage = secondesVersHMS(tempsChrono);
+  const element = document.getElementById('affichageChrono');
+  if (element) {
+    element.textContent = affichage;
+  }
+}
+
+/**
+ * Démarre le chronomètre
+ */
+function demarrerChrono() {
+  chronoEnMarche = true;
+  
+  // Changer le bouton toggle
+  const btnToggle = document.getElementById('btnToggleChrono');
+  if (btnToggle) {
+    btnToggle.textContent = 'Arrêter';
+    btnToggle.classList.remove('bg-green-600', 'hover:bg-green-700');
+    btnToggle.classList.add('bg-red-600', 'hover:bg-red-700');
+  }
+  
+  // Activer le bouton Tour
+  const btnTour = document.getElementById('btnTourChrono');
+  if (btnTour) {
+    btnTour.disabled = false;
+    btnTour.classList.remove('opacity-50');
+  }
+  
+  // Démarrer l'interval
+  chronoInterval = setInterval(function() {
+    tempsChrono++;
+    afficherChrono();
+  }, 1000);
+}
+
+/**
+ * Arrête le chronomètre
+ */
+function arreterChrono() {
+  chronoEnMarche = false;
+  
+  if (chronoInterval) {
+    clearInterval(chronoInterval);
+    chronoInterval = null;
+  }
+  
+  // Changer le bouton toggle
+  const btnToggle = document.getElementById('btnToggleChrono');
+  if (btnToggle) {
+    btnToggle.textContent = 'Reprendre';
+    btnToggle.classList.remove('bg-red-600', 'hover:bg-red-700');
+    btnToggle.classList.add('bg-green-600', 'hover:bg-green-700');
+  }
+  
+  // Désactiver le bouton Tour
+  const btnTour = document.getElementById('btnTourChrono');
+  if (btnTour) {
+    btnTour.disabled = true;
+    btnTour.classList.add('opacity-50');
+  }
+}
+
+/**
+ * Toggle démarrer/arrêter le chronomètre
+ */
+function toggleChrono() {
+  if (chronoEnMarche) {
+    arreterChrono();
+  } else {
+    demarrerChrono();
+  }
+}
+
+/**
+ * Enregistre un tour
+ */
+function enregistrerTour() {
+  if (!chronoEnMarche) return;
+  
+  tours.push(tempsChrono);
+  afficherTours();
+}
+
+/**
+ * Affiche la liste des tours
+ */
+function afficherTours() {
+  const listeElement = document.getElementById('listeTours');
+  const messageAucun = document.getElementById('messageAucunTour');
+  
+  if (!listeElement) return;
+  
+  // Vider la liste
+  listeElement.innerHTML = '';
+  
+  // Afficher/masquer le message "aucun tour"
+  if (messageAucun) {
+    messageAucun.style.display = tours.length === 0 ? 'block' : 'none';
+  }
+  
+  // Afficher chaque tour
+  tours.forEach(function(temps, index) {
+    const tourDiv = document.createElement('div');
+    tourDiv.className = 'bg-gray-50 border-l-4 border-oclock-bezel px-4 py-3 flex justify-between items-center';
+    
+    tourDiv.innerHTML = `
+      <span class="font-semibold text-gray-700">Tour ${index + 1}</span>
+      <span class="text-2xl font-bold font-roboto-mono text-oclock-dial">${secondesVersHMS(temps)}</span>
+    `;
+    
+    listeElement.appendChild(tourDiv);
+  });
+}
+
+/**
+ * Remet le chronomètre à zéro
+ */
+function resetChrono() {
+  arreterChrono();
+  tempsChrono = 0;
+  tours = [];
+  afficherChrono();
+  afficherTours();
+  
+  // Remettre le bouton à "Démarrer"
+  const btnToggle = document.getElementById('btnToggleChrono');
+  if (btnToggle) {
+    btnToggle.textContent = 'Démarrer';
+  }
+}
+

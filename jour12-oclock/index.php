@@ -156,8 +156,35 @@
         <!-- 3. CHRONOMETRE -->
         <section id="chronometer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Chronomètre</h1>
-            <div class="flex gap-4">
-                /// contenu ///
+            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Mesure du temps écoulé</p>
+
+            <!-- Affichage du temps -->
+            <div class="text-center mb-8">
+                <div id="affichageChrono" class="text-8xl font-bold font-roboto-mono text-oclock-dial tracking-[0.05em]">00:00:00</div>
+            </div>
+
+            <!-- Boutons de contrôle -->
+            <div class="flex justify-center gap-4 mb-8">
+                <button id="btnToggleChrono" onclick="toggleChrono()" class="px-8 py-3 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 transition-colors">
+                    Démarrer
+                </button>
+                <button id="btnTourChrono" onclick="enregistrerTour()" disabled class="px-8 py-3 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition-colors opacity-50">
+                    Tour
+                </button>
+                <button onclick="resetChrono()" class="px-8 py-3 bg-gray-500 text-white font-bold text-lg rounded-lg hover:bg-gray-600 transition-colors">
+                    Reset
+                </button>
+            </div>
+
+            <!-- Liste des tours -->
+            <div id="containerTours">
+                <h2 class="text-xl font-bold mb-4 text-oclock-dial">Tours enregistrés</h2>
+                <div id="listeTours" class="space-y-2">
+                    <!-- Les tours seront ajoutés dynamiquement ici -->
+                </div>
+                <div id="messageAucunTour" class="text-center py-4 text-gray-400 italic">
+                    Aucun tour enregistré
+                </div>
             </div>
         </section>
 
