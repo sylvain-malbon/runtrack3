@@ -17,10 +17,26 @@
                 extend: {
                     colors: {
                         oclock: {
-                            amber: "#4e280dff",
+                            dial: "#00664F",
+                            bezel: "#00A651",
+                            steel: "#C0C0C0",
+                            steelDark: "#808080",
+                            white: "#F5F5F5",
                             dark: "#0A0A0A",
-                            light: "#F5F7FA"
+                            bgTop: "#e8f5f0",
+                            bgBottom: "#c5e8db",
+                            yellow: "#f2ff00ff"
                         }
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'roboto-mono': ['Roboto Mono', 'monospace']
+                    },
+                    letterSpacing: {
+                        'tight-custom': '-0.02em'
+                    },
+                    maxWidth: {
+                        'custom': 'min(95vw, 1400px)'
                     }
                 }
             }
@@ -30,104 +46,88 @@
     <!-- Styles perso -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Polices Vintage -->
+    <!-- Polices Modernes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="text-gray-900" style="font-family: 'Crimson Text', serif; background: linear-gradient(to bottom, #f8f4e6, #ece4d0);">
+<body class="text-gray-900 font-montserrat bg-[#e8f5f0]">
 
     <!-- NAVBAR -->
-    <nav class="bg-oclock-amber text-white px-8 py-5 flex justify-between items-center border-b-[3px] border-double border-[#4e280d]" style="font-family: 'Playfair Display', serif; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
-        <a class="font-bold flex items-center justify-center gap-3 tracking-widest" href="#accueil" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-            <span class="text-3xl">O'CLock</span>
+    <nav class="text-white px-8 py-4 flex justify-between items-center border-b-2 border-white/20 font-montserrat font-semibold bg-oclock-bezel">
+        <a class="font-bold flex items-center justify-center gap-3 tracking-wide text-white hover:text-white/90 transition-colors" href="#accueil">
+            <span class="text-oclock-yellow text-3xl font-black">O'CLock</span>
         </a>
-        <div id="user-welcome" class="text-white font-semibold flex items-center gap-2" style="display: none;">
+        <div id="user-welcome" class="text-white font-semibold flex items-center gap-2 hidden">
             <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
             </svg>
             <span id="user-welcome-text"></span>
         </div>
-        <ul class="flex list-none gap-3 m-0">
+        <ul class="flex list-none gap-2 m-0">
             <li class="m-0" id="nav-horloge">
-                <a class="text-white no-underline px-5 py-2 hover:bg-amber-700 transition-all duration-200 border border-white/30 rounded-sm font-semibold tracking-wide" href="#accueil" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Accueil</a>
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#accueil">Accueil</a>
             </li>
-            <li class="m-0" id="nav-minuteur" style="display: none;">
-                <a class="text-white no-underline px-5 py-2 hover:bg-amber-700 transition-all duration-200 border border-white/30 rounded-sm font-semibold tracking-wide" href="#minuteur" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Minuteur</a>
+            <li class="m-0" id="nav-minuteur" class="hidden">
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#minuteur">Minuteur</a>
             </li>
-            <li class="m-0" id="nav-chronometre" style="display: none;">
-                <a class="text-white no-underline px-5 py-2 hover:bg-amber-700 transition-all duration-200 border border-white/30 rounded-sm font-semibold tracking-wide" href="#chronometre" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Chronomètre</a>
+            <li class="m-0" id="nav-chronometre" class="hidden">
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#chronometre">Chronomètre</a>
             </li>
-            <li class="m-0" id="nav-reveil" style="display: none;">
-                <a class="text-white no-underline px-5 py-2 hover:bg-amber-700 transition-all duration-200 border border-white/30 rounded-sm font-semibold tracking-wide" href="#reveil" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Réveil</a>
+            <li class="m-0" id="nav-reveil" class="hidden">
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
             </li>
         </ul>
     </nav>
 
     <!-- SECTIONS -->
-    <main class="p-6 mx-auto relative z-[2]" style="max-width: min(95vw, 1400px);">
+    <main class="p-6 mx-auto relative z-[2] max-w-custom">
 
         <!-- 1. HORLOGE -->
-        <section id="oclock" class="fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-10 relative border-[3px] border-double border-[#4e280d]" style="font-family: 'Playfair Display', serif; background: linear-gradient(to bottom, #faf8f3, #f5f1e8); box-shadow: inset 0 0 0 1px rgba(78, 40, 13, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(78, 40, 13, 0.1);">
-            <div class="absolute top-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute top-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-b-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-b-2 border-[#4e280d]"></div>
-            <h1 class="text-4xl font-bold mb-4 text-center tracking-widest" style="color: #4e280d; text-shadow: 2px 2px 0 rgba(78, 40, 13, 0.1);">Horloge</h1>
-            <p class="text-center mb-6 italic text-lg" style="color: #6b4423;">Heure actuelle</p>
+        <section id="oclock" class="fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+            <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Horloge</h1>
+            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Heure actuelle</p>
 
             <!-- Horloge CSS décorative -->
-            <article class="clock simple rounded-full bg-white border-8 border-[#4e280d] w-80 h-80 relative mx-auto mb-8" style="box-shadow: inset 0 0 0 8px rgba(78, 40, 13, 0.1), 0 8px 15px rgba(0, 0, 0, 0.3);">
+            <article class="clock simple rounded-full w-80 h-80 relative mx-auto mb-10 bg-oclock-dial border-[6px] border-white">
                 <div class="hours-container absolute inset-0">
-                    <div class="hours absolute bg-[#4e280d] rounded"></div>
+                    <div class="hours absolute rounded-sm bg-white"></div>
                 </div>
                 <div class="minutes-container absolute inset-0">
-                    <div class="minutes absolute bg-[#6b4423] rounded"></div>
+                    <div class="minutes absolute rounded-sm bg-white"></div>
                 </div>
                 <div class="seconds-container absolute inset-0">
-                    <div class="seconds absolute bg-[#d2691e] rounded z-[8]"></div>
+                    <div class="seconds absolute rounded-full z-[8] bg-oclock-yellow"></div>
                 </div>
             </article>
 
             <!-- Horloge numérique (CDC) -->
             <div class="text-center">
-                <div id="affichageHorloge" class="text-6xl font-bold tracking-wider" style="font-family: 'Courier New', monospace; color: #4e280d;">00:00:00</div>
+                <div id="affichageHorloge" class="text-7xl font-bold font-roboto-mono text-oclock-dial tracking-[0.05em]">00:00:00</div>
             </div>
         </section>
 
         <!-- 2. MINUTEUR -->
-        <section id="timer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-10 relative border-[3px] border-double border-[#4e280d]" style="font-family: 'Playfair Display', serif; background: linear-gradient(to bottom, #faf8f3, #f5f1e8); box-shadow: inset 0 0 0 1px rgba(78, 40, 13, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(78, 40, 13, 0.1);">
-            <div class="absolute top-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute top-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-b-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-b-2 border-[#4e280d]"></div>
-            <h1 class="text-4xl font-bold mb-4 text-center tracking-widest" style="color: #4e280d; text-shadow: 2px 2px 0 rgba(78, 40, 13, 0.1);">Minuteur</h1>
+        <section id="timer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+            <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Minuteur</h1>
             <div class="flex gap-4">
                 /// contenu ///
             </div>
         </section>
 
         <!-- 3. CHRONOMETRE -->
-        <section id="chronometer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-10 relative border-[3px] border-double border-[#4e280d]" style="font-family: 'Playfair Display', serif; background: linear-gradient(to bottom, #faf8f3, #f5f1e8); box-shadow: inset 0 0 0 1px rgba(78, 40, 13, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(78, 40, 13, 0.1);">
-            <div class="absolute top-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute top-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-b-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-b-2 border-[#4e280d]"></div>
-            <h1 class="text-4xl font-bold mb-4 text-center tracking-widest" style="color: #4e280d; text-shadow: 2px 2px 0 rgba(78, 40, 13, 0.1);">Chronomètre</h1>
+        <section id="chronometer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+            <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Chronomètre</h1>
             <div class="flex gap-4">
                 /// contenu ///
             </div>
         </section>
 
         <!-- 4. REVEIL -->
-        <section id="alarm" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-10 relative border-[3px] border-double border-[#4e280d]" style="font-family: 'Playfair Display', serif; background: linear-gradient(to bottom, #faf8f3, #f5f1e8); box-shadow: inset 0 0 0 1px rgba(78, 40, 13, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(78, 40, 13, 0.1);">
-            <div class="absolute top-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute top-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-t-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] left-[15px] w-[30px] h-[30px] border-l-2 border-b-2 border-[#4e280d]"></div>
-            <div class="absolute bottom-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-b-2 border-[#4e280d]"></div>
-            <h1 class="text-4xl font-bold mb-4 text-center tracking-widest" style="color: #4e280d; text-shadow: 2px 2px 0 rgba(78, 40, 13, 0.1);">Réveil</h1>
+        <section id="alarm" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+            <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Réveil</h1>
             <div class="flex gap-4">
                 /// contenu ///
             </div>

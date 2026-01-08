@@ -19,13 +19,13 @@ function updateNavigation() {
 
   // Retirer toutes les classes active
   document.querySelectorAll('nav ul li a').forEach(link => {
-    link.classList.remove('font-bold', 'border-b-2', 'border-white', 'bg-amber-800');
+    link.classList.remove('font-bold', 'border-b-2', 'border-oclock-yellow', 'bg-green-800');
   });
 
   // Ajouter active à la page courante
   const activeLink = document.querySelector(`nav ul li a[href="#${currentPage}"]`);
   if (activeLink) {
-    activeLink.classList.add('font-bold', 'border-b-2', 'border-white', 'bg-amber-800');
+    activeLink.classList.add('font-bold', 'border-b-2', 'border-oclock-yellow', 'bg-green-800');
   }
 
   // Gérer la visibilité des onglets - tous visibles pour une horloge
@@ -39,18 +39,6 @@ function updateNavigation() {
   if (navMinuteur) navMinuteur.style.display = 'block';
   if (navChronometre) navChronometre.style.display = 'block';
   if (navReveil) navReveil.style.display = 'block';
-
-  // Afficher le message de bienvenue
-  const userWelcome = document.getElementById('user-welcome');
-  const userWelcomeText = document.getElementById('user-welcome-text');
-  if (userWelcome && userWelcomeText) {
-    if (isLoggedIn && currentUser.prenom && currentUser.nom) {
-      userWelcomeText.textContent = `Bonjour ${currentUser.prenom} ${currentUser.nom}`;
-      userWelcome.style.display = 'flex';
-    } else {
-      userWelcome.style.display = 'none';
-    }
-  }
 
   // Afficher la bonne section
   const sectionMapping = {
@@ -93,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('hashchange', () => {
   updateNavigation();
 });
+
 // ========== HORLOGE NUMÉRIQUE (Conforme CDC) ==========
 
 // Variable globale pour l'horloge numérique
@@ -130,6 +119,7 @@ function demarrerHorloge() {
   // Mettre à jour chaque seconde
   horlogeInterval = setInterval(afficherHorloge, 1000);
 }
+
 // ========== HORLOGE CSS (Décorative uniquement) ==========
 
 // Variables globales pour l'horloge CSS
