@@ -9,37 +9,50 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 5%;
-    height: 5%;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
     z-index: 10;
+    box-shadow: 0 0 0 3px #00664F, 0 0 0 4px white;
 }
 
 /* Positionnement précis des aiguilles (non disponible en Tailwind) */
 .hours {
-    height: 20%;
-    left: 48.75%;
-    top: 30%;
+    height: 25%;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
     transform-origin: 50% 100%;
-    width: 2.5%;
+    width: 6px;
+    border-radius: 3px;
 }
 
 .minutes {
-    height: 40%;
-    left: 49%;
-    top: 10%;
+    height: 35%;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
     transform-origin: 50% 100%;
-    width: 2%;
+    width: 4px;
+    border-radius: 2px;
 }
 
 .seconds {
-    height: 45%;
-    left: 49.5%;
-    top: 14%;
-    transform-origin: 50% 80%;
-    width: 1%;
+    height: 40%;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    transform-origin: 50% 100%;
+    width: 2px;
+    border-radius: 1px;
 }
 
 /* Transitions avec cubic-bezier personnalisé */
+.hours-container {
+    transition: transform 0.5s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
 .minutes-container {
     transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
@@ -47,3 +60,70 @@
 .seconds-container {
     transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
+
+/* Marqueurs d'heures (plus gros, aux positions 1,2,4,5,7,8,10,11) */
+.hour-marker {
+    position: absolute;
+    width: 4px;
+    height: 18px;
+    background-color: white;
+    left: 50%;
+    top: 12px;
+    transform-origin: 50% 143px;
+    margin-left: -2px;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Marqueurs de minutes (plus fins, 56 graduations) */
+.minute-marker {
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    left: 50%;
+    top: 12px;
+    transform-origin: 50% 143px;
+    margin-left: -1px;
+    border-radius: 1px;
+}
+
+/* Chiffres des heures (12, 3, 6, 9) */
+.hour-number {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+    left: 50%;
+    top: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Amélioration visuelle de l'horloge */
+.clock.simple {
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.1),
+        0 0 0 12px #00A651,
+        inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Effet de profondeur sur les aiguilles */
+.hours {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.minutes {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.seconds {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
