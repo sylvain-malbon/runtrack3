@@ -27,6 +27,7 @@
     width: 6px;
     border-radius: 3px;
     position: relative;
+    z-index: 5;
 }
 
 /* Cercle blanc extérieur style Mercedes au bout de l'aiguille */
@@ -78,6 +79,37 @@
     transform-origin: 50% 100%;
     width: 2px;
     border-radius: 1px;
+}
+
+/* Aiguille secondaire avec triangle sous l'aiguille des heures */
+.hours-container::before {
+    content: "";
+    position: absolute;
+    height: 28%;
+    left: 50%;
+    top: 22%;
+    transform: translateX(-50%);
+    transform-origin: 50% 100%;
+    width: 5px;
+    background-color: white;
+    border-radius: 2.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+/* Triangle au bout de l'aiguille secondaire */
+.hours-container::after {
+    content: "";
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -16px);
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 18px solid white;
+    z-index: 0;
 }
 
 /* Transitions avec cubic-bezier personnalisé */
