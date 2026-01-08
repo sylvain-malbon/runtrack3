@@ -440,3 +440,178 @@ function demarrerVerificationAlarmes() {
   reveilInterval = setInterval(verifierAlarmes, 1000);
 }
 
+// ========== MINUTEUR ==========
+
+// Variables globales pour le minuteur
+let tempsMinuteur = 300; // 5 minutes en secondes par défaut
+let minuteurInterval = null;
+let minuteurEnMarche = false;
+
+/**
+ * Convertit des secondes en format MM:SS
+ */
+function secondesVersMS(secondes) {
+  const minutes = Math.floor(secondes / 60);
+  const secs = secondes % 60;
+  return formatNumber(minutes) + ':' + formatNumber(secs);
+}
+
+/**
+ * Affiche le temps du minuteur
+ */
+function afficherMinuteur() {
+  const affichage = secondesVersMS(tempsMinuteur);
+  const element = document.getElementById('affichageMinuteur');
+  if (element) {
+    element.textContent = affichage;
+  }
+}
+
+/**
+ * Augmente le minuteur de 1 minute
+ */
+function augmenterMinuteur() {
+  if (!minuteurEnMarche) {
+    tempsMinuteur += 60;
+    afficherMinuteur();
+  }
+}
+
+/**
+ * Diminue le minuteur de 1 minute
+ */
+function diminuerMinuteur() {
+  if (!minuteurEnMarche && tempsMinuteur >= 60) {
+    tempsMinuteur -= 60;
+    afficherMinuteur();
+  }
+}
+
+/**
+ * Définit le temps du minuteur depuis l'input
+ */
+function definirTempsMinuteur() {
+  if (minuteurEnMarche) return;
+  
+  const input = document.getElementById('inputMinuteur');
+  if (!input) return;
+  
+  const valeur = input.value.trim();
+  
+  // Validation du format MM:SS
+  const regex = /^([0-9]{1,2}):([0-5][0-9])$/;
+  const match = valeur.match(regex);
+  
+  if (!match) {
+    alert('Format invalide ! Utilisez MM:SS (ex: 05:30)');
+    return;
+  }
+  
+  const minutes = parseInt(match[1]);
+  const secondes = parseInt(match[2]);
+  
+  if (minutes < 0 || secondes < 0) {
+    alert('Le temps doit être positif !');
+    return;
+  }
+  
+  tempsMinuteur = (minutes * 60) + secondes;
+  afficherMinuteur();
+  input.value = '';
+}
+
+/**
+ * Active/désactive les contrôles du minuteur
+ */
+function toggleControlsMinuteur(actif) {
+  const btnPlus = document.getElementById('btnPlusMinuteur');
+  const btnMoins = document.getElementById('btnMoinsMinuteur');
+  const btnDefinir = document.getElementById('btnDefinirMinuteur');
+  const input = document.getElementById('inputMinuteur');
+  
+  if (btnPlus) btnPlus.disabled = !actif;
+  if (btnMoins) btnMoins.disabled = !actif;
+  if (btnDefinir) btnDefinir.disabled = !actif;
+  if (input) input.disabled = !actif;
+  
+  // Style visuel pour les boutons désactivés
+  if (btnPlus) btnPlus.classList.toggle('opacity-50', !actif);
+  if (btnMoins) btnMoins.classList.toggle('opacity-50', !actif);
+  if (btnDefinir) btnDefinir.classList.toggle('opacity-50', !actif);
+  if (input) input.classList.toggle('opacity-50', !actif);
+}
+
+/**
+ * Démarre le minuteur
+ */
+function demarrerMinuteur() {
+  if (tempsMinuteur <= 0) {
+    alert('Le minuteur est à zéro ! Définissez un temps.');
+    return;
+  }
+  
+  minuteurEnMarche = true;
+  toggleControlsMinuteur(false);
+  
+  // Changer le bouton
+  const btn = document.getElementById('btnDemarrerMinuteur');
+  if (btn) {
+    btn.textContent = 'Arrêter';
+    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+    btn.classList.add('bg-red-600', 'hover:bg-red-700');
+  }
+  
+  // Démarrer l'interval
+  minuteurInterval = setInterval(function() {
+    tempsMinuteur--;
+    afficherMinuteur();
+    
+    if (tempsMinuteur <= 0) {
+      arreterMinuteur();
+      alert('Temps écoulé !');
+    }
+  }, 1000);
+}
+
+/**
+ * Arrête le minuteur
+ */
+function arreterMinuteur() {
+  minuteurEnMarche = false;
+  
+  if (minuteurInterval) {
+    clearInterval(minuteurInterval);
+    minuteurInterval = null;
+  }
+  
+  toggleControlsMinuteur(true);
+  
+  // Changer le bouton
+  const btn = document.getElementById('btnDemarrerMinuteur');
+  if (btn) {
+    btn.textContent = 'Démarrer';
+    btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+  }
+}
+
+/**
+ * Toggle démarrer/arrêter le minuteur
+ */
+function toggleMinuteur() {
+  if (minuteurEnMarche) {
+    arreterMinuteur();
+  } else {
+    demarrerMinuteur();
+  }
+}
+
+/**
+ * Remet le minuteur à zéro
+ */
+function resetMinuteur() {
+  arreterMinuteur();
+  tempsMinuteur = 300; // 5 minutes par défaut
+  afficherMinuteur();
+}
+

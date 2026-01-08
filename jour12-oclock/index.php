@@ -106,8 +106,50 @@
         <!-- 2. MINUTEUR -->
         <section id="timer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Minuteur</h1>
-            <div class="flex gap-4">
-                /// contenu ///
+            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Compte à rebours</p>
+
+            <!-- Affichage du temps -->
+            <div class="text-center mb-8">
+                <div id="affichageMinuteur" class="text-8xl font-bold font-roboto-mono text-oclock-dial tracking-[0.05em]">05:00</div>
+            </div>
+
+            <!-- Contrôles +/- -->
+            <div class="flex justify-center gap-4 mb-6">
+                <button id="btnMoinsMinuteur" onclick="diminuerMinuteur()" class="w-16 h-16 bg-gray-200 text-gray-700 text-3xl font-bold rounded-lg hover:bg-gray-300 transition-colors">
+                    −
+                </button>
+                <button id="btnPlusMinuteur" onclick="augmenterMinuteur()" class="w-16 h-16 bg-gray-200 text-gray-700 text-3xl font-bold rounded-lg hover:bg-gray-300 transition-colors">
+                    +
+                </button>
+            </div>
+
+            <!-- Input pour définir le temps -->
+            <div class="flex justify-center gap-4 mb-8">
+                <div class="flex-1 max-w-xs">
+                    <label for="inputMinuteur" class="block text-sm font-semibold mb-2 text-gray-700">Définir le temps (MM:SS)</label>
+                    <input
+                        type="text"
+                        id="inputMinuteur"
+                        placeholder="05:00"
+                        maxlength="5"
+                        class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-oclock-bezel text-center font-roboto-mono text-xl"
+                        onkeypress="if(event.key === 'Enter') definirTempsMinuteur()">
+                </div>
+                <div class="flex items-end">
+                    <button id="btnDefinirMinuteur" onclick="definirTempsMinuteur()" class="px-6 py-2 bg-oclock-bezel text-white font-semibold rounded-lg hover:bg-oclock-dial transition-colors">
+                        Définir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Boutons de contrôle -->
+            <div class="flex justify-center gap-4">
+                <button id="btnDemarrerMinuteur" onclick="toggleMinuteur()" class="px-8 py-3 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 transition-colors">
+                    Démarrer
+                </button>
+                <button onclick="resetMinuteur()" class="px-8 py-3 bg-gray-500 text-white font-bold text-lg rounded-lg hover:bg-gray-600 transition-colors">
+                    Reset
+                </button>
             </div>
         </section>
 
