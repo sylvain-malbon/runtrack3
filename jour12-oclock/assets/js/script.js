@@ -64,13 +64,13 @@ function updateNavigation() {
 }
 
 // Gestion de la navigation
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   // Récupération de tous les liens de navigation
   const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
   // Gestion des clics sur les liens de navigation
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
       e.preventDefault();
       const targetId = link.getAttribute('href').substring(1);
       
@@ -81,121 +81,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialisation de la navigation
   updateNavigation();
+
+  // Démarrer l'horloge numérique (conforme CDC)
+  demarrerHorloge();
+
+  // Démarrer l'horloge CSS décorative
+  demarrerHorlogeCSS();
 });
 
 // Écouter les changements de hash
 window.addEventListener('hashchange', () => {
   updateNavigation();
 });
+// ========== HORLOGE NUMÉRIQUE (Conforme CDC) ==========
 
-// ========== HORLOGE CSS ==========
+// Variable globale pour l'horloge numérique
+let horlogeInterval = null;
 
-/*
- * Démarre l'horloge avec l'heure locale
- * Inspiré de: cssanimation.rocks/clocks
+/**
+ * Affiche l'heure actuelle au format HH:MM:SS
  */
-function initLocalClocks() {
-  // Récupérer l'heure locale avec JS
-  var date = new Date();
-  var seconds = date.getSeconds();
-  var minutes = date.getMinutes();
-  var hours = date.getHours();
-
-  // Créer un objet avec chaque aiguille et son angle en degrés
-  var hands = [
-    {
-      hand: 'hours',
-      angle: (hours * 30) + (minutes / 2)
-    },
-    {
-      hand: 'minutes',
-      angle: (minutes * 6)
-    },
-    {
-      hand: 'seconds',
-      angle: (seconds * 6)
-    }
-  ];
+function afficherHorloge() {
+  const maintenant = new Date();
+  const heures = formatNumber(maintenant.getHours());
+  const minutes = formatNumber(maintenant.getMinutes());
+  const secondes = formatNumber(maintenant.getSeconds());
   
-  // Boucler sur chaque aiguille pour définir son angle
-  for (var j = 0; j < hands.length; j++) {
-    var elements = document.querySelectorAll('.' + hands[j].hand);
-    for (var k = 0; k < elements.length; k++) {
-      elements[k].style.webkitTransform = 'rotateZ('+ hands[j].angle +'deg)';
-      elements[k].style.transform = 'rotateZ('+ hands[j].angle +'deg)';
-      // Si c'est l'aiguille des minutes, noter la position des secondes
-      if (hands[j].hand === 'minutes') {
-        elements[k].parentNode.setAttribute('data-second-angle', hands[j + 1].angle);
-      }
-    }
+  const affichage = heures + ":" + minutes + ":" + secondes;
+  
+  const elementHorloge = document.getElementById("affichageHorloge");
+  if (elementHorloge) {
+    elementHorloge.textContent = affichage;
   }
 }
 
-/*
- * Définir un timeout pour le premier mouvement de l'aiguille des minutes
+/**
+ * Démarre l'horloge numérique
  */
-function setUpMinuteHands() {
-  // Découvrir où on en est dans la minute
-  var containers = document.querySelectorAll('.minutes-container');
-  var secondAngle = containers[0].getAttribute("data-second-angle");
-  if (secondAngle > 0) {
-    // Définir un timeout jusqu'à la fin de la minute courante
-    var delay = (((360 - secondAngle) / 6) + 0.1) * 1000;
-    setTimeout(function() {
-      moveMinuteHands(containers);
-    }, delay);
+function demarrerHorloge() {
+  // Arrêter l'interval existant si présent
+  if (horlogeInterval) {
+    clearInterval(horlogeInterval);
+  }
+  
+  // Afficher immédiatement
+  afficherHorloge();
+  
+  // Mettre à jour chaque seconde
+  horlogeInterval = setInterval(afficherHorloge, 1000);
+}
+// ========== HORLOGE CSS (Décorative uniquement) ==========
+
+// Variables globales pour l'horloge CSS
+let horlogeCSSIntervalId = null;
+
+/**
+ * Formate un nombre avec un zéro devant si < 10
+ */
+function formatNumber(num) {
+  return num < 10 ? "0" + num : num;
+}
+
+/**
+ * Initialise l'horloge CSS avec l'heure actuelle
+ */
+function initHorlogeCSS() {
+  const maintenant = new Date();
+  const secondes = maintenant.getSeconds();
+  const minutes = maintenant.getMinutes();
+  const heures = maintenant.getHours();
+
+  // Calculer les angles pour chaque aiguille
+  const angleHeures = (heures * 30) + (minutes / 2);
+  const angleMinutes = (minutes * 6);
+  const angleSecondes = (secondes * 6);
+
+  // Appliquer les angles initiaux
+  const aiguillHeures = document.querySelector('.hours-container');
+  const aiguillMinutes = document.querySelector('.minutes-container');
+  const aiguillSecondes = document.querySelector('.seconds-container');
+
+  if (aiguillHeures) {
+    aiguillHeures.style.transform = 'rotateZ(' + angleHeures + 'deg)';
+  }
+  if (aiguillMinutes) {
+    aiguillMinutes.style.transform = 'rotateZ(' + angleMinutes + 'deg)';
+  }
+  if (aiguillSecondes) {
+    aiguillSecondes.style.transform = 'rotateZ(' + angleSecondes + 'deg)';
   }
 }
 
-/*
- * Faire la première rotation de la minute
+/**
+ * Met à jour l'horloge CSS chaque seconde
  */
-function moveMinuteHands(containers) {
-  for (var i = 0; i < containers.length; i++) {
-    containers[i].style.webkitTransform = 'rotateZ(6deg)';
-    containers[i].style.transform = 'rotateZ(6deg)';
+function updateHorlogeCSS() {
+  const maintenant = new Date();
+  const secondes = maintenant.getSeconds();
+  const minutes = maintenant.getMinutes();
+  const heures = maintenant.getHours();
+
+  // Calculer les angles
+  const angleHeures = (heures * 30) + (minutes / 2);
+  const angleMinutes = (minutes * 6);
+  const angleSecondes = (secondes * 6);
+
+  // Mettre à jour les aiguilles
+  const aiguillHeures = document.querySelector('.hours-container');
+  const aiguillMinutes = document.querySelector('.minutes-container');
+  const aiguillSecondes = document.querySelector('.seconds-container');
+
+  if (aiguillHeures) {
+    aiguillHeures.style.transform = 'rotateZ(' + angleHeures + 'deg)';
   }
-  // Puis continuer avec un intervalle de 60 secondes
-  setInterval(function() {
-    for (var i = 0; i < containers.length; i++) {
-      if (containers[i].angle === undefined) {
-        containers[i].angle = 12;
-      } else {
-        containers[i].angle += 6;
-      }
-      containers[i].style.webkitTransform = 'rotateZ('+ containers[i].angle +'deg)';
-      containers[i].style.transform = 'rotateZ('+ containers[i].angle +'deg)';
-    }
-  }, 60000);
+  if (aiguillMinutes) {
+    aiguillMinutes.style.transform = 'rotateZ(' + angleMinutes + 'deg)';
+  }
+  if (aiguillSecondes) {
+    aiguillSecondes.style.transform = 'rotateZ(' + angleSecondes + 'deg)';
+  }
 }
 
-/*
- * Déplacer les aiguilles des secondes
+/**
+ * Démarre l'horloge CSS
  */
-function moveSecondHands() {
-  var containers = document.querySelectorAll('.seconds-container');
-  setInterval(function() {
-    for (var i = 0; i < containers.length; i++) {
-      if (containers[i].angle === undefined) {
-        containers[i].angle = 6;
-      } else {
-        containers[i].angle += 6;
-      }
-      containers[i].style.webkitTransform = 'rotateZ('+ containers[i].angle +'deg)';
-      containers[i].style.transform = 'rotateZ('+ containers[i].angle +'deg)';
-    }
-  }, 1000);
-}
+function demarrerHorlogeCSS() {
+  // Arrêter l'interval existant si présent
+  if (horlogeCSSIntervalId) {
+    clearInterval(horlogeCSSIntervalId);
+  }
 
-// Initialiser l'horloge au chargement
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    initLocalClocks();
-    moveSecondHands();
-    setUpMinuteHands();
-  });
-} else {
-  initLocalClocks();
-  moveSecondHands();
-  setUpMinuteHands();
+  // Initialiser et démarrer
+  initHorlogeCSS();
+  horlogeCSSIntervalId = setInterval(updateHorlogeCSS, 1000);
 }

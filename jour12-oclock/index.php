@@ -77,7 +77,9 @@
             <div class="absolute bottom-[15px] right-[15px] w-[30px] h-[30px] border-r-2 border-b-2 border-[#4e280d]"></div>
             <h1 class="text-4xl font-bold mb-4 text-center tracking-widest" style="color: #4e280d; text-shadow: 2px 2px 0 rgba(78, 40, 13, 0.1);">Horloge</h1>
             <p class="text-center mb-6 italic text-lg" style="color: #6b4423;">Heure actuelle</p>
-            <article class="clock simple rounded-full bg-white border-8 border-[#4e280d] w-80 h-80 relative mx-auto" style="box-shadow: inset 0 0 0 8px rgba(78, 40, 13, 0.1), 0 8px 15px rgba(0, 0, 0, 0.3);">
+
+            <!-- Horloge CSS décorative -->
+            <article class="clock simple rounded-full bg-white border-8 border-[#4e280d] w-80 h-80 relative mx-auto mb-8" style="box-shadow: inset 0 0 0 8px rgba(78, 40, 13, 0.1), 0 8px 15px rgba(0, 0, 0, 0.3);">
                 <div class="hours-container absolute inset-0">
                     <div class="hours absolute bg-[#4e280d] rounded"></div>
                 </div>
@@ -88,6 +90,11 @@
                     <div class="seconds absolute bg-[#d2691e] rounded z-[8]"></div>
                 </div>
             </article>
+
+            <!-- Horloge numérique (CDC) -->
+            <div class="text-center">
+                <div id="affichageHorloge" class="text-6xl font-bold tracking-wider" style="font-family: 'Courier New', monospace; color: #4e280d;">00:00:00</div>
+            </div>
         </section>
 
         <!-- 2. MINUTEUR -->
