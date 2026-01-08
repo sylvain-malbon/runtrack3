@@ -60,12 +60,6 @@
         <a class="font-bold flex items-center justify-center gap-3 tracking-wide text-white hover:text-white/90 transition-colors" href="#accueil">
             <span class="text-oclock-yellow text-3xl font-black">O'CLock</span>
         </a>
-        <div id="user-welcome" class="text-white font-semibold flex items-center gap-2 hidden">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-            <span id="user-welcome-text"></span>
-        </div>
         <ul class="flex list-none gap-2 m-0">
             <li class="m-0" id="nav-horloge">
                 <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#accueil">Accueil</a>
