@@ -17,15 +17,17 @@
                 extend: {
                     colors: {
                         oclock: {
-                            dial: "#00664F",
+                            dial: "#004d3a",
                             bezel: "#00A651",
                             steel: "#C0C0C0",
                             steelDark: "#808080",
                             white: "#F5F5F5",
                             dark: "#0A0A0A",
-                            bgTop: "#e8f5f0",
-                            bgBottom: "#c5e8db",
-                            yellow: "#f2ff00ff"
+                            bgTop: "#d4ebe1",
+                            bgBottom: "#b8ddc9",
+                            yellow: "#e6f200",
+                            accent: "#00cc66",
+                            shadow: "rgba(0, 77, 58, 0.08)"
                         }
                     },
                     fontFamily: {
@@ -53,25 +55,25 @@
 
 </head>
 
-<body class="text-gray-900 font-montserrat bg-[#e8f5f0]">
+<body class="text-gray-900 font-montserrat bg-gradient-to-br from-oclock-bgTop to-oclock-bgBottom min-h-screen">
 
     <!-- NAVBAR -->
-    <nav class="text-white px-8 py-4 flex justify-between items-center border-b-2 border-white/20 font-montserrat font-semibold bg-oclock-bezel">
+    <nav class="text-white px-8 py-4 flex justify-between items-center border-b-2 border-white/30 font-montserrat font-semibold bg-oclock-bezel shadow-lg">
         <a class="font-bold flex items-center justify-center gap-3 tracking-wide text-white hover:text-white/90 transition-colors" href="#accueil">
-            <span class="text-oclock-yellow text-3xl font-black">O'CLock</span>
+            <span class="text-oclock-yellow text-3xl font-black drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">O'CLock</span>
         </a>
         <ul class="flex list-none gap-2 m-0">
             <li class="m-0" id="nav-horloge">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#accueil">Horloge</a>
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#accueil">Horloge</a>
             </li>
             <li class="m-0" id="nav-reveil" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
             </li>
             <li class="m-0" id="nav-minuteur" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#minuteur">Minuteur</a>
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#minuteur">Minuteur</a>
             </li>
             <li class="m-0" id="nav-chronometre" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#chronometre">Chronomètre</a>
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#chronometre">Chronomètre</a>
             </li>
         </ul>
     </nav>
@@ -80,9 +82,9 @@
     <main class="p-6 mx-auto relative z-[2] max-w-custom">
 
         <!-- 1. HORLOGE -->
-        <section id="oclock" class="fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+        <section id="oclock" class="fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-xl font-montserrat bg-white shadow-[0_8px_32px_rgba(0,77,58,0.12)]">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Horloge</h1>
-            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Heure actuelle</p>
+            <p class="text-center mb-8 text-base font-medium text-gray-600">Heure actuelle</p>
 
             <!-- Horloge CSS décorative -->
             <article class="clock simple rounded-full w-80 h-80 relative mx-auto mb-10 bg-oclock-dial border-[6px] border-white">
@@ -104,9 +106,9 @@
         </section>
 
         <!-- 2. MINUTEUR -->
-        <section id="timer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+        <section id="timer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-xl font-montserrat bg-white shadow-[0_8px_32px_rgba(0,77,58,0.12)]">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Minuteur</h1>
-            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Compte à rebours</p>
+            <p class="text-center mb-8 text-base font-medium text-gray-600">Compte à rebours</p>
 
             <!-- Affichage du temps -->
             <div class="text-center mb-8">
@@ -115,10 +117,10 @@
 
             <!-- Contrôles +/- -->
             <div class="flex justify-center gap-4 mb-6">
-                <button id="btnMoinsMinuteur" onclick="diminuerMinuteur()" class="w-16 h-16 bg-gray-200 text-gray-700 text-3xl font-bold rounded-lg hover:bg-gray-300 transition-colors">
+                <button id="btnMoinsMinuteur" onclick="diminuerMinuteur()" class="w-16 h-16 bg-gray-100 text-gray-800 text-3xl font-bold rounded-lg hover:bg-gray-200 transition-colors border-2 border-gray-300">
                     −
                 </button>
-                <button id="btnPlusMinuteur" onclick="augmenterMinuteur()" class="w-16 h-16 bg-gray-200 text-gray-700 text-3xl font-bold rounded-lg hover:bg-gray-300 transition-colors">
+                <button id="btnPlusMinuteur" onclick="augmenterMinuteur()" class="w-16 h-16 bg-gray-100 text-gray-800 text-3xl font-bold rounded-lg hover:bg-gray-200 transition-colors border-2 border-gray-300">
                     +
                 </button>
             </div>
@@ -126,7 +128,7 @@
             <!-- Input pour définir le temps -->
             <div class="flex justify-center gap-4 mb-8">
                 <div class="flex-1 max-w-xs">
-                    <label for="inputMinuteur" class="block text-sm font-semibold mb-2 text-gray-700">Définir le temps (MM:SS)</label>
+                    <label for="inputMinuteur" class="block text-sm font-semibold mb-2 text-gray-800">Définir le temps (MM:SS)</label>
                     <input
                         type="text"
                         id="inputMinuteur"
@@ -144,19 +146,19 @@
 
             <!-- Boutons de contrôle -->
             <div class="flex justify-center gap-4">
-                <button id="btnDemarrerMinuteur" onclick="toggleMinuteur()" class="px-8 py-3 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 transition-colors">
+                <button id="btnDemarrerMinuteur" onclick="toggleMinuteur()" class="px-8 py-3 bg-oclock-bezel text-white font-bold text-lg rounded-lg hover:bg-oclock-dial transition-colors shadow-md">
                     Démarrer
                 </button>
-                <button onclick="resetMinuteur()" class="px-8 py-3 bg-gray-500 text-white font-bold text-lg rounded-lg hover:bg-gray-600 transition-colors">
+                <button onclick="resetMinuteur()" class="px-8 py-3 bg-gray-600 text-white font-bold text-lg rounded-lg hover:bg-gray-700 transition-colors shadow-md">
                     Reset
                 </button>
             </div>
         </section>
 
         <!-- 3. CHRONOMETRE -->
-        <section id="chronometer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+        <section id="chronometer" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-xl font-montserrat bg-white shadow-[0_8px_32px_rgba(0,77,58,0.12)]">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Chronomètre</h1>
-            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Mesure du temps écoulé</p>
+            <p class="text-center mb-8 text-base font-medium text-gray-600">Mesure du temps écoulé</p>
 
             <!-- Affichage du temps -->
             <div class="text-center mb-8">
@@ -165,13 +167,13 @@
 
             <!-- Boutons de contrôle -->
             <div class="flex justify-center gap-4 mb-8">
-                <button id="btnToggleChrono" onclick="toggleChrono()" class="px-8 py-3 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 transition-colors">
+                <button id="btnToggleChrono" onclick="toggleChrono()" class="px-8 py-3 bg-oclock-bezel text-white font-bold text-lg rounded-lg hover:bg-oclock-dial transition-colors shadow-md">
                     Démarrer
                 </button>
-                <button id="btnTourChrono" onclick="enregistrerTour()" disabled class="px-8 py-3 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition-colors opacity-50">
+                <button id="btnTourChrono" onclick="enregistrerTour()" disabled class="px-8 py-3 bg-oclock-accent text-white font-bold text-lg rounded-lg hover:bg-[#00b370] transition-colors opacity-50 shadow-md">
                     Tour
                 </button>
-                <button onclick="resetChrono()" class="px-8 py-3 bg-gray-500 text-white font-bold text-lg rounded-lg hover:bg-gray-600 transition-colors">
+                <button onclick="resetChrono()" class="px-8 py-3 bg-gray-600 text-white font-bold text-lg rounded-lg hover:bg-gray-700 transition-colors shadow-md">
                     Reset
                 </button>
             </div>
@@ -189,20 +191,20 @@
         </section>
 
         <!-- 4. REVEIL -->
-        <section id="alarm" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
+        <section id="alarm" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-xl font-montserrat bg-white shadow-[0_8px_32px_rgba(0,77,58,0.12)]">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Réveil</h1>
-            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Programmez vos alarmes</p>
+            <p class="text-center mb-8 text-base font-medium text-gray-600">Programmez vos alarmes</p>
 
             <!-- Formulaire d'ajout d'alarme -->
-            <div class="bg-gray-50 p-6 rounded-lg mb-8">
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-lg mb-8 border border-gray-200">
                 <h2 class="text-xl font-bold mb-4 text-oclock-dial">Nouvelle alarme</h2>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <div class="flex-1">
-                        <label for="alarmeHeure" class="block text-sm font-semibold mb-2 text-gray-700">Heure (HH:MM)</label>
+                        <label for="alarmeHeure" class="block text-sm font-semibold mb-2 text-gray-800">Heure (HH:MM)</label>
                         <input type="time" id="alarmeHeure" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-oclock-bezel">
                     </div>
                     <div class="flex-1">
-                        <label for="alarmeMessage" class="block text-sm font-semibold mb-2 text-gray-700">Message</label>
+                        <label for="alarmeMessage" class="block text-sm font-semibold mb-2 text-gray-800">Message</label>
                         <input type="text" id="alarmeMessage" placeholder="Ex: Réunion importante" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-oclock-bezel">
                     </div>
                     <div class="flex items-end">

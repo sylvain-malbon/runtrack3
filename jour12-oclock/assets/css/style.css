@@ -14,7 +14,7 @@
     background-color: white;
     border-radius: 50%;
     z-index: 10;
-    box-shadow: 0 0 0 3px #00664F, 0 0 0 4px white;
+    box-shadow: 0 0 0 3px #004d3a, 0 0 0 4px white;
 }
 
 /* Positionnement précis des aiguilles (non disponible en Tailwind) */
@@ -54,7 +54,7 @@
     transform: translateX(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="white" stroke="none"/><circle cx="12" cy="12" r="9" fill="%2300664F" stroke="none"/><line x1="12" y1="12" x2="12" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="5" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="19" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="white" stroke="none"/><circle cx="12" cy="12" r="9" fill="%23004d3a" stroke="none"/><line x1="12" y1="12" x2="12" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="5" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="19" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -173,21 +173,21 @@
 /* Amélioration visuelle de l'horloge */
 .clock.simple {
     box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.1),
+        0 8px 24px rgba(0, 77, 58, 0.15),
         0 0 0 12px #00A651,
-        inset 0 0 20px rgba(0, 0, 0, 0.1);
+        inset 0 0 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Effet de profondeur sur les aiguilles */
 .hours {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .minutes {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .seconds {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
