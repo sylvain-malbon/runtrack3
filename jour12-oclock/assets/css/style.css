@@ -172,22 +172,66 @@
 
 /* Amélioration visuelle de l'horloge */
 .clock.simple {
+    background: radial-gradient(circle at 30% 30%, #00664d, #004d3a);
     box-shadow: 
-        0 8px 24px rgba(0, 77, 58, 0.15),
+        0 20px 50px rgba(0, 77, 58, 0.3),
         0 0 0 12px #00A651,
-        inset 0 0 20px rgba(0, 0, 0, 0.08);
+        inset 0 0 40px rgba(0, 0, 0, 0.4);
+    border: 6px solid rgba(255,255,255,0.9);
+}
+
+/* Effet de verre sur le cadran (reflet) */
+.clock.simple::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 77, 58, 0.1);
+}
+
+/* Neon Glow Text */
+.neon-text {
+    text-shadow: 0 0 5px rgba(0, 77, 58, 0.2);
+}
+
+/* Button Upgrade */
+.btn-modern {
+    background: linear-gradient(135deg, #00A651 0%, #008c44 100%);
+    box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
+    transition: all 0.3s ease;
+}
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 166, 81, 0.4);
+}
+.btn-modern:active {
+    transform: translateY(0);
 }
 
 /* Effet de profondeur sur les aiguilles */
 .hours {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .minutes {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .seconds {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
