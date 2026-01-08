@@ -258,3 +258,185 @@ function demarrerHorloge() {
   horlogeInterval = setInterval(afficherHorloge, 1000);
 }
 
+// ========== RÉVEIL (Alarmes) ==========
+
+// Variables globales pour le réveil
+let alarmes = [];
+let reveilInterval = null;
+let alarmeIdCounter = 1;
+
+/**
+ * Valide le format d'heure HH:MM
+ */
+function validerHeure(heure) {
+  const regex = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+  return regex.test(heure);
+}
+
+/**
+ * Calcule le temps restant jusqu'à une alarme
+ */
+function calculerTempsRestant(heureAlarme) {
+  const maintenant = new Date();
+  const [heures, minutes] = heureAlarme.split(':');
+  
+  const alarme = new Date();
+  alarme.setHours(parseInt(heures));
+  alarme.setMinutes(parseInt(minutes));
+  alarme.setSeconds(0);
+  alarme.setMilliseconds(0);
+  
+  let diff = alarme - maintenant;
+  
+  // Si l'heure est passée aujourd'hui, calculer pour demain
+  if (diff < 0) {
+    alarme.setDate(alarme.getDate() + 1);
+    diff = alarme - maintenant;
+  }
+  
+  const heuresRestantes = Math.floor(diff / (1000 * 60 * 60));
+  const minutesRestantes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  
+  return "Dans " + heuresRestantes + "h " + minutesRestantes + "min";
+}
+
+/**
+ * Affiche la liste des alarmes
+ */
+function afficherAlarmes() {
+  const listeElement = document.getElementById('listeAlarmes');
+  const messageAucune = document.getElementById('messageAucuneAlarme');
+  
+  if (!listeElement) return;
+  
+  // Vider la liste
+  listeElement.innerHTML = '';
+  
+  // Afficher/masquer le message "aucune alarme"
+  if (messageAucune) {
+    messageAucune.style.display = alarmes.length === 0 ? 'block' : 'none';
+  }
+  
+  // Afficher chaque alarme
+  alarmes.forEach(function(alarme) {
+    const alarmeDiv = document.createElement('div');
+    alarmeDiv.className = 'bg-white border-2 border-gray-200 rounded-lg p-4 flex items-center justify-between hover:border-oclock-bezel transition-colors';
+    alarmeDiv.id = 'alarme-' + alarme.id;
+    
+    // Calculer le statut
+    let statut = alarme.declenchee ? 
+      '<span class="text-gray-500 italic">Passée</span>' : 
+      '<span class="text-oclock-bezel font-semibold">' + calculerTempsRestant(alarme.heure) + '</span>';
+    
+    alarmeDiv.innerHTML = `
+      <div class="flex-1">
+        <div class="flex items-center gap-4">
+          <span class="text-3xl font-bold font-roboto-mono text-oclock-dial">${alarme.heure}</span>
+          <span class="text-lg text-gray-700">${alarme.message}</span>
+        </div>
+        <div class="text-sm mt-2">${statut}</div>
+      </div>
+      <button onclick="supprimerAlarme(${alarme.id})" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors">
+        Supprimer
+      </button>
+    `;
+    
+    listeElement.appendChild(alarmeDiv);
+  });
+}
+
+/**
+ * Ajoute une nouvelle alarme
+ */
+function ajouterAlarme() {
+  const heureInput = document.getElementById('alarmeHeure');
+  const messageInput = document.getElementById('alarmeMessage');
+  
+  if (!heureInput || !messageInput) return;
+  
+  const heure = heureInput.value;
+  const message = messageInput.value.trim();
+  
+  // Validation
+  if (!heure || !message) {
+    alert('Veuillez remplir l\'heure et le message !');
+    return;
+  }
+  
+  if (!validerHeure(heure)) {
+    alert('Format d\'heure invalide ! Utilisez HH:MM');
+    return;
+  }
+  
+  // Créer la nouvelle alarme
+  const nouvelleAlarme = {
+    id: alarmeIdCounter++,
+    heure: heure,
+    message: message,
+    declenchee: false
+  };
+  
+  alarmes.push(nouvelleAlarme);
+  
+  // Vider les champs
+  heureInput.value = '';
+  messageInput.value = '';
+  
+  // Afficher la liste mise à jour
+  afficherAlarmes();
+  
+  // Démarrer la vérification si pas déjà démarrée
+  if (!reveilInterval) {
+    demarrerVerificationAlarmes();
+  }
+}
+
+/**
+ * Supprime une alarme
+ */
+function supprimerAlarme(id) {
+  alarmes = alarmes.filter(function(alarme) {
+    return alarme.id !== id;
+  });
+  
+  afficherAlarmes();
+  
+  // Arrêter la vérification si plus d'alarmes
+  if (alarmes.length === 0 && reveilInterval) {
+    clearInterval(reveilInterval);
+    reveilInterval = null;
+  }
+}
+
+/**
+ * Vérifie si une alarme doit se déclencher
+ */
+function verifierAlarmes() {
+  const maintenant = new Date();
+  const heureActuelle = formatNumber(maintenant.getHours()) + ':' + formatNumber(maintenant.getMinutes());
+  
+  alarmes.forEach(function(alarme) {
+    if (alarme.heure === heureActuelle && !alarme.declenchee) {
+      // Déclencher l'alarme
+      alert('⏰ ALARME !\n\n' + alarme.message);
+      alarme.declenchee = true;
+      afficherAlarmes();
+    }
+  });
+  
+  // Mettre à jour l'affichage du temps restant
+  afficherAlarmes();
+}
+
+/**
+ * Démarre la vérification des alarmes
+ */
+function demarrerVerificationAlarmes() {
+  if (reveilInterval) {
+    clearInterval(reveilInterval);
+  }
+  
+  // Vérifier toutes les secondes
+  reveilInterval = setInterval(verifierAlarmes, 1000);
+}
+

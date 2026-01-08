@@ -62,16 +62,16 @@
         </a>
         <ul class="flex list-none gap-2 m-0">
             <li class="m-0" id="nav-horloge">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#accueil">Accueil</a>
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#accueil">Horloge</a>
+            </li>
+            <li class="m-0" id="nav-reveil" class="hidden">
+                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
             </li>
             <li class="m-0" id="nav-minuteur" class="hidden">
                 <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#minuteur">Minuteur</a>
             </li>
             <li class="m-0" id="nav-chronometre" class="hidden">
                 <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#chronometre">Chronomètre</a>
-            </li>
-            <li class="m-0" id="nav-reveil" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/10 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
             </li>
         </ul>
     </nav>
@@ -122,8 +122,36 @@
         <!-- 4. REVEIL -->
         <section id="alarm" class="hidden fade-in mb-8 transition-all duration-200 max-w-3xl mx-auto p-12 relative rounded-lg font-montserrat bg-white">
             <h1 class="text-5xl font-black mb-2 text-center text-oclock-dial tracking-tight-custom">Réveil</h1>
-            <div class="flex gap-4">
-                /// contenu ///
+            <p class="text-center mb-8 text-base font-light text-oclock-bezel">Programmez vos alarmes</p>
+
+            <!-- Formulaire d'ajout d'alarme -->
+            <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                <h2 class="text-xl font-bold mb-4 text-oclock-dial">Nouvelle alarme</h2>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1">
+                        <label for="alarmeHeure" class="block text-sm font-semibold mb-2 text-gray-700">Heure (HH:MM)</label>
+                        <input type="time" id="alarmeHeure" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-oclock-bezel">
+                    </div>
+                    <div class="flex-1">
+                        <label for="alarmeMessage" class="block text-sm font-semibold mb-2 text-gray-700">Message</label>
+                        <input type="text" id="alarmeMessage" placeholder="Ex: Réunion importante" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-oclock-bezel">
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="ajouterAlarme()" class="px-6 py-2 bg-oclock-bezel text-white font-semibold rounded-lg hover:bg-oclock-dial transition-colors duration-200">
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des alarmes -->
+            <div id="listeAlarmes" class="space-y-3">
+                <!-- Les alarmes seront ajoutées dynamiquement ici -->
+            </div>
+
+            <!-- Message si aucune alarme -->
+            <div id="messageAucuneAlarme" class="text-center py-8 text-gray-400 italic">
+                Aucune alarme programmée
             </div>
         </section>
 
