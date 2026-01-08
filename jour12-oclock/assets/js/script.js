@@ -240,6 +240,12 @@ function afficherHorloge() {
   if (elementHorloge) {
     elementHorloge.textContent = affichage;
   }
+  
+  // Mettre à jour aussi l'horloge dans la navbar
+  const horlogeNavbar = document.getElementById("horlogeNavbar");
+  if (horlogeNavbar) {
+    horlogeNavbar.textContent = affichage;
+  }
 }
 
 /**

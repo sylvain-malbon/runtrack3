@@ -62,20 +62,25 @@
         <a class="font-bold flex items-center justify-center gap-3 tracking-wide text-white hover:text-white/90 transition-colors" href="#accueil">
             <span class="text-oclock-yellow text-3xl font-black drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">O'CLock</span>
         </a>
-        <ul class="flex list-none gap-2 m-0">
-            <li class="m-0" id="nav-horloge">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#accueil">Horloge</a>
-            </li>
-            <li class="m-0" id="nav-reveil" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
-            </li>
-            <li class="m-0" id="nav-minuteur" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#minuteur">Minuteur</a>
-            </li>
-            <li class="m-0" id="nav-chronometre" class="hidden">
-                <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#chronometre">Chronomètre</a>
-            </li>
-        </ul>
+        <div class="flex items-center gap-6">
+            <div id="horlogeNavbar" class="text-white font-roboto-mono text-2xl font-bold tracking-wider bg-white/10 px-5 py-2 rounded-lg border-2 border-white/20">
+                00:00:00
+            </div>
+            <ul class="flex list-none gap-2 m-0">
+                <li class="m-0" id="nav-horloge">
+                    <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#accueil">Horloge</a>
+                </li>
+                <li class="m-0" id="nav-reveil" class="hidden">
+                    <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#reveil">Réveil</a>
+                </li>
+                <li class="m-0" id="nav-minuteur" class="hidden">
+                    <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#minuteur">Minuteur</a>
+                </li>
+                <li class="m-0" id="nav-chronometre" class="hidden">
+                    <a class="text-white no-underline px-4 py-2 hover:bg-white/20 transition-all duration-200 rounded font-semibold" href="#chronometre">Chronomètre</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <!-- SECTIONS -->
