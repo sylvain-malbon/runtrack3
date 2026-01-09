@@ -759,7 +759,7 @@ function afficherTours() {
   // Afficher chaque tour
   tours.forEach(function(temps, index) {
     const tourDiv = document.createElement('div');
-    tourDiv.className = 'bg-gray-50 border-l-4 border-oclock-bezel px-4 py-3 flex justify-between items-center';
+    tourDiv.className = 'bg-white border-l-4 border-oclock-bezel px-4 py-3 flex justify-between items-center';
     
     tourDiv.innerHTML = `
       <span class="font-semibold text-gray-700">Tour ${index + 1}</span>
