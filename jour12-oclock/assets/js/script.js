@@ -115,6 +115,17 @@ function getHeureFrance() {
 }
 
 /**
+ * Récupère la date JJ|kanji du jour de la semaine
+ */
+function getDateKanjiShort() {
+  const maintenant = new Date();
+  const jour = String(maintenant.getDate()).padStart(2, "0");
+  const joursKanji = ["日", "月", "火", "水", "木", "金", "土"];
+  const kanji = joursKanji[maintenant.getDay()];
+  return `${jour}|${kanji}`;
+}
+
+/**
  * Initialise l'horloge CSS avec l'heure actuelle
  */
 function initHorlogeCSS() {
@@ -187,6 +198,50 @@ function updateHorlogeCSS() {
       aiguillSecondes.style.transition = '';
     }
   }
+
+  // Mettre à jour le carré date à chaque tick (pour le changement de jour)
+  majCarreDateHorloge();
+}
+
+/**
+ * Crée ou met à jour le rectangle date à gauche du chiffre 3, aligné avec le 3
+ */
+function majCarreDateHorloge() {
+  const horloge = document.querySelector('.clock.simple');
+  if (!horloge) return;
+
+  let carreDate = horloge.querySelector('.carre-date');
+  if (!carreDate) {
+    carreDate = document.createElement('div');
+    carreDate.className = 'carre-date';
+    carreDate.style.position = 'absolute';
+    carreDate.style.left = '50%';
+    carreDate.style.top = '50%';
+    // Légèrement plus à gauche qu'avant
+    carreDate.style.transform = 'rotate(90deg) translate(0, -90px) rotate(-90deg) translate(-34px, -8px)';
+    carreDate.style.width = '48px'; // largeur agrandie
+    carreDate.style.height = '22px';
+    carreDate.style.background = 'white';
+    carreDate.style.borderRadius = '0';
+    carreDate.style.boxShadow = '0 2px 8px rgba(0,0,0,0.10)';
+    carreDate.style.display = 'flex';
+    carreDate.style.alignItems = 'center';
+    carreDate.style.justifyContent = 'center';
+    carreDate.style.fontFamily = "'Roboto Mono', monospace";
+    carreDate.style.fontWeight = 'bold';
+    carreDate.style.fontSize = '11px'; // taille réduite
+    carreDate.style.color = '#1a3a4a';
+    carreDate.style.border = '1.5px solid #e8e0d5';
+    carreDate.style.zIndex = 12;
+    carreDate.style.padding = '0';
+    horloge.appendChild(carreDate);
+  }
+  // Affichage DD|kanji sans espace, bien centré dans le rectangle
+  const maintenant = new Date();
+  const jour = String(maintenant.getDate()).padStart(2, "0");
+  const joursKanji = ["日", "月", "火", "水", "木", "金", "土"];
+  const kanji = joursKanji[maintenant.getDay()];
+  carreDate.innerHTML = `<span style="display:block;width:100%;text-align:center;font-size:11px;">${jour}|${kanji}</span>`;
 }
 
 /**
@@ -234,6 +289,9 @@ function creerMarqueursHorloge() {
       horloge.appendChild(marqueur);
     }
   }
+
+  // Ajoute le carré date à côté du 3
+  majCarreDateHorloge();
 }
 
 /**
