@@ -277,6 +277,37 @@ function ajouterTexteJavaScriptMovement() {
 }
 
 /**
+ * Ajoute le texte "LOGEOR" sous le 3, dans l'axe 12-JavaScript Movement-6, police technique chic
+ */
+function ajouterTexteLogeor() {
+  const horloge = document.querySelector('.clock.simple');
+  if (!horloge) return;
+
+  // Vérifie si déjà présent
+  if (horloge.querySelector('.logeor-label')) return;
+
+  const texte = document.createElement('div');
+  texte.className = 'logeor-label';
+  texte.textContent = 'LOGEOR';
+  texte.style.position = 'absolute';
+  texte.style.left = '50%';
+  texte.style.top = '50%';
+  // 3h = 90°, translate(0, -115px) = position du 3, puis +28px pour placer en dessous
+  texte.style.transform = 'rotate(90deg) translate(-75px, 37px) rotate(-90deg)';
+  texte.style.color = '#e8e0d5';
+  texte.style.fontFamily = "'Roboto Mono', 'Montserrat', 'Consolas', 'Fira Mono', monospace";
+  texte.style.fontSize = '17px';
+  texte.style.fontWeight = '900';
+  texte.style.letterSpacing = '0.18em';
+  texte.style.textAlign = 'center';
+  texte.style.pointerEvents = 'none';
+  texte.style.userSelect = 'none';
+  texte.style.textShadow = '0 1px 4px rgba(26,58,74,0.18)';
+  texte.style.zIndex = 2;
+  horloge.appendChild(texte);
+}
+
+/**
  * Crée les marqueurs (graduations) et les chiffres sur l'horloge
  */
 function creerMarqueursHorloge() {
@@ -325,6 +356,7 @@ function creerMarqueursHorloge() {
   // Ajoute le carré date à côté du 3
   majCarreDateHorloge();
   ajouterTexteJavaScriptMovement();
+  ajouterTexteLogeor();
 }
 
 /**
