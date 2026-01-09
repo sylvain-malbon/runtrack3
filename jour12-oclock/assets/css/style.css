@@ -16,7 +16,7 @@
     background-color: white;
     border-radius: 50%;
     z-index: 10;
-    box-shadow: 0 0 0 3px #004d3a, 0 0 0 4px white;
+    box-shadow: 0 0 0 3px #2d5f4f, 0 0 0 4px white;
 }
 
 /* Aiguille des heures */
@@ -57,7 +57,7 @@
     transform: translateX(-50%);
     width: 22px;
     height: 22px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="white" stroke="none"/><circle cx="12" cy="12" r="9" fill="%23004d3a" stroke="none"/><line x1="12" y1="12" x2="12" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="5" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="19" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="white" stroke="none"/><circle cx="12" cy="12" r="9" fill="%232d5f4f" stroke="none"/><line x1="12" y1="12" x2="12" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="5" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="19" y2="18.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -85,7 +85,8 @@
     transform-origin: 50% 100%;
     width: 2px;
     border-radius: 1px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 6px rgba(45, 95, 79, 0.6);  /* ← VERT */
+    background-color: #3d7a63;  /* ← VERT sapin moyen */
 }
 
 /* Aiguille secondaire sous l'aiguille des heures */
@@ -175,12 +176,12 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Cadran de l'horloge avec gradient vert */
+/* Cadran de l'horloge avec gradient vert forêt */
 .clock.simple {
-    background: radial-gradient(circle at 30% 30%, #00664d, #004d3a);
+    background: radial-gradient(circle at 30% 30%, #3d7a63, #2d5f4f);
     box-shadow: 
-        0 20px 50px rgba(0, 77, 58, 0.3),
-        0 0 0 12px #00A651,
+        0 20px 50px rgba(45, 95, 79, 0.3),
+        0 0 0 12px #3d7a63,
         inset 0 0 40px rgba(0, 0, 0, 0.4);
     border: 6px solid rgba(255,255,255,0.9);
 }
@@ -210,21 +211,32 @@
 
 /* Effet néon sur le texte */
 .neon-text {
-    text-shadow: 0 0 5px rgba(0, 77, 58, 0.2);
+    text-shadow: 0 0 5px rgba(26, 58, 74, 0.2);
 }
 
-/* Bouton moderne avec gradient vert */
+/* Bouton moderne avec gradient bleu */
 .btn-modern {
-    background: linear-gradient(135deg, #00A651 0%, #008c44 100%);
-    box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
+    background: linear-gradient(135deg, #4a7c8e 0%, #395d6b 100%);
+    box-shadow: 0 4px 15px rgba(74, 124, 142, 0.3);
     transition: all 0.3s ease;
 }
 .btn-modern:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 166, 81, 0.4);
+    box-shadow: 0 6px 20px rgba(74, 124, 142, 0.4);
 }
 .btn-modern:active {
     transform: translateY(0);
+}
+
+/* Bouton vert pour actions positives */
+.btn-modern-green {
+    background: linear-gradient(135deg, #3d7a63 0%, #2d5f4f 100%);  /* ← VERT */
+    box-shadow: 0 4px 15px rgba(45, 95, 79, 0.3);  /* ← VERT */
+    transition: all 0.3s ease;
+}
+.btn-modern-green:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(45, 95, 79, 0.4);  /* ← VERT */
 }
 
 /* Bouton rouge pour arrêter */
@@ -250,10 +262,10 @@
     border-radius: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(0, 77, 58, 0.2);
+    background: rgba(26, 58, 74, 0.2);
     border-radius: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 77, 58, 0.4);
+    background: rgba(26, 58, 74, 0.4);
 }
 

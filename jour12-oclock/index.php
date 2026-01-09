@@ -29,7 +29,10 @@
                             accent: "#7a9ca8", // Bleu-gris clair (Tertiaire)
                             shadow: "rgba(26, 58, 74, 0.08)",
                             red: "#b91c1c", // Rouge profond (Actions critiques)
-                            redLight: "#dc2626" // Rouge vif (Hover)
+                            redLight: "#dc2626", // Rouge vif (Hover)
+                            green: "#2d5f4f", // ← Vert forêt profond (Accent succès)
+                            greenLight: "#3d7a63", // ← Vert sapin moyen (Hover)
+                            greenPale: "#e8f3ef" // ← Vert menthe pâle (Fond)
                         }
                     },
                     fontFamily: {

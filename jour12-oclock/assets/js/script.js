@@ -23,13 +23,13 @@ function updateNavigation() {
 
   // Retirer toutes les classes active
   document.querySelectorAll('nav ul li a').forEach(link => {
-    link.classList.remove('font-bold', 'border-b-2', 'border-oclock-yellow', 'bg-green-800');
+    link.classList.remove('font-bold', 'border-b-2', 'border-oclock-steelDark', 'bg-oclock-bezel');
   });
 
   // Ajouter active à la page courante
   const activeLink = document.querySelector(`nav ul li a[href="#${currentPage}"]`);
   if (activeLink) {
-    activeLink.classList.add('font-bold', 'border-b-2', 'border-oclock-yellow', 'bg-green-800');
+    activeLink.classList.add('font-bold', 'border-b-2', 'border-oclock-steelDark', 'bg-oclock-bezel');
   }
 
   // Gérer la visibilité des onglets - tous visibles pour une horloge
@@ -577,7 +577,7 @@ function demarrerMinuteur() {
   if (btn) {
     btn.textContent = 'Arrêter';
     btn.classList.add('btn-modern-stop');
-    btn.classList.remove('btn-modern');
+    btn.classList.remove('btn-modern-green');
   }
   
   // Démarrer l'interval
@@ -610,7 +610,7 @@ function arreterMinuteur() {
   if (btn) {
     btn.textContent = 'Démarrer';
     btn.classList.remove('btn-modern-stop');
-    btn.classList.add('btn-modern');
+    btn.classList.add('btn-modern-green');
   }
 }
 
@@ -674,7 +674,7 @@ function demarrerChrono() {
   if (btnToggle) {
     btnToggle.textContent = 'Arrêter';
     btnToggle.classList.add('btn-modern-stop');
-    btnToggle.classList.remove('btn-modern');
+    btnToggle.classList.remove('btn-modern-green');
   }
   
   // Activer le bouton Tour
@@ -707,7 +707,7 @@ function arreterChrono() {
   if (btnToggle) {
     btnToggle.textContent = 'Reprendre';
     btnToggle.classList.remove('btn-modern-stop');
-    btnToggle.classList.add('btn-modern');
+    btnToggle.classList.add('btn-modern-green');
   }
   
   // Désactiver le bouton Tour
@@ -759,7 +759,7 @@ function afficherTours() {
   // Afficher chaque tour
   tours.forEach(function(temps, index) {
     const tourDiv = document.createElement('div');
-    tourDiv.className = 'bg-white border-l-4 border-oclock-bezel px-4 py-3 flex justify-between items-center';
+    tourDiv.className = 'bg-white border-l-4 border-oclock-green px-4 py-3 flex justify-between items-center hover:bg-oclock-greenPale transition-colors';
     
     tourDiv.innerHTML = `
       <span class="font-semibold text-gray-700">Tour ${index + 1}</span>
