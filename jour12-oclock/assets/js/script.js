@@ -170,7 +170,22 @@ function updateHorlogeCSS() {
     aiguillMinutes.style.transform = 'rotateZ(' + angleMinutes + 'deg)';
   }
   if (aiguillSecondes) {
-    aiguillSecondes.style.transform = 'rotateZ(' + angleSecondes + 'deg)';
+    // Correction du bug de saut à 0 seconde
+    if (secondes === 0) {
+      // Désactive la transition pour éviter le saut arrière
+      aiguillSecondes.style.transition = 'none';
+      aiguillSecondes.style.transform = 'rotateZ(0deg)';
+      // Force le reflow pour appliquer le style immédiatement
+      void aiguillSecondes.offsetWidth;
+      // Réactive la transition pour les prochaines secondes
+      setTimeout(() => {
+        aiguillSecondes.style.transition = '';
+      }, 20);
+    } else {
+      aiguillSecondes.style.transform = 'rotateZ(' + angleSecondes + 'deg)';
+      // S'assure que la transition est bien active
+      aiguillSecondes.style.transition = '';
+    }
   }
 }
 
