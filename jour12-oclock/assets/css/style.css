@@ -1,8 +1,10 @@
 /* ========================================
-   STYLE FLAT RÉTRO-FUTURISTE O'CLOCK
+   STYLE O'CLOCK - MINIMUM REQUIS
    ======================================== */
 
-/* Pseudo-élément pour le centre de l'horloge */
+/* === HORLOGE CSS - AIGUILLES (impossibles en Tailwind) === */
+
+/* Centre de l'horloge avec ombre verte */
 .clock.simple:after {
     content: "";
     position: absolute;
@@ -17,7 +19,7 @@
     box-shadow: 0 0 0 3px #004d3a, 0 0 0 4px white;
 }
 
-/* Positionnement précis des aiguilles (non disponible en Tailwind) */
+/* Aiguille des heures */
 .hours {
     height: 25%;
     left: 50%;
@@ -28,9 +30,10 @@
     border-radius: 3px;
     position: relative;
     z-index: 5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Cercle blanc extérieur style Mercedes au bout de l'aiguille */
+/* Cercle Mercedes au bout de l'aiguille des heures */
 .hours::before {
     content: "";
     position: absolute;
@@ -45,7 +48,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Logo Mercedes - 3 branches partant du centre en Y */
+/* Logo Mercedes - 3 branches en Y */
 .hours::after {
     content: "";
     position: absolute;
@@ -61,6 +64,7 @@
     z-index: 1;
 }
 
+/* Aiguille des minutes */
 .minutes {
     height: 35%;
     left: 50%;
@@ -69,8 +73,10 @@
     transform-origin: 50% 100%;
     width: 4px;
     border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Aiguille des secondes */
 .seconds {
     height: 40%;
     left: 50%;
@@ -79,9 +85,10 @@
     transform-origin: 50% 100%;
     width: 2px;
     border-radius: 1px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Aiguille secondaire avec triangle sous l'aiguille des heures */
+/* Aiguille secondaire sous l'aiguille des heures */
 .hours-container::before {
     content: "";
     position: absolute;
@@ -112,20 +119,18 @@
     z-index: 0;
 }
 
-/* Transitions avec cubic-bezier personnalisé */
+/* Transitions des aiguilles avec cubic-bezier */
 .hours-container {
     transition: transform 0.5s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
-
 .minutes-container {
     transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
-
 .seconds-container {
     transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
 
-/* Marqueurs d'heures (plus gros, aux positions 1,2,4,5,7,8,10,11) */
+/* Marqueurs d'heures */
 .hour-marker {
     position: absolute;
     width: 4px;
@@ -139,7 +144,7 @@
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Marqueurs de minutes (plus fins, 56 graduations) */
+/* Marqueurs de minutes */
 .minute-marker {
     position: absolute;
     width: 2px;
@@ -170,7 +175,7 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Amélioration visuelle de l'horloge */
+/* Cadran de l'horloge avec gradient vert */
 .clock.simple {
     background: radial-gradient(circle at 30% 30%, #00664d, #004d3a);
     box-shadow: 
@@ -189,26 +194,26 @@
     right: 0;
     bottom: 0;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
     pointer-events: none;
     z-index: 20;
 }
+
+/* === UTILITAIRES PERSONNALISÉS === */
 
 /* Glassmorphism Panel */
 .glass-panel {
     background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 8px 32px rgba(0, 77, 58, 0.1);
 }
 
-/* Neon Glow Text */
+/* Effet néon sur le texte */
 .neon-text {
     text-shadow: 0 0 5px rgba(0, 77, 58, 0.2);
 }
 
-/* Button Upgrade */
+/* Bouton moderne avec gradient vert */
 .btn-modern {
     background: linear-gradient(135deg, #00A651 0%, #008c44 100%);
     box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
@@ -222,20 +227,7 @@
     transform: translateY(0);
 }
 
-/* Effet de profondeur sur les aiguilles */
-.hours {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.minutes {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.seconds {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* Button Warning (Red) */
+/* Bouton rouge pour arrêter */
 .btn-modern-stop {
     background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
     box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
@@ -249,45 +241,7 @@
     transform: translateY(0);
 }
 
-/* Custom Modal */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
-    width: 400px;
-    transform: scale(0.9);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    text-align: center;
-}
-
-.modal-overlay.active .modal-content {
-    transform: scale(1);
-}
-
+/* Scrollbar personnalisée */
 .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
 }
