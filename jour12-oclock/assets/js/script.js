@@ -1,3 +1,5 @@
+// ========== UTILITAIRES ==========
+
 // ========== NAVIGATION ==========
 // 
 // Fonction pour afficher une section et cacher les autres
@@ -97,13 +99,29 @@ function formatNumber(num) {
 }
 
 /**
+ * Récupère l'heure actuelle en France (Europe/Paris)
+ */
+function getHeureFrance() {
+  const maintenant = new Date();
+  const options = { timeZone: 'Europe/Paris', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false };
+  const formatter = new Intl.DateTimeFormat('fr-FR', options);
+  const parts = formatter.formatToParts(maintenant);
+  
+  const heures = parseInt(parts.find(p => p.type === 'hour').value);
+  const minutes = parseInt(parts.find(p => p.type === 'minute').value);
+  const secondes = parseInt(parts.find(p => p.type === 'second').value);
+  
+  return { heures, minutes, secondes };
+}
+
+/**
  * Initialise l'horloge CSS avec l'heure actuelle
  */
 function initHorlogeCSS() {
-  const maintenant = new Date();
-  const secondes = maintenant.getSeconds();
-  const minutes = maintenant.getMinutes();
-  const heures = maintenant.getHours();
+  const temps = getHeureFrance();
+  const secondes = temps.secondes;
+  const minutes = temps.minutes;
+  const heures = temps.heures;
 
   // Calculer les angles pour chaque aiguille
   const angleHeures = (heures * 30) + (minutes / 2);
@@ -130,10 +148,10 @@ function initHorlogeCSS() {
  * Met à jour l'horloge CSS chaque seconde
  */
 function updateHorlogeCSS() {
-  const maintenant = new Date();
-  const secondes = maintenant.getSeconds();
-  const minutes = maintenant.getMinutes();
-  const heures = maintenant.getHours();
+  const temps = getHeureFrance();
+  const secondes = temps.secondes;
+  const minutes = temps.minutes;
+  const heures = temps.heures;
 
   // Calculer les angles
   const angleHeures = (heures * 30) + (minutes / 2);
@@ -229,10 +247,10 @@ let horlogeInterval = null;
  * Affiche l'heure actuelle au format HH:MM:SS
  */
 function afficherHorloge() {
-  const maintenant = new Date();
-  const heures = formatNumber(maintenant.getHours());
-  const minutes = formatNumber(maintenant.getMinutes());
-  const secondes = formatNumber(maintenant.getSeconds());
+  const temps = getHeureFrance();
+  const heures = formatNumber(temps.heures);
+  const minutes = formatNumber(temps.minutes);
+  const secondes = formatNumber(temps.secondes);
   
   const affichage = heures + ":" + minutes + ":" + secondes;
   
@@ -283,25 +301,20 @@ function validerHeure(heure) {
  * Calcule le temps restant jusqu'à une alarme
  */
 function calculerTempsRestant(heureAlarme) {
-  const maintenant = new Date();
-  const [heures, minutes] = heureAlarme.split(':');
+  const temps = getHeureFrance();
+  const minutesActuelles = temps.heures * 60 + temps.minutes;
   
-  const alarme = new Date();
-  alarme.setHours(parseInt(heures));
-  alarme.setMinutes(parseInt(minutes));
-  alarme.setSeconds(0);
-  alarme.setMilliseconds(0);
+  const [hAlarme, mAlarme] = heureAlarme.split(':').map(Number);
+  const minutesAlarme = hAlarme * 60 + mAlarme;
   
-  let diff = alarme - maintenant;
+  let diffMinutes = minutesAlarme - minutesActuelles;
   
-  // Si l'heure est passée aujourd'hui, calculer pour demain
-  if (diff < 0) {
-    alarme.setDate(alarme.getDate() + 1);
-    diff = alarme - maintenant;
+  if (diffMinutes < 0) {
+    diffMinutes += 24 * 60;
   }
   
-  const heuresRestantes = Math.floor(diff / (1000 * 60 * 60));
-  const minutesRestantes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const heuresRestantes = Math.floor(diffMinutes / 60);
+  const minutesRestantes = diffMinutes % 60;
   
   return "Dans " + heuresRestantes + "h " + minutesRestantes + "min";
 }
@@ -418,8 +431,8 @@ function supprimerAlarme(id) {
  * Vérifie si une alarme doit se déclencher
  */
 function verifierAlarmes() {
-  const maintenant = new Date();
-  const heureActuelle = formatNumber(maintenant.getHours()) + ':' + formatNumber(maintenant.getMinutes());
+  const temps = getHeureFrance();
+  const heureActuelle = formatNumber(temps.heures) + ':' + formatNumber(temps.minutes);
   
   alarmes.forEach(function(alarme) {
     if (alarme.heure === heureActuelle && !alarme.declenchee) {
@@ -563,8 +576,8 @@ function demarrerMinuteur() {
   const btn = document.getElementById('btnDemarrerMinuteur');
   if (btn) {
     btn.textContent = 'Arrêter';
-    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
-    btn.classList.add('bg-red-600', 'hover:bg-red-700');
+    btn.classList.add('btn-modern-stop');
+    btn.classList.remove('btn-modern');
   }
   
   // Démarrer l'interval
@@ -596,8 +609,8 @@ function arreterMinuteur() {
   const btn = document.getElementById('btnDemarrerMinuteur');
   if (btn) {
     btn.textContent = 'Démarrer';
-    btn.classList.remove('bg-red-600', 'hover:bg-red-700');
-    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+    btn.classList.remove('btn-modern-stop');
+    btn.classList.add('btn-modern');
   }
 }
 
@@ -660,8 +673,8 @@ function demarrerChrono() {
   const btnToggle = document.getElementById('btnToggleChrono');
   if (btnToggle) {
     btnToggle.textContent = 'Arrêter';
-    btnToggle.classList.remove('bg-green-600', 'hover:bg-green-700');
-    btnToggle.classList.add('bg-red-600', 'hover:bg-red-700');
+    btnToggle.classList.add('btn-modern-stop');
+    btnToggle.classList.remove('btn-modern');
   }
   
   // Activer le bouton Tour
@@ -693,8 +706,8 @@ function arreterChrono() {
   const btnToggle = document.getElementById('btnToggleChrono');
   if (btnToggle) {
     btnToggle.textContent = 'Reprendre';
-    btnToggle.classList.remove('bg-red-600', 'hover:bg-red-700');
-    btnToggle.classList.add('bg-green-600', 'hover:bg-green-700');
+    btnToggle.classList.remove('btn-modern-stop');
+    btnToggle.classList.add('btn-modern');
   }
   
   // Désactiver le bouton Tour
