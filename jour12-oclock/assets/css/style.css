@@ -123,12 +123,15 @@
 /* Transitions des aiguilles avec cubic-bezier */
 .hours-container {
     transition: transform 0.5s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+    z-index: 3; /* Dessous minutes et secondes */
 }
 .minutes-container {
     transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+    z-index: 4; /* Entre heures et secondes */
 }
 .seconds-container {
     transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+    z-index: 5; /* Au-dessus de tout */
 }
 
 /* Marqueurs d'heures */
@@ -174,6 +177,7 @@
     margin-top: -20px;
     font-family: 'Montserrat', sans-serif;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 2; /* Sous les aiguilles */
 }
 
 /* Cadran de l'horloge avec gradient vert forêt */
@@ -274,12 +278,11 @@
     user-select: none;
     pointer-events: none;
     letter-spacing: 0.04em;
-    /* Rectangle horizontal, centrage vertical */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     border-radius: 0 !important;
-    /* Le reste est géré en JS */
+    z-index: 2 !important; /* Sous les aiguilles */
 }
 
