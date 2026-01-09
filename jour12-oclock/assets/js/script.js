@@ -245,6 +245,38 @@ function majCarreDateHorloge() {
 }
 
 /**
+ * Ajoute le texte "JavaScript Movement" au-dessus du 6 en blanc, style script
+ */
+function ajouterTexteJavaScriptMovement() {
+  const horloge = document.querySelector('.clock.simple');
+  if (!horloge) return;
+
+  // Vérifie si déjà présent
+  if (horloge.querySelector('.js-movement')) return;
+
+  const texte = document.createElement('div');
+  texte.className = 'js-movement';
+  texte.textContent = 'JavaScript Movement';
+  texte.style.position = 'absolute';
+  texte.style.left = '50%';
+  texte.style.top = '50%';
+  // 6h = 180°, translate(0, 115px) = position du 6, puis -22px pour placer au-dessus
+  // Décale 10px à gauche (X négatif) et 15px en haut (Y négatif)
+  texte.style.transform = 'rotate(180deg) translate(59px, -70px) rotate(-180deg)';
+  texte.style.color = 'white';
+  texte.style.fontFamily = "'Dancing Script', cursive, 'Comic Sans MS', 'Brush Script MT', sans-serif";
+  texte.style.fontSize = '16px';
+  texte.style.fontWeight = '400';
+  texte.style.letterSpacing = '0.04em';
+  texte.style.textShadow = '0 1px 4px rgba(0,0,0,0.18)';
+  texte.style.textAlign = 'center';
+  texte.style.pointerEvents = 'none';
+  texte.style.userSelect = 'none';
+  texte.style.zIndex = 2;
+  horloge.appendChild(texte);
+}
+
+/**
  * Crée les marqueurs (graduations) et les chiffres sur l'horloge
  */
 function creerMarqueursHorloge() {
@@ -292,6 +324,7 @@ function creerMarqueursHorloge() {
 
   // Ajoute le carré date à côté du 3
   majCarreDateHorloge();
+  ajouterTexteJavaScriptMovement();
 }
 
 /**
