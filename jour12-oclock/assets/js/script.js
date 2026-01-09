@@ -218,7 +218,7 @@ function majCarreDateHorloge() {
     carreDate.style.left = '50%';
     carreDate.style.top = '50%';
     // Décale de 4px à gauche et 6px vers le haut
-    carreDate.style.transform = 'rotate(90deg) translate(0, -90px) rotate(-90deg) translate(-40px, -12px)';
+    carreDate.style.transform = 'rotate(90deg) translate(0, -90px) rotate(-90deg) translate(-42px, -11px)';
     carreDate.style.width = '48px';
     carreDate.style.height = '22px';
     carreDate.style.background = 'white';
