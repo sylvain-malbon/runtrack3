@@ -217,9 +217,9 @@ function majCarreDateHorloge() {
     carreDate.style.position = 'absolute';
     carreDate.style.left = '50%';
     carreDate.style.top = '50%';
-    // Légèrement plus à gauche qu'avant
-    carreDate.style.transform = 'rotate(90deg) translate(0, -90px) rotate(-90deg) translate(-34px, -8px)';
-    carreDate.style.width = '48px'; // largeur agrandie
+    // Décale de 4px à gauche et 6px vers le haut
+    carreDate.style.transform = 'rotate(90deg) translate(0, -90px) rotate(-90deg) translate(-40px, -12px)';
+    carreDate.style.width = '48px';
     carreDate.style.height = '22px';
     carreDate.style.background = 'white';
     carreDate.style.borderRadius = '0';
@@ -229,7 +229,7 @@ function majCarreDateHorloge() {
     carreDate.style.justifyContent = 'center';
     carreDate.style.fontFamily = "'Roboto Mono', monospace";
     carreDate.style.fontWeight = 'bold';
-    carreDate.style.fontSize = '11px'; // taille réduite
+    carreDate.style.fontSize = '11px';
     carreDate.style.color = '#1a3a4a';
     carreDate.style.border = '1.5px solid #e8e0d5';
     carreDate.style.zIndex = 12;
