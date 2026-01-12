@@ -392,15 +392,16 @@ function afficherHorloge() {
   
   const affichage = heures + ":" + minutes + ":" + secondes;
   
-  const elementHorloge = document.getElementById("affichageHorloge");
-  if (elementHorloge) {
-    elementHorloge.textContent = affichage;
+  // Renommé pour plus de clarté
+  const affichageHorlogePrincipal = document.getElementById("affichageHorlogePrincipal");
+  if (affichageHorlogePrincipal) {
+    affichageHorlogePrincipal.textContent = affichage;
   }
   
-  // Mettre à jour aussi l'horloge dans la navbar
-  const horlogeNavbar = document.getElementById("horlogeNavbar");
-  if (horlogeNavbar) {
-    horlogeNavbar.textContent = affichage;
+  // Renommé pour plus de clarté
+  const affichageHorlogeNavbar = document.getElementById("affichageHorlogeNavbar");
+  if (affichageHorlogeNavbar) {
+    affichageHorlogeNavbar.textContent = affichage;
   }
 }
 
